@@ -1,0 +1,4 @@
+
+//Compiling registerfile when the terminal is in the directory.
+
+iverilog -o registerFile register_file.v decoder_4x16.v register_32_bits.v mux_16x1.v
