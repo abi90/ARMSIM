@@ -3,5 +3,3 @@ always @ (S, I0, I1)
 if (S) Y = I1;
 else Y = I0;
 endmodule
-
-
