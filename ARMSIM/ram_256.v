@@ -14,8 +14,8 @@ module ram128x32 (output reg [31:0] DataOut, input Enable, ReadWrite,
 	else DataOut = 32'bz;
 endmodule
 */
-module ram_256(output reg [31:0] DataOut, output reg MFC,  
-					input Enable, ReadWrite, input [7:0] Address, input [32:0] DataIn, input [1:0] wordSelector );
+module ram_256(output reg [31:0] DataOut, output reg MFC,
+				input Enable, input ReadWrite, input [7:0] Address, input [31:0] DataIn, input [1:0] DataSize );
 
 	reg [7:0] Mem[0:255]; //256 localizaciones de 8 bits
 	
@@ -24,12 +24,12 @@ module ram_256(output reg [31:0] DataOut, output reg MFC,
 	parameter WORD = 2'b10;
 	//parameter DWORD = 2'b11;
   
-	always @ (Enable, ReadWrite, wordSelector, DataIn)
+	always @ (Enable, ReadWrite, DataSize, DataIn)
 	begin
 		if(Enable)
 		begin
 			MFC = 1'b0;
-				case(wordSelector)
+				case(DataSize)
 				BYTE:
 						if(ReadWrite) DataOut[7:0] = Mem[Address]; 								
 						else
