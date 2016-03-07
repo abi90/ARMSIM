@@ -1,4 +1,5 @@
-
+//Abisai's local directory
+cd C:\Users\Abisai\Desktop\ARMSIM\ARMSIM
 //Compiling registerfile when the terminal is in the directory.
-
 iverilog -o registerFile register_file.v decoder_4x16.v register_32_bits.v mux_16x1.v
+iverilog -o out register_file.v decoder_4x16.v register_32_bits.v mux_16x1.v test_register_file.v
