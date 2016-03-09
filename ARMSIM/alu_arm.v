@@ -1,4 +1,4 @@
-module alu_arm (output reg [31:0] out, output reg NF, CF, ZF, VF, input [3:0] A, input [31:0] da, db, input enbale, Cin);
+module alu_arm (output reg [31:0] out, output reg NF, CF, ZF, VF, input [3:0] A, input [31:0] da, db, input Cin);
 
 	parameter  AND = 4'b0000;
 	parameter   OR = 4'b0001;

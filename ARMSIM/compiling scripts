@@ -2,9 +2,9 @@
 cd C:\Users\Abisai\Desktop\ARMSIM\ARMSIM
 //Heriberto's local directory
 cd C:\Users\Felix\Desktop\ARMSIM\ARMSIM
-//Compiling registerfile when the terminal is in the directory.
-iverilog -o out register_file.v decoder_4x16.v register_32_bits.v mux_16x1.v
+//Compiling register file when the terminal is in the directory.
 iverilog -o out register_file.v decoder_4x16.v register_32_bits.v mux_16x1.v test_register_file.v
-//Compiling registerfile when the terminal is in the directory.
-iverilog -o out ram_256.v
+//Compiling ram when the terminal is in the directory.
 iverilog -o out ram_256.v test_ram_256.v
+//Compiling ram when the terminal is in the directory.
+iverilog -o out alu_arm.v test_alu_arm.v

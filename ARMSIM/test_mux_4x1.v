@@ -3,7 +3,7 @@ reg  [31: 0] I0; //Las entradas del módulo deben ser tipo reg
 reg  [31: 0] I1; //Las entradas del módulo deben ser tipo reg
 reg  [31: 0] I2; //Las entradas del módulo deben ser tipo reg
 reg  [31: 0] I3; //Las entradas del módulo deben ser tipo reg
-wire [31: 0] Y; //Las salidas deben ser tipo wire
+wire [31: 0]  Y; //Las salidas deben ser tipo wire
 reg [1:0] S;
 parameter sim_time = 1000;
 mux_4x1 mux1 (Y, S, I0, I1, I2, I3); // Instanciación del módulo
