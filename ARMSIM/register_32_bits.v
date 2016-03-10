@@ -3,8 +3,7 @@
 //CLK 0 -> 1
 //CLR 1 -> 0
 
-module register_32_bits (output reg [31:0] Q, input [31:0] D,
-			 input LE, CLR, CLK);
+module register_32_bits (output reg [31:0] Q, input [31:0] D, input LE, CLR, CLK);
 
 always @ (posedge CLK, negedge CLR)
 

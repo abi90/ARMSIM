@@ -3,34 +3,26 @@
 	{
 		"selected_items":
 		[
+			[
+				"c",
+				"CLK"
+			],
+			[
+				"e",
+				"registerEnable"
+			],
+			[
+				"r",
+				"registerEnable"
+			],
+			[
+				"da",
+				"DataSize"
+			]
 		]
 	},
 	"buffers":
 	[
-		{
-			"file": "ARMSIM/test_alu_arm.v",
-			"settings":
-			{
-				"buffer_size": 1952,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "ARMSIM/alu_arm.v",
-			"settings":
-			{
-				"buffer_size": 4325,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "ARMSIM/compiling scripts",
-			"settings":
-			{
-				"buffer_size": 492,
-				"line_ending": "Unix"
-			}
-		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -75,11 +67,21 @@
 	],
 	"file_history":
 	[
+		"/C/Users/Abisai/Desktop/ARMSIM/ARMSIM/decoder_4x16.v",
+		"/C/Users/Abisai/Desktop/ARMSIM/ARMSIM/test_register_file.v",
+		"/C/Users/Abisai/Desktop/ARMSIM/ARMSIM/register_32_bits.v",
+		"/C/Users/Abisai/Desktop/ARMSIM/ARMSIM/register_file.v",
+		"/C/Users/Abisai/Desktop/ARMSIM/ARMSIM/compiling scripts",
+		"/C/Users/Abisai/Desktop/ARMSIM/ARMSIM/test_dec_4x16.v",
+		"/C/Users/Abisai/Desktop/ARMSIM/ARMSIM/mux_4x1.v",
+		"/C/Users/Abisai/Desktop/ARMSIM/ARMSIM/test_ram_256.v",
+		"/C/Users/Abisai/Desktop/ARMSIM/ARMSIM/mux_2x1.v",
+		"/C/Users/Abisai/Desktop/ARMSIM/ARMSIM/mux_16x1.v",
+		"/C/Users/Abisai/Desktop/ARMSIM/ARMSIM/test_alu_arm.v",
+		"/C/Users/Abisai/Desktop/ARMSIM/ARMSIM/test_mux_4x1.v",
+		"/C/Users/Abisai/Desktop/ARMSIM/ARMSIM/test_dec_2x4.v",
 		"/C/Users/Abisai/Desktop/ARMSIM/ARMSIM/alu_arm.v",
 		"/C/Users/Abisai/Desktop/ARMSIM/ARMSIM/test_mux_16x1.v",
-		"/C/Users/Abisai/Desktop/ARMSIM/ARMSIM/test_dec_4x16.v",
-		"/C/Users/Abisai/Desktop/ARMSIM/ARMSIM/compiling scripts",
-		"/C/Users/Abisai/Desktop/ARMSIM/ARMSIM/decoder_4x16.v",
 		"/C/Users/Abisai/Desktop/ARM-SIM/ARMSIM/mux_16x1.v",
 		"/C/Users/Abisai/Desktop/ARM-SIM/ARMSIM/decoder_4x16.v",
 		"/C/Users/Abisai/Downloads/Verilog.sublime-package"
@@ -100,6 +102,10 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"#99",
+			".Y",
+			"register",
+			"regtb",
 			"enbale"
 		],
 		"highlight": true,
@@ -108,6 +114,10 @@
 		"regex": false,
 		"replace_history":
 		[
+			"#64",
+			".Q",
+			"R",
+			"registerFile"
 		],
 		"reverse": false,
 		"show_context": true,
@@ -118,95 +128,8 @@
 	"groups":
 	[
 		{
-			"selected": 0,
 			"sheets":
 			[
-				{
-					"buffer": 0,
-					"file": "ARMSIM/test_alu_arm.v",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1952,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								917,
-								917
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Verilog/verilog.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 531.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "ARMSIM/alu_arm.v",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 4325,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								549,
-								549
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Verilog/verilog.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": -0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "ARMSIM/compiling scripts",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 492,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								97,
-								97
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				}
 			]
 		}
 	],
@@ -249,7 +172,7 @@
 	"project": "ARMSIM.sublime-project",
 	"replace":
 	{
-		"height": 42.0
+		"height": 62.0
 	},
 	"save_all_on_build": true,
 	"select_file":
