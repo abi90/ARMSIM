@@ -1,12 +1,12 @@
 module test_register_file;
 	reg  [31: 0] I0; //Las entradas del módulo deben ser tipo reg
-	reg [3:0] addressA, addressB;
+	reg [3:0] writeAddress, addressA, addressB;
 	wire [31:0] A, B;
 	reg RW, CLR, CLK;
 
 	parameter sim_time = 300;
 
-	register_file registerFile(A,B, addressA, addressB, I0, RW, CLR, CLK);
+	register_file registerFile(A,B, writeAddress, addressA, addressB, I0, RW, CLR, CLK);
 
 	initial #sim_time $finish; // Especifica cuando termina simulación
 	initial 
@@ -15,10 +15,11 @@ module test_register_file;
 		CLK = 0;
 		CLR = 0;
 		#1 CLR = ~CLR;
+		writeAddress = 4'hf;
 		addressA = 4'hf;
 		addressB = 4'hf;
 		RW = 1'b1;
-		repeat (63) 
+		repeat (127) 
 		begin
 			#1 CLK = ~CLK;
 		end
@@ -39,14 +40,15 @@ module test_register_file;
 			I0=I0+32'b1;
 			addressA = addressA + 1'h1;
 			addressB = addressA - 1'h1;
+			writeAddress=addressA;
 		end
 	end
 
 	initial begin
-	    $display ("CLK RW  AddsA  AddsB  I0\t A\t   B "); //imprime header
-	    $monitor ("%h    %h  %h      %h      %h   %h  %h ", CLK, RW, addressA, addressB, I0, A, B); //imprime las señales
+	    $display ("CLK RW  WAdds AddsA  AddsB  I0\t\t A\t   B "); //imprime header
+	    $monitor ("%h    %h  %h     %h      %h      %h   %h  %h ", CLK, RW, writeAddress, addressA, addressB, I0, A, B); //imprime las señales
 	    
-		#65 $display ("Registers:"); 
+		#130 $display ("Registers:"); 
 	 	$display("R0 = %h ", registerFile.R0.Q);
 		$display("R1 = %h ", registerFile.R1.Q);
 		$display("R2 = %h ", registerFile.R2.Q);

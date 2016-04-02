@@ -1,7 +1,7 @@
-module register_file(output [31:0] outA, outB, input [3:0] addressA, addressB, input [31:0] inputData, input RW, CLR, CLK);
+module register_file(output [31:0] outA, outB, input [3:0] writeAddress, addressA, addressB, input [31:0] inputData, input RW, CLR, CLK);
 
 	// outA, outB son las salidas de los MUX
-	// addressA es la direccion donde se va a escribir
+	// writeAddress es la direccion donde se va a escribir
 	// addressA es la direccion donde se va a leer para poner info en outA
 	// addressB es la direccion donde se va a leer para poner info en outB
 	// inputData es la informacion que se va a escribir
@@ -12,12 +12,12 @@ module register_file(output [31:0] outA, outB, input [3:0] addressA, addressB, i
 	wire [15:0] registerEnable;
 
 
-	wire [31:0] outR0, outR1, outR2, outR3,outR4,outR5,outR6,outR7,outR8,outR9,outR10,outR11,outR12,outR13,outR14,outR15;
-
-	always @ (addressA, addressB, inputData, RW, CLR, CLK);
+	wire [31:0] outR0, outR1, outR2, outR3,outR4,outR5,outR6,outR7,outR8,outR9,outR10,outR11,outR12,outR13,outR14,outR15, outR15Temp;
+	wire [31:0] inputDataTemp;
+	always @ (writeAddress, addressA, addressB, inputData, RW, CLR, CLK);
 
 	//Determine registerEnable
-	decoder_4x16 decoder (registerEnable, addressA, ~RW);
+	decoder_4x16 decoder (registerEnable, writeAddress, ~RW);
 
 	//Write to Register Bank 
 	register_32_bits R0  (outR0,  inputData, ~registerEnable[0],  CLR, CLK);
@@ -35,11 +35,18 @@ module register_file(output [31:0] outA, outB, input [3:0] addressA, addressB, i
 	register_32_bits R12 (outR12, inputData, ~registerEnable[12], CLR, CLK);
 	register_32_bits R13 (outR13, inputData, ~registerEnable[13], CLR, CLK);
 	register_32_bits R14 (outR14, inputData, ~registerEnable[14], CLR, CLK);
-	register_32_bits R15 (outR15, inputData, ~registerEnable[15], CLR, CLK);
+	
+
+	//Making the two least significant bits 0 for PC register.
+	assign inputDataTemp= inputData;
+	assign inputDataTemp[0]=0;
+	assign inputDataTemp[1]=0;
+	register_32_bits R15 (outR15, inputDataTemp, ~registerEnable[15], CLR, CLK);
+	assign outR15Temp= outR15+8;
 
 	//Select outA/B
-	mux_16x1 muxA (outA, addressA, outR0, outR1, outR2, outR3, outR4, outR5, outR6, outR7, outR8, outR9, outR10, outR11, outR12, outR13, outR14, outR15);
+	mux_16x1 muxA (outA, addressA, outR0, outR1, outR2, outR3, outR4, outR5, outR6, outR7, outR8, outR9, outR10, outR11, outR12, outR13, outR14, outR15Temp);
 
-	mux_16x1 muxB (outB, addressB, outR0, outR1, outR2, outR3, outR4, outR5, outR6, outR7, outR8, outR9, outR10, outR11, outR12, outR13, outR14, outR15);
+	mux_16x1 muxB (outB, addressB, outR0, outR1, outR2, outR3, outR4, outR5, outR6, outR7, outR8, outR9, outR10, outR11, outR12, outR13, outR14, outR15Temp);
 
 endmodule
