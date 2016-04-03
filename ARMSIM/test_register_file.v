@@ -15,11 +15,12 @@ module test_register_file;
 		CLK = 0;
 		CLR = 0;
 		#1 CLR = ~CLR;
+		//# CLR = ~CLR;
 		writeAddress = 4'hf;
 		addressA = 4'hf;
 		addressB = 4'hf;
 		RW = 1'b1;
-		repeat (127) 
+		#1 repeat (64) 
 		begin
 			#1 CLK = ~CLK;
 		end
@@ -29,7 +30,6 @@ module test_register_file;
 	if(addressA === 4'h0) 
 	begin 
 		RW = ~RW;
-		I0= 32'hffffffff;
 	end
 	end
 
@@ -37,18 +37,20 @@ module test_register_file;
 	begin
 		if(CLK)
 		begin
-			I0=I0+32'b1;
-			addressA = addressA + 1'h1;
+			I0<=I0+32'b1;
+			addressA <= addressA + 1'h1;
+			writeAddress <= addressA + 1'h1;
 			addressB = addressA - 1'h1;
-			writeAddress=addressA;
+
 		end
+		
 	end
 
 	initial begin
 	    $display ("CLK RW  WAdds AddsA  AddsB  I0\t\t A\t   B "); //imprime header
 	    $monitor ("%h    %h  %h     %h      %h      %h   %h  %h ", CLK, RW, writeAddress, addressA, addressB, I0, A, B); //imprime las señales
 	    
-		#130 $display ("Registers:"); 
+		#150 $display ("Registers:"); 
 	 	$display("R0 = %h ", registerFile.R0.Q);
 		$display("R1 = %h ", registerFile.R1.Q);
 		$display("R2 = %h ", registerFile.R2.Q);
@@ -64,6 +66,7 @@ module test_register_file;
 		$display("R12= %h ", registerFile.R12.Q);
 		$display("R13= %h ", registerFile.R13.Q);
 		$display("R14= %h ", registerFile.R14.Q);
-		$display("R15= %h ", registerFile.R15.Q);
+		$display("R15= %b ", registerFile.R15.Q);
+		$display("R15= %b ", registerFile.inputDataTemp);
 	end
 endmodule

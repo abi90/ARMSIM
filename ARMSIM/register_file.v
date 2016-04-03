@@ -11,14 +11,11 @@ module register_file(output [31:0] outA, outB, input [3:0] writeAddress, address
 
 	wire [15:0] registerEnable;
 
-
-	wire [31:0] outR0, outR1, outR2, outR3,outR4,outR5,outR6,outR7,outR8,outR9,outR10,outR11,outR12,outR13,outR14,outR15, outR15Temp;
 	wire [31:0] inputDataTemp;
+	wire [31:0] outR0, outR1, outR2, outR3,outR4,outR5,outR6,outR7,outR8,outR9,outR10,outR11,outR12,outR13,outR14,outR15, outR15Temp;
 	always @ (writeAddress, addressA, addressB, inputData, RW, CLR, CLK);
-
 	//Determine registerEnable
 	decoder_4x16 decoder (registerEnable, writeAddress, ~RW);
-
 	//Write to Register Bank 
 	register_32_bits R0  (outR0,  inputData, ~registerEnable[0],  CLR, CLK);
 	register_32_bits R1  (outR1,  inputData, ~registerEnable[1],  CLR, CLK);
@@ -38,15 +35,14 @@ module register_file(output [31:0] outA, outB, input [3:0] writeAddress, address
 	
 
 	//Making the two least significant bits 0 for PC register.
-	assign inputDataTemp= inputData;
-	assign inputDataTemp[0]=0;
-	assign inputDataTemp[1]=0;
+	assign inputDataTemp = inputData & 32'hfffffffc ;
+	//inputDataTemp = (inputDataTemp & 32'hfffffffc);
 	register_32_bits R15 (outR15, inputDataTemp, ~registerEnable[15], CLR, CLK);
-	assign outR15Temp= outR15+8;
+	assign outR15Temp= outR15 + 32'h00000008;
 
 	//Select outA/B
 	mux_16x1 muxA (outA, addressA, outR0, outR1, outR2, outR3, outR4, outR5, outR6, outR7, outR8, outR9, outR10, outR11, outR12, outR13, outR14, outR15Temp);
 
 	mux_16x1 muxB (outB, addressB, outR0, outR1, outR2, outR3, outR4, outR5, outR6, outR7, outR8, outR9, outR10, outR11, outR12, outR13, outR14, outR15Temp);
-
+	
 endmodule
