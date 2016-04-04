@@ -4,427 +4,193 @@
 :vpi_module "system";
 :vpi_module "v2005_math";
 :vpi_module "va_math";
-<<<<<<< HEAD
-S_010FB6D0 .scope module, "test_immediate_sign_ext" "test_immediate_sign_ext" 2 1;
+S_0103DDB0 .scope module, "shifter" "shifter" 2 1;
  .timescale 0 0;
-P_010F824C .param/l "sim_time" 2 7, +C4<01111>;
-v00FC2168_0 .net "DataOut", 31 0, v00FC20B8_0; 1 drivers
-v00FC21C0_0 .var "Enable", 0 0;
-v00FC2388_0 .var "Instruction", 31 0;
-v00FC23E0_0 .var "Select", 1 0;
-v00FC2438_0 .var "counter", 2 0;
-E_010F8348 .event edge, v00FC2438_0;
-S_010F2A88 .scope module, "ext" "immediate_sign_extension" 2 9, 3 1, S_010FB6D0;
- .timescale 0 0;
-v010F2B10_0 .net "EN", 0 0, v00FC21C0_0; 1 drivers
-v010F2B68_0 .net "In", 31 0, v00FC2388_0; 1 drivers
-v00FC20B8_0 .var "Out", 31 0;
-v00FC2110_0 .net "SISE", 1 0, v00FC23E0_0; 1 drivers
-E_010F8268 .event edge, v010F2B10_0, v00FC2110_0, v010F2B68_0;
-    .scope S_010F2A88;
+P_01033D84 .param/l "ASR" 2 10, C4<10>;
+P_01033D98 .param/l "LSL" 2 8, C4<00>;
+P_01033DAC .param/l "LSR" 2 9, C4<01>;
+P_01033DC0 .param/l "ROR" 2 11, C4<11>;
+v01033DE0_0 .net "Amount", 11 0, C4<zzzzzzzzzzzz>; 0 drivers
+v01032A88_0 .net "CIn", 0 0, C4<z>; 0 drivers
+v01032AE0_0 .var "Cout", 0 0;
+v01032B38_0 .net "EN", 0 0, C4<z>; 0 drivers
+v0103A380_0 .net "IR", 6 5, C4<zz>; 0 drivers
+v0103A3D8_0 .net "ISO", 0 0, C4<z>; 0 drivers
+v0103A430_0 .net "Operand", 31 0, C4<zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz>; 0 drivers
+v0103A488_0 .var "Out", 31 0;
+v0103A4E0_0 .var/i "i", 31 0;
+v0103A538_0 .var "temp", 31 0;
+v0103A590_0 .var "tempData", 31 0;
+v0103A5E8_0 .var "tempNum", 31 0;
+E_0103CEE0/0 .event edge, v01032A88_0, v0103A380_0, v0103A430_0;
+E_0103CEE0/1 .event posedge, v01032B38_0;
+E_0103CEE0 .event/or E_0103CEE0/0, E_0103CEE0/1;
+    .scope S_0103DDB0;
 T_0 ;
-    %wait E_010F8268;
-    %load/v 8, v010F2B10_0, 1;
+    %wait E_0103CEE0;
+    %load/v 8, v01032B38_0, 1;
+    %inv 8, 1;
     %jmp/0xz  T_0.0, 8;
-    %load/v 8, v00FC2110_0, 2;
-    %cmpi/u 8, 0, 2;
-    %jmp/1 T_0.2, 6;
-    %cmpi/u 8, 1, 2;
-    %jmp/1 T_0.3, 6;
-    %cmpi/u 8, 2, 2;
-    %jmp/1 T_0.4, 6;
-    %load/v 8, v010F2B68_0, 4; Select 4 out of 32 bits
-    %ix/load 1, 8, 0;
+    %load/v 8, v01033DE0_0, 12;
+    %mov 20, 0, 20;
+    %cassign/v v0103A5E8_0, 8, 32;
+    %load/v 40, v0103A430_0, 32;
+    %cassign/v v0103A590_0, 40, 32;
+    %cassign/link v0103A590_0, v0103A430_0;
+    %load/v 72, v0103A430_0, 32;
+    %cassign/v v0103A538_0, 72, 32;
+    %cassign/link v0103A538_0, v0103A430_0;
+    %load/v 104, v0103A3D8_0, 1;
+    %jmp/0xz  T_0.2, 104;
+    %set/v v0103A4E0_0, 0, 32;
+T_0.4 ;
+    %load/v 104, v0103A4E0_0, 32;
+    %load/v 136, v0103A5E8_0, 32;
+    %cmp/u 104, 136, 32;
+    %jmp/0xz T_0.5, 5;
+    %load/v 104, v0103A590_0, 32;
+    %set/v v0103A538_0, 104, 32;
+    %load/v 104, v0103A590_0, 32;
+    %ix/load 0, 1, 0;
     %mov 4, 0, 1;
-    %jmp/1 T_0.7, 4;
-    %load/x1p 16, v010F2B68_0, 4;
-    %jmp T_0.8;
-T_0.7 ;
-    %mov 16, 2, 4;
-T_0.8 ;
-    %mov 12, 16, 4; Move signal select into place
-    %ix/load 0, 8, 0;
-    %ix/load 1, 0, 0;
-    %assign/v0/x1 v00FC20B8_0, 0, 8;
-    %ix/load 1, 11, 0;
-    %mov 4, 0, 1;
-    %jmp/1 T_0.9, 4;
-    %load/x1p 32, v010F2B68_0, 1;
-    %jmp T_0.10;
-T_0.9 ;
-    %mov 32, 2, 1;
-T_0.10 ;
-    %mov 8, 32, 1; Move signal select into place
-    %mov 31, 8, 1; Repetition 24
-    %mov 30, 8, 1; Repetition 23
-    %mov 29, 8, 1; Repetition 22
-    %mov 28, 8, 1; Repetition 21
-    %mov 27, 8, 1; Repetition 20
-    %mov 26, 8, 1; Repetition 19
-    %mov 25, 8, 1; Repetition 18
-    %mov 24, 8, 1; Repetition 17
-    %mov 23, 8, 1; Repetition 16
-    %mov 22, 8, 1; Repetition 15
-    %mov 21, 8, 1; Repetition 14
-    %mov 20, 8, 1; Repetition 13
-    %mov 19, 8, 1; Repetition 12
-    %mov 18, 8, 1; Repetition 11
-    %mov 17, 8, 1; Repetition 10
-    %mov 16, 8, 1; Repetition 9
-    %mov 15, 8, 1; Repetition 8
-    %mov 14, 8, 1; Repetition 7
-    %mov 13, 8, 1; Repetition 6
-    %mov 12, 8, 1; Repetition 5
-    %mov 11, 8, 1; Repetition 4
-    %mov 10, 8, 1; Repetition 3
-    %mov 9, 8, 1; Repetition 2
-    %ix/load 0, 24, 0;
-    %ix/load 1, 8, 0;
-    %assign/v0/x1 v00FC20B8_0, 0, 8;
-    %jmp T_0.6;
+    %shiftr/i0  104, 32;
+    %set/v v0103A590_0, 104, 32;
+    %load/v 104, v0103A590_0, 31; Select 31 out of 32 bits
+    %load/v 135, v0103A538_0, 1; Select 1 out of 32 bits
+    %set/v v0103A590_0, 104, 32;
+    %ix/load 0, 1, 0;
+    %load/vp0/s 104, v0103A4E0_0, 32;
+    %set/v v0103A4E0_0, 104, 32;
+    %jmp T_0.4;
+T_0.5 ;
+    %jmp T_0.3;
 T_0.2 ;
-    %load/v 8, v010F2B68_0, 8; Only need 8 of 32 bits
-; Save base=8 wid=8 in lookaside.
-    %ix/load 0, 8, 0;
-    %ix/load 1, 0, 0;
-    %assign/v0/x1 v00FC20B8_0, 0, 8;
-    %ix/load 1, 7, 0;
-    %mov 4, 0, 1;
-    %jmp/1 T_0.11, 4;
-    %load/x1p 32, v010F2B68_0, 1;
-    %jmp T_0.12;
+    %load/v 104, v0103A380_0, 2;
+    %cmpi/u 104, 0, 2;
+    %jmp/1 T_0.6, 6;
+    %cmpi/u 104, 1, 2;
+    %jmp/1 T_0.7, 6;
+    %cmpi/u 104, 2, 2;
+    %jmp/1 T_0.8, 6;
+    %cmpi/u 104, 3, 2;
+    %jmp/1 T_0.9, 6;
+    %jmp T_0.10;
+T_0.6 ;
+    %set/v v0103A4E0_0, 0, 32;
 T_0.11 ;
-    %mov 32, 2, 1;
-T_0.12 ;
-    %mov 8, 32, 1; Move signal select into place
-    %mov 31, 8, 1; Repetition 24
-    %mov 30, 8, 1; Repetition 23
-    %mov 29, 8, 1; Repetition 22
-    %mov 28, 8, 1; Repetition 21
-    %mov 27, 8, 1; Repetition 20
-    %mov 26, 8, 1; Repetition 19
-    %mov 25, 8, 1; Repetition 18
-    %mov 24, 8, 1; Repetition 17
-    %mov 23, 8, 1; Repetition 16
-    %mov 22, 8, 1; Repetition 15
-    %mov 21, 8, 1; Repetition 14
-    %mov 20, 8, 1; Repetition 13
-    %mov 19, 8, 1; Repetition 12
-    %mov 18, 8, 1; Repetition 11
-    %mov 17, 8, 1; Repetition 10
-    %mov 16, 8, 1; Repetition 9
-    %mov 15, 8, 1; Repetition 8
-    %mov 14, 8, 1; Repetition 7
-    %mov 13, 8, 1; Repetition 6
-    %mov 12, 8, 1; Repetition 5
-    %mov 11, 8, 1; Repetition 4
-    %mov 10, 8, 1; Repetition 3
-    %mov 9, 8, 1; Repetition 2
-    %ix/load 0, 24, 0;
-    %ix/load 1, 8, 0;
-    %assign/v0/x1 v00FC20B8_0, 0, 8;
-    %jmp T_0.6;
-T_0.3 ;
-    %load/v 8, v010F2B68_0, 12; Only need 12 of 32 bits
-; Save base=8 wid=12 in lookaside.
-    %ix/load 0, 12, 0;
-    %ix/load 1, 0, 0;
-    %assign/v0/x1 v00FC20B8_0, 0, 8;
-    %ix/load 1, 11, 0;
+    %load/v 104, v0103A4E0_0, 32;
+    %load/v 136, v0103A5E8_0, 32;
+    %cmp/u 104, 136, 32;
+    %jmp/0xz T_0.12, 5;
+    %ix/load 1, 31, 0;
     %mov 4, 0, 1;
     %jmp/1 T_0.13, 4;
-    %load/x1p 28, v010F2B68_0, 1;
+    %load/x1p 104, v0103A590_0, 1;
     %jmp T_0.14;
 T_0.13 ;
-    %mov 28, 2, 1;
+    %mov 104, 2, 1;
 T_0.14 ;
-    %mov 8, 28, 1; Move signal select into place
-    %mov 27, 8, 1; Repetition 20
-    %mov 26, 8, 1; Repetition 19
-    %mov 25, 8, 1; Repetition 18
-    %mov 24, 8, 1; Repetition 17
-    %mov 23, 8, 1; Repetition 16
-    %mov 22, 8, 1; Repetition 15
-    %mov 21, 8, 1; Repetition 14
-    %mov 20, 8, 1; Repetition 13
-    %mov 19, 8, 1; Repetition 12
-    %mov 18, 8, 1; Repetition 11
-    %mov 17, 8, 1; Repetition 10
-    %mov 16, 8, 1; Repetition 9
-    %mov 15, 8, 1; Repetition 8
-    %mov 14, 8, 1; Repetition 7
-    %mov 13, 8, 1; Repetition 6
-    %mov 12, 8, 1; Repetition 5
-    %mov 11, 8, 1; Repetition 4
-    %mov 10, 8, 1; Repetition 3
-    %mov 9, 8, 1; Repetition 2
-    %ix/load 0, 20, 0;
-    %ix/load 1, 12, 0;
-    %assign/v0/x1 v00FC20B8_0, 0, 8;
-    %jmp T_0.6;
-T_0.4 ;
-    %load/v 8, v010F2B68_0, 4; Select 4 out of 32 bits
-    %ix/load 1, 8, 0;
+; Save base=104 wid=1 in lookaside.
+    %set/v v01032AE0_0, 104, 1;
+    %load/v 104, v0103A590_0, 32;
+    %ix/load 0, 1, 0;
     %mov 4, 0, 1;
-    %jmp/1 T_0.15, 4;
-    %load/x1p 16, v010F2B68_0, 4;
-    %jmp T_0.16;
+    %shiftl/i0  104, 32;
+    %set/v v0103A590_0, 104, 32;
+    %ix/load 0, 1, 0;
+    %load/vp0/s 104, v0103A4E0_0, 32;
+    %set/v v0103A4E0_0, 104, 32;
+    %jmp T_0.11;
+T_0.12 ;
+    %jmp T_0.10;
+T_0.7 ;
+    %set/v v0103A4E0_0, 0, 32;
 T_0.15 ;
-    %mov 16, 2, 4;
-T_0.16 ;
-    %mov 12, 16, 4; Move signal select into place
-    %ix/load 0, 8, 0;
-    %ix/load 1, 0, 0;
-    %assign/v0/x1 v00FC20B8_0, 0, 8;
-    %ix/load 1, 11, 0;
+    %load/v 104, v0103A4E0_0, 32;
+    %load/v 136, v0103A5E8_0, 32;
+    %cmp/u 104, 136, 32;
+    %jmp/0xz T_0.16, 5;
+    %load/v 104, v0103A590_0, 1; Only need 1 of 32 bits
+; Save base=104 wid=1 in lookaside.
+    %set/v v01032AE0_0, 104, 1;
+    %load/v 104, v0103A590_0, 32;
+    %ix/load 0, 1, 0;
     %mov 4, 0, 1;
-    %jmp/1 T_0.17, 4;
-    %load/x1p 32, v010F2B68_0, 1;
-    %jmp T_0.18;
+    %shiftr/i0  104, 32;
+    %set/v v0103A590_0, 104, 32;
+    %ix/load 0, 1, 0;
+    %load/vp0/s 104, v0103A4E0_0, 32;
+    %set/v v0103A4E0_0, 104, 32;
+    %jmp T_0.15;
+T_0.16 ;
+    %jmp T_0.10;
+T_0.8 ;
+    %set/v v0103A4E0_0, 0, 32;
 T_0.17 ;
-    %mov 32, 2, 1;
+    %load/v 104, v0103A4E0_0, 32;
+    %load/v 136, v0103A5E8_0, 32;
+    %cmp/u 104, 136, 32;
+    %jmp/0xz T_0.18, 5;
+    %load/v 104, v0103A590_0, 32;
+    %ix/load 0, 1, 0;
+    %mov 4, 0, 1;
+    %shiftr/i0  104, 32;
+    %set/v v0103A590_0, 104, 32;
+    %load/v 104, v0103A590_0, 31; Select 31 out of 32 bits
+    %ix/load 1, 31, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_0.19, 4;
+    %load/x1p 136, v0103A430_0, 1;
+    %jmp T_0.20;
+T_0.19 ;
+    %mov 136, 2, 1;
+T_0.20 ;
+    %mov 135, 136, 1; Move signal select into place
+    %set/v v0103A590_0, 104, 32;
+    %ix/load 0, 1, 0;
+    %load/vp0/s 104, v0103A4E0_0, 32;
+    %set/v v0103A4E0_0, 104, 32;
+    %jmp T_0.17;
 T_0.18 ;
-    %mov 8, 32, 1; Move signal select into place
-    %mov 31, 8, 1; Repetition 24
-    %mov 30, 8, 1; Repetition 23
-    %mov 29, 8, 1; Repetition 22
-    %mov 28, 8, 1; Repetition 21
-    %mov 27, 8, 1; Repetition 20
-    %mov 26, 8, 1; Repetition 19
-    %mov 25, 8, 1; Repetition 18
-    %mov 24, 8, 1; Repetition 17
-    %mov 23, 8, 1; Repetition 16
-    %mov 22, 8, 1; Repetition 15
-    %mov 21, 8, 1; Repetition 14
-    %mov 20, 8, 1; Repetition 13
-    %mov 19, 8, 1; Repetition 12
-    %mov 18, 8, 1; Repetition 11
-    %mov 17, 8, 1; Repetition 10
-    %mov 16, 8, 1; Repetition 9
-    %mov 15, 8, 1; Repetition 8
-    %mov 14, 8, 1; Repetition 7
-    %mov 13, 8, 1; Repetition 6
-    %mov 12, 8, 1; Repetition 5
-    %mov 11, 8, 1; Repetition 4
-    %mov 10, 8, 1; Repetition 3
-    %mov 9, 8, 1; Repetition 2
-    %ix/load 0, 24, 0;
-    %ix/load 1, 8, 0;
-    %assign/v0/x1 v00FC20B8_0, 0, 8;
-    %jmp T_0.6;
-T_0.6 ;
+    %jmp T_0.10;
+T_0.9 ;
+    %set/v v0103A4E0_0, 0, 32;
+T_0.21 ;
+    %load/v 104, v0103A4E0_0, 32;
+    %load/v 136, v0103A5E8_0, 32;
+    %cmp/u 104, 136, 32;
+    %jmp/0xz T_0.22, 5;
+    %load/v 104, v0103A590_0, 32;
+    %set/v v0103A538_0, 104, 32;
+    %load/v 104, v0103A590_0, 32;
+    %ix/load 0, 1, 0;
+    %mov 4, 0, 1;
+    %shiftr/i0  104, 32;
+    %set/v v0103A590_0, 104, 32;
+    %load/v 104, v0103A590_0, 31; Select 31 out of 32 bits
+    %load/v 135, v0103A538_0, 1; Select 1 out of 32 bits
+    %set/v v0103A590_0, 104, 32;
+    %ix/load 0, 1, 0;
+    %load/vp0/s 104, v0103A4E0_0, 32;
+    %set/v v0103A4E0_0, 104, 32;
+    %jmp T_0.21;
+T_0.22 ;
+    %jmp T_0.10;
+T_0.10 ;
+    %load/v 104, v0103A590_0, 32;
+    %set/v v0103A488_0, 104, 32;
+T_0.3 ;
     %jmp T_0.1;
 T_0.0 ;
-    %load/v 8, v00FC2110_0, 2;
-    %cmpi/u 8, 0, 2;
-    %jmp/1 T_0.19, 6;
-    %cmpi/u 8, 1, 2;
-    %jmp/1 T_0.20, 6;
-    %cmpi/u 8, 2, 2;
-    %jmp/1 T_0.21, 6;
-    %load/v 8, v010F2B68_0, 4; Select 4 out of 32 bits
-    %ix/load 1, 8, 0;
-    %mov 4, 0, 1;
-    %jmp/1 T_0.24, 4;
-    %load/x1p 16, v010F2B68_0, 4;
-    %jmp T_0.25;
-T_0.24 ;
-    %mov 16, 2, 4;
-T_0.25 ;
-    %mov 12, 16, 4; Move signal select into place
-    %ix/load 0, 8, 0;
-    %ix/load 1, 0, 0;
-    %assign/v0/x1 v00FC20B8_0, 0, 8;
-    %ix/load 0, 24, 0;
-    %ix/load 1, 8, 0;
-    %assign/v0/x1 v00FC20B8_0, 0, 0;
-    %jmp T_0.23;
-T_0.19 ;
-    %load/v 8, v010F2B68_0, 8; Only need 8 of 32 bits
-; Save base=8 wid=8 in lookaside.
-    %ix/load 0, 8, 0;
-    %ix/load 1, 0, 0;
-    %assign/v0/x1 v00FC20B8_0, 0, 8;
-    %ix/load 0, 24, 0;
-    %ix/load 1, 8, 0;
-    %assign/v0/x1 v00FC20B8_0, 0, 0;
-    %jmp T_0.23;
-T_0.20 ;
-    %load/v 8, v010F2B68_0, 12; Only need 12 of 32 bits
-; Save base=8 wid=12 in lookaside.
-    %ix/load 0, 12, 0;
-    %ix/load 1, 0, 0;
-    %assign/v0/x1 v00FC20B8_0, 0, 8;
-    %ix/load 0, 20, 0;
-    %ix/load 1, 12, 0;
-    %assign/v0/x1 v00FC20B8_0, 0, 0;
-    %jmp T_0.23;
-T_0.21 ;
-    %load/v 8, v010F2B68_0, 4; Select 4 out of 32 bits
-    %ix/load 1, 8, 0;
-    %mov 4, 0, 1;
-    %jmp/1 T_0.26, 4;
-    %load/x1p 16, v010F2B68_0, 4;
-    %jmp T_0.27;
-T_0.26 ;
-    %mov 16, 2, 4;
-T_0.27 ;
-    %mov 12, 16, 4; Move signal select into place
-    %ix/load 0, 8, 0;
-    %ix/load 1, 0, 0;
-    %assign/v0/x1 v00FC20B8_0, 0, 8;
-    %ix/load 0, 24, 0;
-    %ix/load 1, 8, 0;
-    %assign/v0/x1 v00FC20B8_0, 0, 0;
-    %jmp T_0.23;
-T_0.23 ;
+    %load/v 104, v0103A430_0, 32;
+    %set/v v0103A488_0, 104, 32;
+    %load/v 104, v01032A88_0, 1;
+    %set/v v01032AE0_0, 104, 1;
 T_0.1 ;
     %jmp T_0;
-    .thread T_0, $push;
-    .scope S_010FB6D0;
-T_1 ;
-    %delay 15, 0;
-    %vpi_call 2 11 "$finish";
-    %end;
-    .thread T_1;
-    .scope S_010FB6D0;
-T_2 ;
-    %set/v v00FC2438_0, 0, 3;
-    %movi 8, 3983, 32;
-    %set/v v00FC2388_0, 8, 32;
-    %set/v v00FC21C0_0, 0, 1;
-    %movi 8, 8, 5;
-T_2.0 %cmp/s 0, 8, 5;
-    %jmp/0xz T_2.1, 5;
-    %add 8, 1, 5;
-    %delay 2, 0;
-    %load/v 13, v00FC2438_0, 3;
-    %mov 16, 0, 29;
-    %addi 13, 1, 32;
-    %set/v v00FC2438_0, 13, 3;
-    %jmp T_2.0;
-T_2.1 ;
-    %end;
-    .thread T_2;
-    .scope S_010FB6D0;
-T_3 ;
-    %wait E_010F8348;
-    %load/v 8, v00FC2438_0, 3;
-    %cmpi/u 8, 0, 3;
-    %jmp/1 T_3.0, 6;
-    %cmpi/u 8, 1, 3;
-    %jmp/1 T_3.1, 6;
-    %cmpi/u 8, 2, 3;
-    %jmp/1 T_3.2, 6;
-    %cmpi/u 8, 3, 3;
-    %jmp/1 T_3.3, 6;
-    %cmpi/u 8, 4, 3;
-    %jmp/1 T_3.4, 6;
-    %cmpi/u 8, 5, 3;
-    %jmp/1 T_3.5, 6;
-    %cmpi/u 8, 6, 3;
-    %jmp/1 T_3.6, 6;
-    %cmpi/u 8, 7, 3;
-    %jmp/1 T_3.7, 6;
-    %jmp T_3.8;
-T_3.0 ;
-    %set/v v00FC23E0_0, 0, 2;
-    %jmp T_3.8;
-T_3.1 ;
-    %movi 8, 1, 2;
-    %set/v v00FC23E0_0, 8, 2;
-    %jmp T_3.8;
-T_3.2 ;
-    %movi 8, 2, 2;
-    %set/v v00FC23E0_0, 8, 2;
-    %jmp T_3.8;
-T_3.3 ;
-    %set/v v00FC23E0_0, 1, 2;
-    %jmp T_3.8;
-T_3.4 ;
-    %set/v v00FC21C0_0, 1, 1;
-    %set/v v00FC23E0_0, 0, 2;
-    %jmp T_3.8;
-T_3.5 ;
-    %movi 8, 1, 2;
-    %set/v v00FC23E0_0, 8, 2;
-    %jmp T_3.8;
-T_3.6 ;
-    %movi 8, 2, 2;
-    %set/v v00FC23E0_0, 8, 2;
-    %jmp T_3.8;
-T_3.7 ;
-    %set/v v00FC23E0_0, 1, 2;
-    %jmp T_3.8;
-T_3.8 ;
-    %jmp T_3;
-    .thread T_3, $push;
-    .scope S_010FB6D0;
-T_4 ;
-    %vpi_call 2 61 "$display", "Instruction, DataOut,  Enable, Select";
-    %vpi_call 2 62 "$monitor", "%h\011%h\011%h\011%h", v00FC2388_0, v00FC2168_0, v00FC21C0_0, v00FC23E0_0;
-    %end;
-    .thread T_4;
-=======
-S_00387EB8 .scope module, "Branch_Ext_Tester" "Branch_Ext_Tester" 2 5;
- .timescale 0 0;
-v003816C0_0 .var "ofst", 23 0;
-v00381718_0 .net "out", 31 0, v00383D30_0; 1 drivers
-S_00383C50 .scope module, "BranchExt" "Branch_Ext" 2 11, 3 5, S_00387EB8;
- .timescale 0 0;
-v00383CD8_0 .net "ofst", 23 0, v003816C0_0; 1 drivers
-v00383D30_0 .var "out", 31 0;
-v00381668_0 .var "tempofst", 25 0;
-E_00384CD8 .event edge, v00383CD8_0, v00381668_0;
-    .scope S_00383C50;
-T_0 ;
-    %wait E_00384CD8;
-    %load/v 8, v00383CD8_0, 24;
-    %mov 32, 0, 2;
-    %set/v v00381668_0, 8, 26;
-    %load/v 8, v00381668_0, 26;
-    %ix/load 0, 2, 0;
-    %mov 4, 0, 1;
-    %shiftl/i0  8, 26;
-    %set/v v00381668_0, 8, 26;
-    %load/v 8, v00381668_0, 26;
-    %mov 34, 33, 1;
-    %mov 35, 33, 1;
-    %mov 36, 33, 1;
-    %mov 37, 33, 1;
-    %mov 38, 33, 1;
-    %mov 39, 33, 1;
-    %set/v v00383D30_0, 8, 32;
-    %jmp T_0;
-    .thread T_0, $push;
-    .scope S_00387EB8;
-T_1 ;
-    %delay 500, 0;
-    %vpi_call 2 13 "$finish";
-    %end;
-    .thread T_1;
-    .scope S_00387EB8;
-T_2 ;
-    %movi 8, 13981013, 24;
-    %set/v v003816C0_0, 8, 24;
-    %end;
-    .thread T_2;
-    .scope S_00387EB8;
-T_3 ;
-    %vpi_call 2 27 "$display", "Offset: %b", v003816C0_0;
-    %delay 5, 0;
-    %vpi_call 2 31 "$display", "Final output: %b", v00381718_0;
-    %end;
-    .thread T_3;
->>>>>>> eea3547b2f661b3c957fabf42e133259cd9515d7
+    .thread T_0;
 # The file index is used to find the file name in the following table.
-:file_names 4;
+:file_names 3;
     "N/A";
     "<interactive>";
-<<<<<<< HEAD
-    "test_immediate_sign_ext.v";
-    "immediate_sign_extension.v";
-=======
-    "Branch_Ext_Test.v";
-    "Branch_Ext.v";
->>>>>>> eea3547b2f661b3c957fabf42e133259cd9515d7
+    "Shifter.sv";
