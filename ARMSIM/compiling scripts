@@ -12,3 +12,5 @@ iverilog -o out ram_256.v test_ram_256.v
 iverilog -o out alu_arm.v test_alu_arm.v
 //Compiling immediate sign ext when the terminal is in the directory.
 iverilog -o out immediate_sign_extension.v test_immeadiate_sign_ext.v
+//Compiling amount selector
+iverilog -o out amount_selector.v test_amount_selector.v
