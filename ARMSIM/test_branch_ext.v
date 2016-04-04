@@ -2,7 +2,7 @@
 //Branch Extender Tester
 ////////////////////////
 
-module Branch_Ext_Tester();
+module test_branch_ext;
   
   wire [31:0] out;
   

@@ -2,7 +2,7 @@
 //Branch Extension
 //////////////////
 
-module Branch_Ext(output reg [31:0] out, input [23:0] ofst);
+module branch_ext(output reg [31:0] out, input [23:0] ofst);
 
 reg [25:0] tempofst;
 

@@ -1,4 +1,4 @@
-module shifter(output reg [31:0] Out, output reg Cout, input [31:0] Operand, input [11:0] Amount, input CIn, EN, ISO, input [6:5] IR);
+module shifter(output reg [31:0] Out, output reg Cout, input [31:0] Operand, input [11:0] Amount, input CIn, EN, ISO, input [1:0] IR);
 	
 reg [31:0] tempNum;
 reg [31:0] tempData;
