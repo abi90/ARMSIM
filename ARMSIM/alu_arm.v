@@ -1,21 +1,38 @@
 module alu_arm (output reg [31:0] out, output reg NF, CF, ZF, VF, input [3:0] A, input [31:0] da, db, input Cin);
 
+	// parameter  AND = 4'b0000;
+	// parameter   OR = 4'b0001;
+	// parameter  EOR = 4'b0010;
+	// parameter  BIC = 4'b0011;
+	// parameter  CMP = 4'b0100;
+	// parameter  CMN = 4'b0101;
+	// parameter  TST = 4'b0110;
+	// parameter  TEQ = 4'b0111;
+	// parameter  MOV = 4'b1000;
+	// parameter  MVN = 4'b1001;
+	// parameter  ADD = 4'b1010;
+	// parameter  ADC = 4'b1011;
+	// parameter  SUB = 4'b1100;
+	// parameter  SBC = 4'b1101;
+	// parameter  RSB = 4'b1110;
+	// parameter  RSC = 4'b1111;
+	
 	parameter  AND = 4'b0000;
-	parameter   OR = 4'b0001;
-	parameter  EOR = 4'b0010;
-	parameter  BIC = 4'b0011;
-	parameter  CMP = 4'b0100;
-	parameter  CMN = 4'b0101;
-	parameter  TST = 4'b0110;
-	parameter  TEQ = 4'b0111;
-	parameter  MOV = 4'b1000;
-	parameter  MVN = 4'b1001;
-	parameter  ADD = 4'b1010;
-	parameter  ADC = 4'b1011;
-	parameter  SUB = 4'b1100;
-	parameter  SBC = 4'b1101;
-	parameter  RSB = 4'b1110;
-	parameter  RSC = 4'b1111;
+	parameter  EOR = 4'b0001;
+	parameter  SUB = 4'b0010;
+	parameter  RSB = 4'b0011;
+	parameter  ADD = 4'b0100;
+	parameter  ADC = 4'b0101;
+	parameter  SBC = 4'b0110;
+	parameter  RSC = 4'b0111;
+	parameter  TST = 4'b1000;
+	parameter  TEQ = 4'b1001;
+	parameter  CMP = 4'b1010;
+	parameter  CMN = 4'b1011;
+	parameter   OR = 4'b1100;
+	parameter  MOV = 4'b1101;
+	parameter  BIC = 4'b1110;
+	parameter  MUN = 4'b1111;
 
 	always @(da,db,A)
 	begin
@@ -199,12 +216,4 @@ module alu_arm (output reg [31:0] out, output reg NF, CF, ZF, VF, input [3:0] A,
 		endcase
 	end
 endmodule
-			
-			
-			
-			
 	
-			
-
-
-
