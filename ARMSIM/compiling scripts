@@ -1,5 +1,5 @@
 //Abisai's local directory
-cd C:\Users\Abisai\Desktop\ARMSIM\ARMSIM
+cd C:\Development\ARMSIM\ARMSIM
 //Heriberto's local directory
 cd C:\Users\Felix\Desktop\ARMSIM\ARMSIM
 //Compiling decoder when the terminal is in the directory.
@@ -10,3 +10,5 @@ iverilog -o out register_file.v decoder_4x16.v register_32_bits.v mux_16x1.v tes
 iverilog -o out ram_256.v test_ram_256.v
 //Compiling ram when the terminal is in the directory.
 iverilog -o out alu_arm.v test_alu_arm.v
+//Compiling immediate sign ext when the terminal is in the directory.
+iverilog -o out immediate_sign_extension.v test_immeadiate_sign_ext.v
