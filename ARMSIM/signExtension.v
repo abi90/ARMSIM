@@ -14,14 +14,14 @@ module signExtension
 (	output reg [31:0] Q, 
 	input [31:0] D, 
 	input [1:0] dataSize, 
-	input E, CLR, CLK
+	input E, CLK
 	);
 	parameter BYTE = 2'b00;
 	parameter HALF = 2'b01;
 	parameter WORD = 2'b10;
-always @ (posedge CLK, negedge CLR)
+always @ (posedge CLK)
 
-if (!CLR && E) 
+if ( E) 
   case(dataSize)
 				BYTE:
 						if(D[7] === 1'b1)

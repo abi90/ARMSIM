@@ -2,23 +2,20 @@ module test_signExtension;
 	reg  [31: 0] D; 
 	wire [31:0] Q;
 	reg [1:0] dataSize;
-	reg  E, CLR, CLK;
+	reg  E, CLK;
 
 	parameter sim_time = 1000;
 
-	signExtension signExtension(Q, D, dataSize, E, CLR, CLK);
+	signExtension signExtension(Q, D, dataSize, E, CLK);
 
 	initial #sim_time $finish; // Especifica cuando termina simulación
 	initial 
 	begin
 		D<= 32'h0000FF03;
 		CLK <= 1'b0;
-		CLR <= 1'b1;
 		E<=1'b0;
 		dataSize <= 2'b00;
 
-		#1 CLR <= ~CLR;
-	
 		#10 repeat (80) #10
 		begin
 			#1 CLK <= ~CLK;
@@ -41,8 +38,8 @@ module test_signExtension;
 	end
 
 	initial begin
-	    $display ("CLK E  CLR dataSize  D \t \t \tQ"); //imprime header
-	    $monitor ("%h    %h  %h     %b      %b    \t %b   ", CLK, E, CLR, dataSize, D, Q); //imprime las señales
+	    $display ("CLK E  dataSize  D \t \t \tQ"); //imprime header
+	    $monitor ("%h    %h     %b      %b    \t %b   ", CLK, E,  dataSize, D, Q); //imprime las señales
 	    
 		
 	end
