@@ -1,33 +1,82 @@
 module data_path(
 	output reg [31:0] IR_Out, 
 	output reg MFC, 
-	output reg [3:0] SR_Flags,
-	input MFA, RW_RAM, 
+	output reg [3:0] Flags,
+	input MFA, RW_RAM, SALU,
 	input [1:0] DataSize,
 	input RF_CLR, RF_RW, 
-	input [1:0] WRA, SRA, SRB, SALU, SISE, SALUB, 
+	input [1:0] WRA, SRA, SRB,  SISE, SALUB, 
 	input [3:0] ALUA,	
-	input SSAB, SSOP, SMA, ISO, MAR_EN, SR_EN,
-	SE2_EN,	MDR_EN, SHIFTER_EN, IR_EN, SE1_EN,
-	SR_CLR,	MAR_CLR, MDR_CLR, IR_CLR, CLK);
+	input SSAB, SSOP, SMA, STA, MAR_EN, SR_EN,
+	SE_EN,	MDR_EN, SHT_EN, IR_EN, SGN_EN, CLR, CLK);
 
-register_file reg_file();
-branch_ext branch_ext();
-immediate_sign_ext immediate_sign_ext();
-amount_selector amount_selector();
-shifter shifter();
-alu_arm alu();
-register_32_bits SR();
-register_32_bits IR();
-register_32_bits MDR();
-register_32_bits MAR();
-signExtension signExtension();
-mux_4x1_4 write_address_mux
-mux_4x1_4 address_A_Mux
-mux_4x1_4 address_B_Mux
-mux_2x1_4 alu_Op_Mux
-mux_4x1 alu_B_Mux
-mux_2x1 rf_imse_mux
-mux_2x1 alu_ram_mux
+wire [31:0] aluOut, 
+outA, 
+outB, 
+branchExtension, 
+shifterOperand, 
+immSignExtOut,
+mdrOut,
+irOut,
+signExtension1Out,
+signExtension1In,
+memDataOut,
+SR_Flags_In,
+SR_Flags_Out,
+shifterOut,
+aluBin;
+wire [3:0] 
+addressAin,
+addressBin,
+writeAddressIn,
+A;
+wire [31:0] marOut;
+wire [4:0] shifterAmountShift;
+wire tempMFC;
+
+always @ (*)
+begin
+	IR_Out = irOut;
+	Flags = SR_Flags_Out[3:0];
+	MFC = tempMFC;
+end
+
+register_32_bits  instructionRegister (irOut, mdrOut, IR_EN, CLR, CLK);
+
+register_32_bits memoryDataRegister (mdrOut, signExtension1Out, MDR_EN, CLR, CLK );
+
+signExtension signExtension1 (signExtension1Out, signExtension1In, DataSize, SGN_EN);
+
+mux_2x1 signExtension1Mux  (signExtension1In, SMA, aluOut, memDataOut);
+
+register_32_bits memoryAddressRegister (marOut, aluOut, MAR_EN, CLR,CLK);
+
+register_32_bits statusRegister (SR_Flags_Out, {28{SR_Flags_In}}, SR_EN, CLR, CLK);
+
+alu_arm alu (aluOut, SR_Flags_In[3],  SR_Flags_In[2],  SR_Flags_In[1], SR_Flags_In[0], SALU, outA, aluBin, SR_Flags );
+
+mux_2x1_4 saluIn (A, SALU, ALUA, irOut[24:21]);
+
+mux_4x1 muxAluBIn (aluBin, SALUB, mdrOut, 32'h00000004, branchExtension, shifterOut);
+
+Branch_Ext branchExtension1 (branchExtension, irOut[23:0]);
+
+shifter shifter1 (shifterOut, SR_Flags_In[4], shifterOperand,shifterAmountShift, SR_Flags_Out[4], SHT_EN,STA, irOUT[6:5]);
+
+mux_2x1 shifterInMux (shifterOperand, SSOP, immSignExtOut, outB);
+
+amount_selector amountSelector ( shifterAmountShift, SSAB, irOut );
+
+immediate_sign_extension immediateSignExtension (immSignExtOut, irOut, SE_EN, SISE);
+
+mux_4x1_4 writeAddressMux (writeAddressIn, WRA, irOut[15:12],4'hf, 4'he,irOut[19:16]);
+
+mux_4x1_4 addressA (addressAin, SRA, irOut[19:16],4'hf, 4'he,irOut[15:12]);
+
+mux_4x1_4 addressB (addressBin, SRB, irOut[19:16],4'hf, irOut[15:12],irOut[3:0]);
+
+register_file registerFile ( outA, outB, writeAddressIn, addressAin, addressBin, aluOut, RF_RW, CLR, CLK);
+
+ram_256 ram (memDataOut, tempMFC, MFA, RW_RAM, marOut[7:0], mdrOut, DataSize);
 
 endmodule

@@ -19,7 +19,7 @@ module signExtension
 	parameter BYTE = 2'b00;
 	parameter HALF = 2'b01;
 	parameter WORD = 2'b10;
-always @ (posedge CLK)
+always @ (*)
 
 if ( E) 
   case(dataSize)
@@ -61,7 +61,7 @@ if ( E)
 	endcase
    
 
-else if (!E && CLK == 1) 
+else if (!E) 
          
     Q <= D;
 
