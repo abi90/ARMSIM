@@ -40,7 +40,7 @@ module test_register_file;
 			I0<=I0+32'b1;
 			addressA <= addressA + 1'h1;
 			writeAddress <= addressA + 1'h1;
-			addressB = addressA - 1'h1;
+			addressB <= addressA - 1'h1;
 
 		end
 		

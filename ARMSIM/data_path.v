@@ -1,14 +1,15 @@
-module data_path(
+module data_path
+(
 	output reg [31:0] IR_Out, 
 	output reg MFC, 
 	output reg [3:0] Flags,
-	input MFA, RW_RAM, SALU,
-	input [1:0] DataSize,
-	input RF_CLR, RF_RW, 
-	input [1:0] WRA, SRA, SRB,  SISE, SALUB, 
-	input [3:0] ALUA,	
-	input SSAB, SSOP, SMA, STA, MAR_EN, SR_EN,
-	SE_EN,	MDR_EN, SHT_EN, IR_EN, SGN_EN, CLR, CLK);
+	input CLK, MFA, RW_RAM, SALU, RF_RW, 
+	SSAB, SSOP, SMA, STA, MAR_EN, SR_EN,
+	SE_EN,	MDR_EN, SHT_EN, IR_EN, SGN_EN, 
+	CLR,
+	input [1:0] DataSize, WRA, SRA, SRB,  SISE, SALUB, 
+	input [3:0] ALUA	
+);
 
 wire [31:0] aluOut, 
 outA, 
