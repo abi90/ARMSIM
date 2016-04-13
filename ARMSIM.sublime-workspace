@@ -92,18 +92,26 @@
 	"buffers":
 	[
 		{
-			"file": "ARMSIM/signExtension.v",
+			"file": "ARMSIM/compiling scripts",
 			"settings":
 			{
-				"buffer_size": 1196,
+				"buffer_size": 1085,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "ARMSIM/test_signExtension.v",
+			"file": "ARMSIM/data_path.v",
 			"settings":
 			{
-				"buffer_size": 754,
+				"buffer_size": 2299,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "ARMSIM/shifter.v",
+			"settings":
+			{
+				"buffer_size": 1417,
 				"line_ending": "Windows"
 			}
 		}
@@ -151,11 +159,15 @@
 	],
 	"file_history":
 	[
+		"/C/Development/ARMSIM/ARMSIM/sign_extension.v",
+		"/C/Development/ARMSIM/ARMSIM/alu_arm.v",
+		"/C/Development/ARMSIM/ARMSIM/shifter.v",
+		"/C/Development/ARMSIM/ARMSIM/test_sign_extension.v",
+		"/C/Development/ARMSIM/ARMSIM/test_signExtension.v",
+		"/C/Development/ARMSIM/ARMSIM/signExtension.v",
 		"/C/Development/ARMSIM/ARMSIM/shifter.sv",
 		"/C/Development/ARMSIM/ARMSIM/data_path.v",
 		"/C/Development/ARMSIM/ARMSIM/compiling scripts",
-		"/C/Development/ARMSIM/ARMSIM/alu_arm.v",
-		"/C/Development/ARMSIM/ARMSIM/signExtension.v",
 		"/C/Development/ARMSIM/ARMSIM/register_file.v",
 		"/C/Development/ARMSIM/ARMSIM/Branch_Ext.v",
 		"/C/Development/ARMSIM/ARMSIM/test_branch_ext.v",
@@ -193,7 +205,7 @@
 	],
 	"find":
 	{
-		"height": 23.0
+		"height": 34.0
 	},
 	"find_in_files":
 	{
@@ -207,6 +219,8 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"MUN",
+			"ISO",
 			"SHIFTER_EN",
 			"aluFlagsOut",
 			"D",
@@ -238,6 +252,7 @@
 		"regex": false,
 		"replace_history":
 		[
+			"STA",
 			"SHT_EN",
 			"SR_Flags_Out",
 			"In",
@@ -270,24 +285,81 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 2,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "ARMSIM/signExtension.v",
+					"file": "ARMSIM/compiling scripts",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1196,
+						"buffer_size": 1085,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								277,
-								277
+								1085,
+								837
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "ARMSIM/data_path.v",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2299,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1699,
+								1714
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Verilog/SystemVerilog.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": -0.0,
+						"translation.y": 630.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "ARMSIM/shifter.v",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1417,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								228,
+								228
 							]
 						],
 						"settings":
@@ -300,35 +372,6 @@
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "ARMSIM/test_signExtension.v",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 754,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								148,
-								148
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Verilog/verilog.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
 					"type": "text"
 				}
 			]
@@ -373,7 +416,7 @@
 	"project": "ARMSIM.sublime-project",
 	"replace":
 	{
-		"height": 42.0
+		"height": 62.0
 	},
 	"save_all_on_build": true,
 	"select_file":

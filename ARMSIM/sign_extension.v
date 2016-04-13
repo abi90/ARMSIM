@@ -14,7 +14,7 @@ module sign_extension
 	output reg [31:0] Out, 
 	input [31:0] In, 
 	input [1:0] dataSize, 
-	input E,
+	input E
 );
 
 	parameter BYTE = 2'b00;

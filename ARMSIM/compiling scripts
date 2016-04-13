@@ -15,4 +15,4 @@ iverilog -o out immediate_sign_extension.v test_immeadiate_sign_ext.v
 //Compiling amount selector
 iverilog -o out amount_selector.v test_amount_selector.v
 //Compiling data_path
-iverilog -o out alu_arm.v amount_selector.v
+iverilog -o out alu_arm.v amount_selector.v branch_ext.v decoder_4x16.v immediate_sign_extension.v inverter.v mux_2x1.v mux_2x1_4.v mux_4x1.v mux_4x1_4.v mux_16x1.v ram_256.v register_32_bits.v register_file.v shifter.v sign_extension.v data_path.v

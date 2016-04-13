@@ -32,7 +32,7 @@ module alu_arm (output reg [31:0] out, output reg  CF, NF, VF, ZF, input [3:0] A
 	parameter   OR = 4'b1100;
 	parameter  MOV = 4'b1101;
 	parameter  BIC = 4'b1110;
-	parameter  MUN = 4'b1111;
+	parameter  MVN = 4'b1111;
 
 	always @(da,db,A)
 	begin

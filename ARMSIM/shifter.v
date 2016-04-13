@@ -1,4 +1,4 @@
-module shifter(output reg [31:0] Out, output reg Cout, input [31:0] Operand, input [11:0] Amount, input CIn, EN, ISO, input [1:0] IR);
+module shifter(output reg [31:0] Out, output reg Cout, input [31:0] Operand, input [4:0] Amount, input CIn, EN, STA, input [1:0] IR);
 	
 reg [31:0] tempNum;
 reg [31:0] tempData;
@@ -18,7 +18,7 @@ begin
 		assign tempData = Operand;
 		assign temp = Operand;
 
-		if (ISO)
+		if (STA)
 		begin
 
 			for(i = 0; i < tempNum; i = i+1)

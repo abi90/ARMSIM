@@ -6,7 +6,7 @@ module test_sign_extension;
 
 	parameter sim_time = 1000;
 
-	signExtension sign_extension(Q, D, dataSize, E, CLK);
+	signExtension sign_extension(Q, D, dataSize, E);
 
 	initial #sim_time $finish; // Especifica cuando termina simulación
 	initial 

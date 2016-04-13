@@ -45,21 +45,21 @@ register_32_bits  instructionRegister (irOut, mdrOut, IR_EN, CLR, CLK);
 
 register_32_bits memoryDataRegister (mdrOut, signExtension1Out, MDR_EN, CLR, CLK );
 
-signExtension signExtension1 (signExtension1Out, signExtension1In, DataSize, SGN_EN);
+sign_extension signExtension1 (signExtension1Out, signExtension1In, DataSize, SGN_EN);
 
 mux_2x1 signExtension1Mux  (signExtension1In, SMA, aluOut, memDataOut);
 
 register_32_bits memoryAddressRegister (marOut, aluOut, MAR_EN, CLR,CLK);
 
-register_32_bits statusRegister (SR_Flags_Out, {28{SR_Flags_In}}, SR_EN, CLR, CLK);
+register_32_bits statusRegister (SR_Flags_Out, SR_Flags_In, SR_EN, CLR, CLK);
 
-alu_arm alu (aluOut, SR_Flags_In[3],  SR_Flags_In[2],  SR_Flags_In[1], SR_Flags_In[0], SALU, outA, aluBin, SR_Flags );
+alu_arm alu (aluOut, SR_Flags_In[3],  SR_Flags_In[2],  SR_Flags_In[1], SR_Flags_In[0], A, outA, aluBin, SR_Flags );
 
 mux_2x1_4 saluIn (A, SALU, ALUA, irOut[24:21]);
 
 mux_4x1 muxAluBIn (aluBin, SALUB, mdrOut, 32'h00000004, branchExtension, shifterOut);
 
-Branch_Ext branchExtension1 (branchExtension, irOut[23:0]);
+branch_ext branchExtension1 (branchExtension, irOut[23:0]);
 
 shifter shifter1 (shifterOut, SR_Flags_In[4], shifterOperand,shifterAmountShift, SR_Flags_Out[4], SHT_EN,STA, irOUT[6:5]);
 
