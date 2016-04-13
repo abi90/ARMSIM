@@ -8,7 +8,7 @@ module test_branch_ext;
   
   reg [23:0] ofst;
   
-  Branch_Ext BranchExt(out, ofst);  
+  branch_ext branchExt(out, ofst);  
 
   initial #500 $finish;
 
