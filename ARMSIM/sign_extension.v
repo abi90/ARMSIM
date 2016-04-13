@@ -9,18 +9,20 @@
 // E - Enable
 // CLR - Clear
 
-module signExtension 
-(	output reg [31:0] Out, 
+module sign_extension 
+(	
+	output reg [31:0] Out, 
 	input [31:0] In, 
 	input [1:0] dataSize, 
 	input E,
-	);
+);
+
 	parameter BYTE = 2'b00;
 	parameter HALF = 2'b01;
 	parameter WORIn = 2'b10;
 always @ (*)
 
-if ( E) 
+if (E) 
   case(dataSize)
 				BYTE:
 						if(In[7] === 1'b1)
