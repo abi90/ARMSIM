@@ -3,10 +3,11 @@ module data_path
 	output reg [31:0] IR_Out, 
 	output reg MFC, 
 	output reg [3:0] Flags,
-	input CLK, MFA, RW_RAM, SALU, RF_RW, 
-	SSAB, SSOP, SMA, STA, MAR_EN, SR_EN,
-	SE_EN,	MDR_EN, SHT_EN, IR_EN, SGN_EN, 
-	CLR,
+	input CLK, 
+	MFA, RW_RAM, SALU, RF_RW, SSAB, 
+	SSOP, SMA, STA, MAR_EN, SR_EN,
+	MDR_EN, IR_EN, SHT_EN, ISE_EN, 
+	SGN_EN, CLR,
 	input [1:0] DataSize, WRA, SRA, SRB,  SISE, SALUB, 
 	input [3:0] ALUA	
 );
@@ -68,7 +69,7 @@ mux_2x1 shifterInMux (shifterOperand, SSOP, immSignExtOut, outB);
 
 amount_selector amountSelector ( shifterAmountShift, SSAB, irOut );
 
-immediate_sign_extension immediateSignExtension (immSignExtOut, irOut, SE_EN, SISE);
+immediate_sign_extension immediateSignExtension (immSignExtOut, irOut, ISE_EN, SISE);
 
 mux_4x1_4 writeAddressMux (writeAddressIn, WRA, irOut[15:12],4'hf, 4'he,irOut[19:16]);
 
