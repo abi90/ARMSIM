@@ -10,7 +10,7 @@ wire [4: 0] Y; //Las salidas deben ser tipo wire
 	reg SSAB, SSOP, SMA, ISO, MAR_EN, SR_EN,
 	SE2_EN,	MDR_EN, SHIFTER_EN, IR_EN, SE1_EN,
 	SR_CLR,	MAR_CLR, MDR_CLR, IR_CLR;
-
+//00000000111100010000000000000000
 	output reg [31:0] IR_Out;
 	output reg MFC;
 	output reg [3:0] SR_Flags;
