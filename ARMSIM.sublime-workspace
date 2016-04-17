@@ -4,6 +4,34 @@
 		"selected_items":
 		[
 			[
+				"d",
+				"DSS"
+			],
+			[
+				"w",
+				"WORD"
+			],
+			[
+				"m",
+				"misc_sel"
+			],
+			[
+				"end",
+				"endmodule"
+			],
+			[
+				"reg",
+				"reg_sel"
+			],
+			[
+				"re",
+				"reg_sel_out"
+			],
+			[
+				"mis",
+				"misc_sel_out"
+			],
+			[
 				"TEM",
 				"tempMFC"
 			],
@@ -52,10 +80,6 @@
 				"MDR_EN"
 			],
 			[
-				"re",
-				"register_filer"
-			],
-			[
 				"EN",
 				"end"
 			],
@@ -92,6 +116,50 @@
 	"buffers":
 	[
 		{
+			"file": "ARMSIM/data_size_selector.v",
+			"settings":
+			{
+				"buffer_size": 1084,
+				"line_ending": "Windows",
+				"name": "module data_size_selector(output reg DataSize, inp"
+			}
+		},
+		{
+			"file": "ARMSIM/next_state_add_sel.v",
+			"settings":
+			{
+				"buffer_size": 636,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "ARMSIM/Pipeline_Register.v",
+			"settings":
+			{
+				"buffer_size": 216,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "ARMSIM/seven_bit_register.v",
+			"settings":
+			{
+				"buffer_size": 173,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"contents": "module test_data_size_sel;\n	parameter sim_time = 15;\n	wire [1:0] DataSize;\n	reg [31:0] IR;\n	reg [1:0] DSS;\n	reg [3:0] counter;\n	data_size_selector dss (DataSize, IR, DSS);\n	\n	initial #sim_time $finish; // Especifica cuando termina simulación\n	\n	initial begin\n	counter = 0;\n	repeat(10) #2 counter = counter + 1;\n	end\n\n	always@(counter)\n	begin\n		case(counter)\n			4'd0:\n			begin\n			IR<=32'b11100001111001100101101111011110;\n			DSS=2'b00;\n			end\n			4'd1:\n			begin\n			IR<=32'b1110010101010110010100000_0_0_10100;\n			DSS=2'b01;\n			end\n			4'd2:\n			begin\n			IR<=32'b11100001111001100101101111011110;\n			DSS<=2'b01;\n			end\n			4'd3:\n			begin\n			IR<=32'b11100001111001100101101111011110;\n			DSS<=2'b01;\n			end\n			4'd4:\n			begin\n			IR<=32'b11100001111001100101101111011110;\n			DSS<=2'b01;\n			end\n			4'd5:\n			begin\n			IR<=32'b11100001111001100101101111011110;\n			DSS<=2'b01;\n			end\n			4'd6:\n			begin\n			IR<=32'b11100001111001100101101111011110;\n			DSS<=2'b11;\n			end\n			4'd7:\n			begin\n			IR<=32'b11100001111001100101101111011110;\n			DSS<=2'b01;\n			end\n			4'd8:\n			begin\n			IR<=32'b11100001111001100101101111011110;\n			DSS<=2'b01;\n			end\n			4'd9:\n			begin\n			IR<=32'b11100001111001100101101111011110;\n			DSS<=2'b10;\n			end\n			default:\n			begin\n			IR<=32'b11100001111001100101101111011110;\n			DSS<=2'b11;\n			end\n		endcase\n	end\n\n	initial\n	begin\n	$display (\"IR\\t\\t\\t\\t\\t\\tDSS\\tDataSize\"); //imprime header\n	$monitor (\"%b\\t%b\\t%b\", IR, DSS, DataSize); //imprime las señales\n	end\n\nendmodule",
+			"file": "ARMSIM/test_data_size_sel.v",
+			"file_size": 1557,
+			"file_write_time": 131052353277283021,
+			"settings":
+			{
+				"buffer_size": 1471,
+				"line_ending": "Windows"
+			}
+		},
+		{
 			"file": "ARMSIM/data_path.v",
 			"settings":
 			{
@@ -100,49 +168,19 @@
 			}
 		},
 		{
+			"file": "ARMSIM/compiling scripts",
 			"settings":
 			{
-				"buffer_size": 0,
+				"buffer_size": 1153,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"contents": "module test_data_path;\nreg  [31: 0] I0; //Las entradas del módulo deben ser tipo reg\nwire [4: 0] Y; //Las salidas deben ser tipo wire\n\n	reg MFA, RW_RAM;\n	reg [1:0] DataSize;\n	reg RF_CLR, RF_RW; \n	reg [1:0] WRA, SRA, SRB, SALU, SISE, SALUB;\n	reg [3:0] ALUA;\n	reg SSAB, SSOP, SMA, ISO, MAR_EN, SR_EN,\n	SE2_EN,	MDR_EN, SHIFTER_EN, IR_EN, SE1_EN,\n	SR_CLR,	MAR_CLR, MDR_CLR, IR_CLR;\n//00000000111100010000000000000000\n	output reg [31:0] IR_Out;\n	output reg MFC;\n	output reg [3:0] SR_Flags;\n	\ndata_path dp (IR_Out, MFC, SR_Flags, MFA, RW_RAM, DataSize,\n	RF_CLR, RF_RW, WRA, SRA, SRB, SALU, SISE, SALUB, \n	ALUA, SSAB, SSOP, SMA, ISO, MAR_EN, SR_EN,\n	SE2_EN,	MDR_EN, SHIFTER_EN, IR_EN, SE1_EN,\n	SR_CLR,	MAR_CLR, MDR_CLR, IR_CLR);\n\nendmodule\nmodule data_path(\n	output reg [31:0] IR_Out, \n	output reg MFC, \n	output reg [3:0] SR_Flags,\n	input MFA, RW_RAM, \n	input [1:0] DataSize,\n	input RF_CLR, RF_RW, \n	input [1:0] WRA, SRA, SRB, SALU, SISE, SALUB, \n	input [3:0] ALUA,	\n	input SSAB, SSOP, SMA, ISO, MAR_EN, SR_EN,\n	SE2_EN,	MDR_EN, SHIFTER_EN, IR_EN, SE1_EN,\n	SR_CLR,	MAR_CLR, MDR_CLR, IR_CLR);\nendmodule",
-			"file": "ARMSIM/test_data_path.v",
-			"file_size": 1096,
-			"file_write_time": 131042298033677432,
+			"file": "/C/Users/AbisaiRamosRodriguez/Downloads/theproject.v",
 			"settings":
 			{
-				"buffer_size": 1093,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "ARMSIM/test_ram_256.v",
-			"settings":
-			{
-				"buffer_size": 1839,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"contents": "module next_state_add_sel(output reg [1:0] M, input [2:0] NS, input Sts);\n	always @ (NS, Sts)\n	case(NS)\n		3'b000: M = 2'b00;	//encoder\n		3'b001: M = 2'b01;	//0\n		3'b010: M = 2'b10;	//pipeline\n		3'b011: M = 2'b11;	//incrementer\n		3'b100: \n			case(Sts)\n				0: M = 2'b00;	//encoder\n				1: M = 2'b10;	//pipeline\n			endcase\n		3'b101:\n			case(Sts)\n				0: M = 2'b11;	//incrementer\n				1: M = 2'b10;	//pipeline\n			endcase\n		3'b110:\n			case(Sts)\n				0: M = 2'b11;	//incrementer\n				1: M = 2'b00;	//encoder\n			endcase\n		3'b111: M = 2'b01;	//0\n	endcase\nendmodule",
-			"file": "ARMSIM/next_state_add_sel.v",
-			"file_size": 575,
-			"file_write_time": 131051493698039731,
-			"settings":
-			{
-				"buffer_size": 551,
-				"line_ending": "Windows",
-				"name": "//------------------------------------------------"
-			}
-		},
-		{
-			"file": "ARMSIM/branch_ext.v",
-			"settings":
-			{
-				"buffer_size": 379,
-				"line_ending": "Windows"
+				"buffer_size": 51189,
+				"line_ending": "Unix"
 			}
 		}
 	],
@@ -189,6 +227,12 @@
 	],
 	"file_history":
 	[
+		"/C/Development/ARMSIM/ARMSIM/Encoder.v",
+		"/C/Development/ARMSIM/ARMSIM/branch_ext.v",
+		"/C/Users/AbisaiRamosRodriguez/Desktop/DataPath.v",
+		"/C/Development/ARMSIM/ARMSIM/test_ram_256.v",
+		"/C/Development/ARMSIM/ARMSIM/next_state_add_sel.v",
+		"/C/Development/ARMSIM/ARMSIM/test_data_path.v",
 		"/C/Development/ARMSIM/ARMSIM/data_path.v",
 		"/C/Development/ARMSIM/ARMSIM/test_register_file.v",
 		"/C/Development/ARMSIM/ARMSIM/shifter.v",
@@ -202,7 +246,6 @@
 		"/C/Development/ARMSIM/ARMSIM/register_file.v",
 		"/C/Development/ARMSIM/ARMSIM/Branch_Ext.v",
 		"/C/Development/ARMSIM/ARMSIM/test_branch_ext.v",
-		"/C/Development/ARMSIM/ARMSIM/test_data_path.v",
 		"/C/Development/ARMSIM/ARMSIM/dataPath.v",
 		"/C/Development/ARMSIM/ARMSIM/amount_selector.v",
 		"/C/Development/ARMSIM/ARMSIM/test_amount_selector.v",
@@ -211,7 +254,6 @@
 		"/C/Development/ARMSIM/ARMSIM/Shifter.sv",
 		"/C/Development/ARMSIM/ARMSIM/test_mux_2x1.v",
 		"/C/Development/ARMSIM/ARMSIM/test_immediate_sign_ext.v",
-		"/C/Development/ARMSIM/ARMSIM/test_ram_256.v",
 		"/C/Development/ARMSIM/ARMSIM/ram_256.v",
 		"/C/Development/ARMSIM/ARMSIM/test_dec_4x16.v",
 		"/C/Users/Abisai/Desktop/ARMSIM/ARMSIM/decoder_4x16.v",
@@ -249,6 +291,12 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"2",
+			"word",
+			"RAM",
+			"IR<=32'b11100001111001100101101111011110;",
+			"counter",
+			"always",
 			"ns",
 			"sts",
 			"SE_EN",
@@ -286,6 +334,10 @@
 		"regex": false,
 		"replace_history":
 		[
+			"3",
+			"IR<=32'b111000001111001100101101111011110;",
+			"DSS",
+			"always@",
 			"NS",
 			"Sts",
 			"ISE_EN",
@@ -322,11 +374,156 @@
 	"groups":
 	[
 		{
-			"selected": 4,
+			"selected": 3,
 			"sheets":
 			[
 				{
 					"buffer": 0,
+					"file": "ARMSIM/data_size_selector.v",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1084,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								594,
+								594
+							]
+						],
+						"settings":
+						{
+							"auto_name": "module data_size_selector(output reg DataSize, inp",
+							"syntax": "Packages/Verilog/verilog.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "ARMSIM/next_state_add_sel.v",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 636,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								54,
+								54
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Verilog/verilog.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "ARMSIM/Pipeline_Register.v",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 216,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								215,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Verilog/verilog.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "ARMSIM/seven_bit_register.v",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 173,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								173,
+								173
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Verilog/verilog.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "ARMSIM/test_data_size_sel.v",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1471,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								315,
+								315
+							]
+						],
+						"settings":
+						{
+							"auto_name": "",
+							"syntax": "Packages/Verilog/verilog.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 45.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
 					"file": "ARMSIM/data_path.v",
 					"semi_transient": false,
 					"settings":
@@ -338,36 +535,37 @@
 						"selection":
 						[
 							[
-								290,
-								290
+								16,
+								16
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Verilog/SystemVerilog.tmLanguage",
+							"syntax": "Packages/Verilog/verilog.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 6,
 					"type": "text"
 				},
 				{
-					"buffer": 1,
+					"buffer": 6,
+					"file": "ARMSIM/compiling scripts",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 0,
+						"buffer_size": 1153,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								882,
+								846
 							]
 						],
 						"settings":
@@ -378,120 +576,33 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 7,
 					"type": "text"
 				},
 				{
-					"buffer": 2,
-					"file": "ARMSIM/test_data_path.v",
+					"buffer": 7,
+					"file": "/C/Users/AbisaiRamosRodriguez/Downloads/theproject.v",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1093,
+						"buffer_size": 51189,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								379,
-								379
+								41820,
+								41844
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Verilog/verilog.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": -0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "ARMSIM/test_ram_256.v",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1839,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								538,
-								538
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Verilog/verilog.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": -0.0,
-						"translation.y": 45.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "ARMSIM/next_state_add_sel.v",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 551,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								373,
-								373
-							]
-						],
-						"settings":
-						{
-							"auto_name": "//------------------------------------------------",
 							"syntax": "Packages/Verilog/verilog.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "ARMSIM/branch_ext.v",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 379,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Verilog/verilog.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 1502.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 5,
