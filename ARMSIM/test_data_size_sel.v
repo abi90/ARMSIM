@@ -19,12 +19,12 @@ module test_data_size_sel;
 			4'd0:
 			begin
 			IR<=32'b11100001111001100101101111011110;
-			DSS<=2'b00;
+			DSS=2'b00;
 			end
 			4'd1:
 			begin
 			IR<=32'b1110010101010110010100000_0_0_10100;
-			DSS<=2'b01;
+			DSS=2'b01;
 			end
 			4'd2:
 			begin
