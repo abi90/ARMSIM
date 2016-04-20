@@ -1,6 +1,6 @@
 //Encoder
 
-module encoder (output reg [6:0] encoder_OUT, input [31:0] irIN, input clk);
+module encoder (output reg [6:0] encoder_OUT, input [31:0] irIN);
 
 reg [31:0] tempIR_IN;
 
@@ -267,7 +267,7 @@ begin
 
 	begin
 	if (tempIR_IN == 31'h00000000)
-		encoder_OUT=6'b000000;
+		encoder_OUT=7'b0000000;
 	end
 end
 
