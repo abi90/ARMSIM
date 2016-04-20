@@ -68,6 +68,6 @@ module ram_256(output reg [31:0] DataOut, output reg MFC,
 				endcase
 			MFC = 1'b1;
 		end
-		else DataOut = 32'bz;
+		//else DataOut = 32'bz;
 	end
 endmodule
