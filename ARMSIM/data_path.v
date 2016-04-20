@@ -8,7 +8,7 @@ module data_path
 	SSOP, SMA, STA, MAR_EN, SR_EN,
 	MDR_EN, IR_EN, SHT_EN, ISE_EN, 
 	SGN_EN, CLR,
-	input [1:0] DataSize, WRA, SRA, SRB,  SISE, SALUB, 
+	input [1:0] DSS, WRA, SRA, SRB,  SISE, SALUB, 
 	input [3:0] ALUA	
 );
 
@@ -35,6 +35,7 @@ A;
 wire [31:0] marOut;
 wire [4:0] shifterAmountShift;
 wire tempMFC;
+wire [1:0] DataSize;
 
 always @ (*)
 begin
@@ -80,5 +81,7 @@ mux_4x1_4 addressB (addressBin, SRB, irOut[19:16],4'hf, irOut[15:12],irOut[3:0])
 register_file registerFile ( outA, outB, writeAddressIn, addressAin, addressBin, aluOut, RF_RW, CLR, CLK);
 
 ram_256 ram (memDataOut, tempMFC, MFA, RW_RAM, marOut[7:0], mdrOut, DataSize);
+
+data_size_selector dss(DataSize, irOut, DSS); 
 
 endmodule
