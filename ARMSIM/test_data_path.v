@@ -92,103 +92,26 @@ initial begin
 
 //INITIAL STATE: RESET/CLR
 	#50
-	I0 <= 45'b000011_00000000111100010000000000000000_0000000; 
+	I0 <= 45'b000011000000001111000000000000000000000000000; 
 	$display("RESET... DONE\n");
-	/*#10$display("Monitor content of Registers:\nIR= %b\nMDR= %b\nMUX= %b\nR0 = %h\nR1 = %h\nR2 = %h\nR3 = %h\nR4 = %h\nR5 = %h\nR6 = %h\nR7 = %h\nR8 = %h\nR9 = %h\nR10 = %h\nR11 = %h\nR12 = %h\nR13 = %h\nR14 = %h\nR15 = %h\n",
-		dp.instructionRegister.Q,
-		dp.memoryDataRegister.Q,
-		dp.ram.DataOut,
-		dp.registerFile.R0.Q, 
-		dp.registerFile.R1.Q, 
-		dp.registerFile.R2.Q, 
-		dp.registerFile.R3.Q, 
-		dp.registerFile.R4.Q, 
-		dp.registerFile.R5.Q, 
-		dp.registerFile.R6.Q, 
-		dp.registerFile.R7.Q, 
-		dp.registerFile.R8.Q, 
-		dp.registerFile.R9.Q, 
-		dp.registerFile.R10.Q, 
-		dp.registerFile.R11.Q, 
-		dp.registerFile.R12.Q, 
-		dp.registerFile.R13.Q, 
-		dp.registerFile.R14.Q, 
-		dp.registerFile.R15.Q);*/
+
 //FETCH: LOAD PC TO MAR		
 	#50
-	I0 <= 45'b000011000101000111000000000001001111010000000; 
+	I0 <= 45'b000011000101000111000100000001001111010000000;
 	$display("MAR<-PC\n");
-	/*#10$display("Monitor content of Registers:\nIR= %b\nMDR= %b\nMUX= %b\nR0 = %h\nR1 = %h\nR2 = %h\nR3 = %h\nR4 = %h\nR5 = %h\nR6 = %h\nR7 = %h\nR8 = %h\nR9 = %h\nR10 = %h\nR11 = %h\nR12 = %h\nR13 = %h\nR14 = %h\nR15 = %h\n",
-		dp.instructionRegister.Q,
-		dp.memoryDataRegister.Q,
-		dp.ram.DataOut,
-		dp.registerFile.R0.Q, 
-		dp.registerFile.R1.Q, 
-		dp.registerFile.R2.Q, 
-		dp.registerFile.R3.Q, 
-		dp.registerFile.R4.Q, 
-		dp.registerFile.R5.Q, 
-		dp.registerFile.R6.Q, 
-		dp.registerFile.R7.Q, 
-		dp.registerFile.R8.Q, 
-		dp.registerFile.R9.Q, 
-		dp.registerFile.R10.Q, 
-		dp.registerFile.R11.Q, 
-		dp.registerFile.R12.Q, 
-		dp.registerFile.R13.Q, 
-		dp.registerFile.R14.Q, 
-		dp.registerFile.R15.Q);*/
+
 //Read Instruction From RAM	
 	#50
-	I0 <= 45'b001101110000001111000010000000000000000000000;
-	/*#10$display("Monitor content of Registers:\nIR= %b\nMDR= %b\nMUX= %b\nR0 = %h\nR1 = %h\nR2 = %h\nR3 = %h\nR4 = %h\nR5 = %h\nR6 = %h\nR7 = %h\nR8 = %h\nR9 = %h\nR10 = %h\nR11 = %h\nR12 = %h\nR13 = %h\nR14 = %h\nR15 = %h\n",
-		dp.instructionRegister.Q,
-		dp.memoryDataRegister.Q,
-		dp.ram.DataOut,
-		dp.registerFile.R0.Q, 
-		dp.registerFile.R1.Q, 
-		dp.registerFile.R2.Q, 
-		dp.registerFile.R3.Q, 
-		dp.registerFile.R4.Q, 
-		dp.registerFile.R5.Q, 
-		dp.registerFile.R6.Q, 
-		dp.registerFile.R7.Q, 
-		dp.registerFile.R8.Q, 
-		dp.registerFile.R9.Q, 
-		dp.registerFile.R10.Q, 
-		dp.registerFile.R11.Q, 
-		dp.registerFile.R12.Q, 
-		dp.registerFile.R13.Q, 
-		dp.registerFile.R14.Q, 
-		dp.registerFile.R15.Q);*/ 
+	I0 <= 45'b001101110000001111000110000000000000000000000;
+
 //IR<-RAM_Data_Out	
 	#50
-	I0 <= 45'b000000000000101100000000000000000000000000000; 
+	I0 <= 45'b000000000000101100000100000000000000000000000;	 
 	        //000000000000101100000000000000000000000000000
 	#10$display("IR<- RAM_OUT... DONE\n");
-	/*#10$display("Monitor content of Registers:\nIR= %b\nMDR= %b\nMUX= %b\nR0 = %h\nR1 = %h\nR2 = %h\nR3 = %h\nR4 = %h\nR5 = %h\nR6 = %h\nR7 = %h\nR8 = %h\nR9 = %h\nR10 = %h\nR11 = %h\nR12 = %h\nR13 = %h\nR14 = %h\nR15 = %h\n",
-		dp.instructionRegister.Q,
-		dp.memoryDataRegister.Q,
-		dp.ram.DataOut,
-		dp.registerFile.R0.Q, 
-		dp.registerFile.R1.Q, 
-		dp.registerFile.R2.Q, 
-		dp.registerFile.R3.Q, 
-		dp.registerFile.R4.Q, 
-		dp.registerFile.R5.Q, 
-		dp.registerFile.R6.Q, 
-		dp.registerFile.R7.Q, 
-		dp.registerFile.R8.Q, 
-		dp.registerFile.R9.Q, 
-		dp.registerFile.R10.Q, 
-		dp.registerFile.R11.Q, 
-		dp.registerFile.R12.Q, 
-		dp.registerFile.R13.Q, 
-		dp.registerFile.R14.Q, 
-		dp.registerFile.R15.Q);
-*/
+
 #50
-I0<=45'b000010000000001111000000101000000101000000000;
+I0<=45'b000011000001000111000100000000001111010000000;
 end
 
 initial 
@@ -200,38 +123,17 @@ initial
 		end
 end
 
-/*initial begin
-	$display("Monitor content of Registers:\nIR= %b\nMDR= %b\nMUX= %b\nR0 = %h\nR1 = %h\nR2 = %h\nR3 = %h\nR4 = %h\nR5 = %h\nR6 = %h\nR7 = %h\nR8 = %h\nR9 = %h\nR10 = %h\nR11 = %h\nR12 = %h\nR13 = %h\nR14 = %h\nR15 = %h\n",
-		dp.instructionRegister.Q,
-		dp.memoryDataRegister.Q,
-		dp.ram.DataOut,
-		dp.registerFile.R0.Q, 
-		dp.registerFile.R1.Q, 
-		dp.registerFile.R2.Q, 
-		dp.registerFile.R3.Q, 
-		dp.registerFile.R4.Q, 
-		dp.registerFile.R5.Q, 
-		dp.registerFile.R6.Q, 
-		dp.registerFile.R7.Q, 
-		dp.registerFile.R8.Q, 
-		dp.registerFile.R9.Q, 
-		dp.registerFile.R10.Q, 
-		dp.registerFile.R11.Q, 
-		dp.registerFile.R12.Q, 
-		dp.registerFile.R13.Q, 
-		dp.registerFile.R14.Q, 
-		dp.registerFile.R15.Q);
-end*/
 initial begin
-	$monitor("CLK=%b Monitor content of Registers:\nIR= %b\nMDR= %b\nMUX= %b\nMAR = %h",
-		CLK,
-		dp.memoryDataRegister.Q,
-		//dp.instructionRegister.Q,
-		//dp.mdrOut,
-		dp.memoryDataRegister.D,
-		dp.signExtension1In,
-		dp.memoryDataRegister.LE
-		//dp.signExtension1.
-);
+	$monitor(
+			"Monitor content of Registers:\nIR_D= %b\nIR_Q= %b\nIR_EN= %b\nMdr_D= %b\nMdr_Q= %b\nMdr_EN= %b\nsignExtension1Out= %b\n",
+			//CLK,
+			dp.instructionRegister.D,
+			dp.instructionRegister.Q,
+			dp.instructionRegister.LE,
+			dp.memoryDataRegister.D,
+			dp.memoryDataRegister.Q,
+			dp.memoryDataRegister.LE,
+			dp.signExtension1Out
+			);
 end
 endmodule
