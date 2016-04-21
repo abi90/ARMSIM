@@ -20,37 +20,31 @@ wire [44:0] PL, RomOut;
 wire InvIn, Sts;
 wire [2:0] Mout;
 wire [6:0] EnOut, PsOut, IrOut, M8x1Out, IncrIn;
-wire _MFA, _RW_RAM, _SALU, _RF_RW, _SSAB, 
-	 _SSOP, _SMA, _STA, _MAR_EN, _SR_EN,
-	 _MDR_EN, _IR_EN, _SHT_EN, _ISE_EN, 
-	 _SGN_EN;
-wire [1:0] _DSS, _WRA, _SRA, _SRB,  _SISE, _SALUB;
-wire [3:0] _ALUA;
 always@(*)
 begin
-	DSS = _DSS;
-	WRA = _WRA;
-	SRA = _SRA;
-	SRB = _SRB  
-	SISE = _SISE;
-	SALUB = _SALUB;
-	ALUA = _ALUA;	
-	MFA = _MFA; 
-	RW_RAM = _RW_RAM;
-	SALU = _SALU;
-	RF_RW = _RF_RW;
-	SSAB = _SSAB;
-	SSOP = _SSOP;
-	SMA = _SMA;
-	STA = _STA;
-	MAR_EN = _MAR_EN; 
-	SR_EN = _SR_EN;
-	MDR_EN = _MDR_EN; 
-	IR_EN = _IR_EN;
-	SHT_EN = _SHT_EN;
-	ISE_EN = _ISE_EN; 
-	SGN_EN = _SGN_EN; 
-	CLR = _CLR;
+	DSS = PL[];
+	WRA = PL[];
+	SRA = PL[];
+	SRB = PL[]  
+	SISE = PL[];
+	SALUB = PL[];
+	ALUA = PL[];	
+	MFA = PL[]; 
+	RW_RAM = PL[];
+	SALU = PL[];
+	RF_RW = PL[];
+	SSAB = PL[];
+	SSOP = PL[];
+	SMA = PL[];
+	STA = PL[];
+	MAR_EN = PL[]; 
+	SR_EN = PL[];
+	MDR_EN = PL[]; 
+	IR_EN = PL[];
+	SHT_EN = PL[];
+	ISE_EN = PL[]; 
+	SGN_EN = PL[]; 
+	CLR = PL[];
 end
 
 

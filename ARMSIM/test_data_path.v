@@ -12,10 +12,22 @@ reg [7:0] temp_addr;
 	wire MFC; 
 	wire [3:0] Flags;
 	reg CLK, 
-	MFA, RW_RAM, SALU, RF_RW, SSAB, 
-	SSOP, SMA, STA, MAR_EN, SR_EN,
-	MDR_EN, IR_EN, SHT_EN, ISE_EN, 
-	SGN_EN, CLR;
+	MFA, 
+	RW_RAM, 
+	SALU, 
+	RF_RW, 
+	SSAB, 
+	SSOP, 
+	SMA, 
+	STA, 
+	MAR_EN, 
+	SR_EN,
+	MDR_EN, 
+	IR_EN, 
+	SHT_EN, 
+	ISE_EN, 
+	SGN_EN, 
+	CLR;
 	reg [1:0] DSS, WRA, SRA, SRB,  SISE, SALUB;
 	reg [3:0] ALUA;	
 
@@ -152,8 +164,9 @@ initial begin
 //IR<-RAM_Data_Out	
 	#50
 	I0 <= 45'b000000000000101100000000000000000000000000000; 
-	/*#10$display("IR<- RAM_OUT... DONE\n");
-	#10$display("Monitor content of Registers:\nIR= %b\nMDR= %b\nMUX= %b\nR0 = %h\nR1 = %h\nR2 = %h\nR3 = %h\nR4 = %h\nR5 = %h\nR6 = %h\nR7 = %h\nR8 = %h\nR9 = %h\nR10 = %h\nR11 = %h\nR12 = %h\nR13 = %h\nR14 = %h\nR15 = %h\n",
+	        //000000000000101100000000000000000000000000000
+	#10$display("IR<- RAM_OUT... DONE\n");
+	/*#10$display("Monitor content of Registers:\nIR= %b\nMDR= %b\nMUX= %b\nR0 = %h\nR1 = %h\nR2 = %h\nR3 = %h\nR4 = %h\nR5 = %h\nR6 = %h\nR7 = %h\nR8 = %h\nR9 = %h\nR10 = %h\nR11 = %h\nR12 = %h\nR13 = %h\nR14 = %h\nR15 = %h\n",
 		dp.instructionRegister.Q,
 		dp.memoryDataRegister.Q,
 		dp.ram.DataOut,
@@ -174,6 +187,8 @@ initial begin
 		dp.registerFile.R14.Q, 
 		dp.registerFile.R15.Q);
 */
+#50
+I0<=45'b000010000000001111000000101000000101000000000;
 end
 
 initial 
@@ -208,12 +223,15 @@ end
 		dp.registerFile.R15.Q);
 end*/
 initial begin
-	$monitor("CLK = %b Monitor content of Registers:\nIR= %b\nMDR= %b\nMUX= %b\nMAR = %h",
+	$monitor("CLK=%b Monitor content of Registers:\nIR= %b\nMDR= %b\nMUX= %b\nMAR = %h",
 		CLK,
-		dp.instructionRegister.Q,
 		dp.memoryDataRegister.Q,
-		dp.ram.DataOut,
-		dp.memoryAddressRegister.Q
+		//dp.instructionRegister.Q,
+		//dp.mdrOut,
+		dp.memoryDataRegister.D,
+		dp.signExtension1In,
+		dp.memoryDataRegister.LE
+		//dp.signExtension1.
 );
 end
 endmodule
