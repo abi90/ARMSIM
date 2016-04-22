@@ -18,3 +18,5 @@ iverilog -o out amount_selector.v test_amount_selector.v
 iverilog -o out data_size_selector.v
 //Compiling data_path
 iverilog -o out alu_arm.v amount_selector.v branch_ext.v decoder_4x16.v immediate_sign_extension.v inverter.v mux_2x1.v mux_2x1_4.v mux_4x1.v mux_4x1_4.v mux_16x1.v ram_256.v register_32_bits.v register_file.v shifter.v sign_extension.v data_size_selector.v data_path.v test_data_path.v
+//Compiling Encoder
+iverilog -o out encoder.v test_encoder.v
