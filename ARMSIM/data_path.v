@@ -1,3 +1,6 @@
+///////////
+//Data Path
+///////////
 module data_path
 (
 	output reg [31:0] IR_Out, 

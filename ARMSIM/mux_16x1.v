@@ -1,3 +1,6 @@
+//////////
+//Mux 16x1
+//////////
 module mux_16x1 (output reg [31:0] Y, input [3:0]S, input [31:0] I0, I1, I2, I3, I4, I5, I6, I7, I8, I9, I10, I11, I12, I13, I14, I15);
 	always @ (S, I0, I1, I2, I3, I4, I5, I6, I7, I8, I9, I10, I11, I12, I13, I14, I15)
 	case (S)

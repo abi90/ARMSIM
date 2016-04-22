@@ -1,3 +1,6 @@
+///////////////
+//Register File
+///////////////
 module register_file(output [31:0] outA, outB, input [3:0] writeAddress, addressA, addressB, input [31:0] inputData, input RW, CLR, CLK);
 
 	// outA, outB son las salidas de los MUX

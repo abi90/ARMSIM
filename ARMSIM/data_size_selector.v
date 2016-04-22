@@ -1,3 +1,6 @@
+////////////////////
+//Data Size Selector
+////////////////////
 module data_size_selector(output reg [1:0] DataSize, input [31:0] IR, input [1:0] DSS);
 	parameter WORD = 2'b10;
 	wire [1:0] misc_sel_out, reg_sel_out;

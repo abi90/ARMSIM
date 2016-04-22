@@ -1,3 +1,6 @@
+//////////////////////////
+//Immediate Sign Extension
+//////////////////////////
 module immediate_sign_extension(output reg [31:0] Out, input [31:0] In, input EN, input [1:0] SISE);
 always@(*)	
 begin

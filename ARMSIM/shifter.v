@@ -1,3 +1,6 @@
+//////////
+//Shifter
+/////////
 module shifter(output reg [31:0] Out, output reg Cout, input [31:0] Operand, input [4:0] Amount, input CIn, EN, STA, input [1:0] IR);
 	
 reg [31:0] tempNum;
@@ -20,7 +23,6 @@ begin
 
 		if (STA)
 		begin
-
 			for(i = 0; i < tempNum; i = i+1)
 				begin
 					temp = tempData;

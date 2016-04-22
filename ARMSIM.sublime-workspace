@@ -4,6 +4,14 @@
 		"selected_items":
 		[
 			[
+				"enc",
+				"encOut"
+			],
+			[
+				"enco",
+				"encoder_OUT"
+			],
+			[
 				"c",
 				"condOut"
 			],
@@ -156,44 +164,28 @@
 	"buffers":
 	[
 		{
-			"file": "ARMSIM/condition_check.v",
+			"file": "ARMSIM/encoder.v",
 			"settings":
 			{
-				"buffer_size": 2364,
+				"buffer_size": 7234,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "ARMSIM/control_unit.v",
+			"file": "ARMSIM/test_encoder.v",
 			"settings":
 			{
-				"buffer_size": 1067,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "ARMSIM/next_state_add_sel.v",
-			"settings":
-			{
-				"buffer_size": 636,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "ARMSIM/Encoder.v",
-			"settings":
-			{
-				"buffer_size": 5060,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "ARMSIM/Encoder States",
-			"settings":
-			{
-				"buffer_size": 153,
+				"buffer_size": 6551,
 				"line_ending": "Windows",
-				"name": "4"
+				"name": "module test_encoder;"
+			}
+		},
+		{
+			"file": "ARMSIM/compiling scripts",
+			"settings":
+			{
+				"buffer_size": 1191,
+				"line_ending": "Windows"
 			}
 		}
 	],
@@ -240,48 +232,60 @@
 	],
 	"file_history":
 	[
+		"/C/Users/AbisaiRamosRodriguez/Downloads/ARM SIM State Table - Encoder Fix.csv",
+		"/C/Development/ARMSIM/ARMSIM/control_unit.v",
+		"/C/Development/ARMSIM/ARMSIM/pipeline_register.v",
+		"/C/Development/ARMSIM/ARMSIM/sign_extension.v",
+		"/C/Development/ARMSIM/ARMSIM/shifter.v",
+		"/C/Development/ARMSIM/ARMSIM/seven_bit_register.v",
+		"/C/Development/ARMSIM/ARMSIM/rom.v",
+		"/C/Development/ARMSIM/ARMSIM/register_file.v",
+		"/C/Development/ARMSIM/ARMSIM/register_32_bits.v",
+		"/C/Development/ARMSIM/ARMSIM/ram_256.v",
+		"/C/Development/ARMSIM/ARMSIM/next_state_add_sel.v",
+		"/C/Development/ARMSIM/ARMSIM/mux_4x1_4.v",
+		"/C/Development/ARMSIM/ARMSIM/mux_8x1_7_bits.v",
+		"/C/Development/ARMSIM/ARMSIM/mux_4x1_cu.v",
+		"/C/Development/ARMSIM/ARMSIM/mux_4x1.v",
 		"/C/Development/ARMSIM/ARMSIM/mux_2x1_7_bits.v",
-		"/C/Development/ARMSIM/ARMSIM/test_data_path.v",
-		"/C/Development/ARMSIM/ARMSIM/alu_arm.v",
-		"/C/Development/ARMSIM/ARMSIM/data_path.v",
+		"/C/Development/ARMSIM/ARMSIM/mux_2x1_4.v",
+		"/C/Development/ARMSIM/ARMSIM/mux_2x1.v",
+		"/C/Development/ARMSIM/ARMSIM/mux_16x1.v",
+		"/C/Development/ARMSIM/ARMSIM/inverter.v",
 		"/C/Development/ARMSIM/ARMSIM/incrementor.v",
-		"/C/Development/ARMSIM/ARMSIM/test_register_32_bits.v",
+		"/C/Development/ARMSIM/ARMSIM/immediate_sign_extension.v",
+		"/C/Development/ARMSIM/ARMSIM/encoder.v",
+		"/C/Development/ARMSIM/ARMSIM/decoder_4x16.v",
+		"/C/Development/ARMSIM/ARMSIM/data_size_selector.v",
+		"/C/Development/ARMSIM/ARMSIM/data_path.v",
 		"/C/Development/ARMSIM/ARMSIM/condition_check.v",
+		"/C/Development/ARMSIM/ARMSIM/branch_ext.v",
+		"/C/Development/ARMSIM/ARMSIM/amount_selector.v",
+		"/C/Development/ARMSIM/ARMSIM/alu_arm.v",
+		"/C/Development/ARMSIM/ARMSIM/Encoder.v",
+		"/C/Development/ARMSIM/ARMSIM/Encoder States",
+		"/C/Development/ARMSIM/ARMSIM/test_data_path.v",
+		"/C/Development/ARMSIM/ARMSIM/test_register_32_bits.v",
 		"/C/Users/AbisaiRamosRodriguez/Downloads/theproject.v",
 		"/C/Development/ARMSIM/ARMSIM/compiling scripts",
-		"/C/Development/ARMSIM/ARMSIM/control_unit.v",
 		"/C/Development/ARMSIM/ARMSIM/test_control_unit.v",
-		"/C/Development/ARMSIM/ARMSIM/rom.v",
-		"/C/Development/ARMSIM/ARMSIM/register_32_bits.v",
 		"/C/Users/AbisaiRamosRodriguez/Downloads/codeProject.txt",
 		"/C/Development/ARMSIM/ARMSIM/test_sign_extension.v",
-		"/C/Development/ARMSIM/ARMSIM/ram_256.v",
 		"/C/Development/ARMSIM/ARMSIM/test_mux_2x1.v",
 		"/C/Development/ARMSIM/ARMSIM/Pipeline_Register.v",
-		"/C/Development/ARMSIM/ARMSIM/mux_2x1.v",
-		"/C/Development/ARMSIM/ARMSIM/data_size_selector.v",
-		"/C/Development/ARMSIM/ARMSIM/next_state_add_sel.v",
-		"/C/Development/ARMSIM/ARMSIM/seven_bit_register.v",
 		"/C/Development/ARMSIM/ARMSIM/test_data_size_sel.v",
 		"/C/Development/ARMSIM/ARMSIM/test_data.txt",
-		"/C/Development/ARMSIM/ARMSIM/Encoder.v",
-		"/C/Development/ARMSIM/ARMSIM/branch_ext.v",
 		"/C/Users/AbisaiRamosRodriguez/Desktop/DataPath.v",
 		"/C/Development/ARMSIM/ARMSIM/test_ram_256.v",
 		"/C/Development/ARMSIM/ARMSIM/test_register_file.v",
-		"/C/Development/ARMSIM/ARMSIM/shifter.v",
-		"/C/Development/ARMSIM/ARMSIM/sign_extension.v",
 		"/C/Development/ARMSIM/ARMSIM/test_signExtension.v",
 		"/C/Development/ARMSIM/ARMSIM/signExtension.v",
 		"/C/Development/ARMSIM/ARMSIM/shifter.sv",
-		"/C/Development/ARMSIM/ARMSIM/register_file.v",
 		"/C/Development/ARMSIM/ARMSIM/Branch_Ext.v",
 		"/C/Development/ARMSIM/ARMSIM/test_branch_ext.v",
 		"/C/Development/ARMSIM/ARMSIM/dataPath.v",
-		"/C/Development/ARMSIM/ARMSIM/amount_selector.v",
 		"/C/Development/ARMSIM/ARMSIM/test_amount_selector.v",
 		"/C/Development/ARMSIM/ARMSIM/test_mux_4x1.v",
-		"/C/Development/ARMSIM/ARMSIM/immediate_sign_extension.v",
 		"/C/Development/ARMSIM/ARMSIM/Shifter.sv",
 		"/C/Development/ARMSIM/ARMSIM/test_immediate_sign_ext.v",
 		"/C/Development/ARMSIM/ARMSIM/test_dec_4x16.v",
@@ -306,7 +310,7 @@
 	],
 	"find":
 	{
-		"height": 34.0
+		"height": 22.0
 	},
 	"find_in_files":
 	{
@@ -320,6 +324,16 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"(I",
+			"B",
+			"=%b I",
+			"B",
+			"b'",
+			"if(tempIR_IN[24]==0)",
+			"1'b1,1'b1",
+			"0111101",
+			"b0111110",
+			"0111110",
 			"IncrIn",
 			"IrOut",
 			"monitor",
@@ -373,6 +387,14 @@
 		"regex": false,
 		"replace_history":
 		[
+			"(\"I",
+			"x",
+			"=%b\", I",
+			"=%b\" I",
+			"x",
+			"'b",
+			"if(tempIR_IN[23]==0)",
+			"tempIR_IN[7],tempIR_IN[4]",
 			"IncrOut",
 			"IncRegOut",
 			"display",
@@ -422,24 +444,24 @@
 	"groups":
 	[
 		{
-			"selected": 4,
+			"selected": 0,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "ARMSIM/condition_check.v",
+					"file": "ARMSIM/encoder.v",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2364,
+						"buffer_size": 7234,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								896,
-								896
+								44,
+								44
 							]
 						],
 						"settings":
@@ -448,61 +470,61 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 3150.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "ARMSIM/control_unit.v",
+					"file": "ARMSIM/test_encoder.v",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1067,
+						"buffer_size": 6551,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								359,
-								359
+								75,
+								75
 							]
 						],
 						"settings":
 						{
+							"auto_name": "module test_encoder;",
 							"syntax": "Packages/Verilog/verilog.tmLanguage"
 						},
-						"translation.x": -0.0,
+						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
 					"buffer": 2,
-					"file": "ARMSIM/next_state_add_sel.v",
+					"file": "ARMSIM/compiling scripts",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 636,
+						"buffer_size": 1191,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								356,
-								384
+								58,
+								27
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Verilog/verilog.tmLanguage",
-							"translate_tabs_to_spaces": false
+							"syntax": "Packages/Text/Plain text.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -510,71 +532,13 @@
 					},
 					"stack_index": 2,
 					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "ARMSIM/Encoder.v",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 5060,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3691,
-								3697
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Verilog/verilog.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 2445.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "ARMSIM/Encoder States",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 153,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								152,
-								0
-							]
-						],
-						"settings":
-						{
-							"auto_name": "4",
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
 				}
 			]
 		}
 	],
 	"incremental_find":
 	{
-		"height": 21.0
+		"height": 22.0
 	},
 	"input":
 	{
@@ -649,7 +613,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 256.0,
+	"side_bar_width": 285.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

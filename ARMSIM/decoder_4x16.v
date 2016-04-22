@@ -1,3 +1,6 @@
+//////////////
+//Decoder 4x16
+//////////////
 module decoder_4x16(output [15:0] Y, input [3:0] I, input enable);
 and (Y[0], ~I[3], ~I[2], ~I[1], ~I[0], enable);
 and (Y[1], ~I[3], ~I[2], ~I[1],  I[0], enable);

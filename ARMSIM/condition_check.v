@@ -1,4 +1,5 @@
 /*
+Condition Check:
 0000 EQ Equal Z set
 0001 NE Not equal Z clear
 0010 CS/HS Carry set/unsigned higher or same C set

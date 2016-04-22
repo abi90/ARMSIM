@@ -39,9 +39,9 @@ seven_bit_register IncrementalRegister ( IncRegOut, IncrOut, CLK);
 
 mux_2x1_7_bits mux_2x1(RomIN, Reset, 7'b0000000, M8x1Out);
 
-Microstore_ROM rom (RomOut, RomIN);
+microstore_rom rom (RomOut, RomIN);
 
-PipelineRegister pipelineregister (PL, RomOut, CLK);
+pipeline_register pipelineRegister (PL, RomOut, CLK);
 
 endmodule
 

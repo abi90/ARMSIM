@@ -1,3 +1,6 @@
+/////////////////////////////
+//Next State Address Selector
+/////////////////////////////
 module next_state_add_sel(output reg [2:0] M, input [2:0] NS, input Sts);
 	always @ (NS, Sts)
 	case(NS)

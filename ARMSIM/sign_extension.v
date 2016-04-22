@@ -1,4 +1,13 @@
+///////////////////////
 //Sign Extension Module
+///////////////////////
+module sign_extension 
+(	
+	output reg [31:0] Out, 
+	input [31:0] In, 
+	input [1:0] dataSize, 
+	input E
+);
 // Out - Inata Output
 // In- Inata at input
 //Inata size determines the type of extension
@@ -8,15 +17,6 @@
 // 11 - double word
 // E - Enable
 // CLR - Clear
-
-module sign_extension 
-(	
-	output reg [31:0] Out, 
-	input [31:0] In, 
-	input [1:0] dataSize, 
-	input E
-);
-
 	parameter BYTE = 2'b00;
 	parameter HALF = 2'b01;
 	parameter WORIn = 2'b10;
