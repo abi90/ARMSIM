@@ -5,14 +5,11 @@ module encoder(output reg [6:0] encoder_OUT, input [31:0] irIN);
 
 reg [31:0] tempIR_IN;
 
-initial begin
-
-assign tempIR_IN = irIN;
-
-end
-
 always @ (irIN)
 begin
+
+ 	tempIR_IN = irIN;
+
 	case (tempIR_IN[27:25])
 		3'b000:
 		begin
@@ -162,14 +159,13 @@ begin
 						begin
 
 							if(tempIR_IN[23]==0) encoder_OUT= 7'b0001000;
-							else encoder_OUT = 7'b0001010
+							else encoder_OUT = 7'b0001010;
 						end
 						else
 						begin
 							//Unsigned Store Immediate Post Indexed
 							if ({tempIR_IN[24],tempIR_IN[21],tempIR_IN[20]}== 3'b000)
 							begin
-
 								if(tempIR_IN[23]==0) encoder_OUT= 7'b0000100;
 								else encoder_OUT = 7'b0000110;
 							end
