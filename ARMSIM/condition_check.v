@@ -19,12 +19,10 @@ Condition Check:
 */
 module condition_check (output reg Out, input [3:0] Flags, input[31:0] IR);
 
-reg condition = IR[31:28];
-
-reg C = Flags[3];
-reg N = Flags[2];
-reg V = Flags[1];
-reg Z = Flags[0];
+reg C;
+reg N;
+reg V;
+reg Z;
 
 parameter EQ =4'b0000;
 parameter NE =4'b0001;
@@ -42,10 +40,13 @@ parameter GT =4'b1100;
 parameter LE =4'b1101;
 parameter AL =4'b1110;
 
-always@(*)
+always@(IR[31:28],Flags)
 begin
-	case(condition)
-	begin
+	 C = Flags[3];
+	 N = Flags[2];
+	 V = Flags[1];
+	 Z = Flags[0];
+	case(IR[31:28])
 		EQ: // Z==1
 		begin
 			if(Z) Out =1;

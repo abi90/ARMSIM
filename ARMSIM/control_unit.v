@@ -3,20 +3,20 @@
 ///////////////////////
 module control_unit
 (
-	output [31:0] ControlSignals,
+	output reg [31:0] ControlSignals,
 	input [31:0] IR_Out, 
 	input MFC, CLK, Reset,
-	input [2:0] Flags	
+	input [3:0] Flags	
 );
 
 wire [44:0] PL, RomOut;
 wire InvIn, Sts, condOut;
 wire [2:0] Mout;
-wire [6:0] EnOut, PsOut, IncRegOut, M8x1Out, IncrOut;
+wire [6:0] EnOut, PsOut, IncRegOut, M8x1Out, IncrOut,RomIN;
 
 always@(*)
 begin
-	ControlSignals <= PL[38:7]
+	ControlSignals <= PL[38:7];
 end
 
 condition_check checker(condOut,Flags,IR_Out);
