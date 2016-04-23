@@ -96,13 +96,13 @@ initial begin
 
 #50
 I0<=45'b000010000000001111000100010100000101000000001;								
-#10$monitor("CLK= %b R15=%b WRA %b\n ", CLK,dp.registerFile.R15.Q, dp.registerFile.CLR);
+//#10$monitor("CLK= %b R15=%b WRA %b\n ", CLK,dp.registerFile.R15.Q, dp.registerFile.CLR);
 end
 
 initial 
 	begin
 		CLK = 0;
-		#1 repeat (1500) 
+		#1 repeat (300) 
 		begin
 			#1 CLK = ~CLK;
 		end
@@ -110,7 +110,7 @@ end
 
 initial begin
 	$monitor(
-			"Monitor content of Registers:\nIR_D= %b\nIR_Q= %b\nIR_EN= %b\nMdr_D= %b\nMdr_Q= %b\nMdr_EN= %b\nsignExtension1Out= %b\n",
+			" Monitor content of Registers:\nIR_D= %b\nIR_Q= %b\nIR_EN= %b\nMdr_D= %b\nMdr_Q= %b\nMdr_EN= %b\nsignExtension1Out= %b\n",
 			//CLK,
 			dp.instructionRegister.D,
 			dp.instructionRegister.Q,

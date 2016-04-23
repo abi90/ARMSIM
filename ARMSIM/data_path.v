@@ -47,7 +47,7 @@ begin
 	MFC = tempMFC;
 end
 
-register_32_bits  instructionRegister (irOut, mdrOut, IR_EN, CLR, CLK);
+register_32_bits  instructionRegister (irOut, memDataOut, IR_EN, CLR, CLK);
 
 register_32_bits memoryDataRegister (mdrOut, signExtension1Out, MDR_EN, CLR, CLK );
 

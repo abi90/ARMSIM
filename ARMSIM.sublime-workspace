@@ -164,28 +164,70 @@
 	"buffers":
 	[
 		{
-			"file": "ARMSIM/encoder.v",
-			"settings":
-			{
-				"buffer_size": 7234,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "ARMSIM/test_encoder.v",
-			"settings":
-			{
-				"buffer_size": 6551,
-				"line_ending": "Windows",
-				"name": "module test_encoder;"
-			}
-		},
-		{
 			"file": "ARMSIM/compiling scripts",
 			"settings":
 			{
-				"buffer_size": 1191,
+				"buffer_size": 2064,
 				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "ARMSIM/microstore_rom.v",
+			"settings":
+			{
+				"buffer_size": 6768,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "ARMSIM/test_data_path.v",
+			"settings":
+			{
+				"buffer_size": 2772,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "ARMSIM/data_path.v",
+			"settings":
+			{
+				"buffer_size": 2377,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "ARMSIM/microprocessor.v",
+			"settings":
+			{
+				"buffer_size": 2130,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "ARMSIM/ram_256.v",
+			"settings":
+			{
+				"buffer_size": 2186,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"contents": "///////////////\n//Register File\n///////////////\nmodule register_file(output [31:0] outA, outB, input [3:0] writeAddress, addressA, addressB, input [31:0] inputData, input RW, CLR, CLK);\n\n	// outA, outB son las salidas de los MUX\n	// writeAddress es la direccion donde se va a escribir\n	// addressA es la direccion donde se va a leer para poner info en outA\n	// addressB es la direccion donde se va a leer para poner info en outB\n	// inputData es la informacion que se va a escribir\n	// RW es la se~al que determina si vamos a leer=1/escribir=0\n	// CLR es para borrar registro; clear=0/notClear=1\n	// CLK	se~al positive edge triggered\n\n	wire [15:0] registerEnable;\n\n	wire [31:0] inputDataTemp;\n	wire [31:0] outR0, outR1, outR2, outR3,outR4,outR5,outR6,outR7,outR8,outR9,outR10,outR11,outR12,outR13,outR14,outR15, outR15Temp;\n	always @ (writeAddress, addressA, addressB, inputData, RW, CLR, CLK);\n	//Determine registerEnable\n	decoder_4x16 decoder (registerEnable, writeAddress, ~RW);\n	//Write to Register Bank \n	register_32_bits R0  (outR0,  inputData, ~registerEnable[0],  CLR, CLK);\n	register_32_bits R1  (outR1,  inputData, ~registerEnable[1],  CLR, CLK);\n	register_32_bits R2  (outR2,  inputData, ~registerEnable[2],  CLR, CLK);\n	register_32_bits R3  (outR3,  inputData, ~registerEnable[3],  CLR, CLK);\n	register_32_bits R4  (outR4,  inputData, ~registerEnable[4],  CLR, CLK);\n	register_32_bits R5  (outR5,  inputData, ~registerEnable[5],  CLR, CLK);\n	register_32_bits R6  (outR6,  inputData, ~registerEnable[6],  CLR, CLK);\n	register_32_bits R7  (outR7,  inputData, ~registerEnable[7],  CLR, CLK);\n	register_32_bits R8  (outR8,  inputData, ~registerEnable[8],  CLR, CLK);\n	register_32_bits R9  (outR9,  inputData, ~registerEnable[9],  CLR, CLK);\n	register_32_bits R10 (outR10, inputData, ~registerEnable[10], CLR, CLK);\n	register_32_bits R11 (outR11, inputData, ~registerEnable[11], CLR, CLK);\n	register_32_bits R12 (outR12, inputData, ~registerEnable[12], CLR, CLK);\n	register_32_bits R13 (outR13, inputData, ~registerEnable[13], CLR, CLK);\n	register_32_bits R14 (outR14, inputData, ~registerEnable[14], CLR, CLK);\n	register_32_bits R15 (outR15, inputData, ~registerEnable[15], CLR, CLK);\n\n	/*//Making the two least significant bits 0 for PC register.\n	assign inputDataTemp = inputData & 32'hffffffff ;\n	//inputDataTemp = (inputDataTemp & 32'hfffffffc);\n	//register_32_bits R15 (outR15, inputDataTemp, ~registerEnable[15], CLR, CLK);\n	assign outR15Temp= outR15 + 32'h00000008;*/\n\n	//Select outA/B\n	mux_16x1 muxA (outA, addressA, outR0, outR1, outR2, outR3, outR4, outR5, outR6, outR7, outR8, outR9, outR10, outR11, outR12, outR13, outR14, outR15);\n\n	mux_16x1 muxB (outB, addressB, outR0, outR1, outR2, outR3, outR4, outR5, outR6, outR7, outR8, outR9, outR10, outR11, outR12, outR13, outR14, outR15);\n	\nendmodule",
+			"file": "ARMSIM/register_file.v",
+			"file_size": 2861,
+			"file_write_time": 131058578231238307,
+			"settings":
+			{
+				"buffer_size": 2815,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/C/Users/AbisaiRamosRodriguez/Downloads/theproject.v",
+			"settings":
+			{
+				"buffer_size": 51189,
+				"line_ending": "Unix"
 			}
 		}
 	],
@@ -232,33 +274,46 @@
 	],
 	"file_history":
 	[
-		"/C/Users/AbisaiRamosRodriguez/Downloads/ARM SIM State Table - Encoder Fix.csv",
+		"/C/Development/ARMSIM/ARMSIM/register_32_bits.v",
+		"/C/Development/ARMSIM/ARMSIM/test_encoder.v",
+		"/C/Development/ARMSIM/ARMSIM/encoder.v",
+		"/C/Development/ARMSIM/ARMSIM/incrementor.v",
+		"/C/Development/ARMSIM/ARMSIM/inverter.v",
+		"/C/Development/ARMSIM/ARMSIM/ram_256.v",
+		"/C/Development/ARMSIM/ARMSIM/condition_check.v",
+		"/C/Development/ARMSIM/ARMSIM/mux_4x1_cu.v",
 		"/C/Development/ARMSIM/ARMSIM/control_unit.v",
+		"/C/Development/ARMSIM/ARMSIM/test_cu.v",
+		"/C/Development/ARMSIM/ARMSIM/microstore_rom.v",
+		"/C/Development/ARMSIM/ARMSIM/test_inv2.v",
+		"/C/Development/ARMSIM/ARMSIM/microprocessor.v",
+		"/C/Development/ARMSIM/ARMSIM/register_file.v",
+		"/C/Users/AbisaiRamosRodriguez/Downloads/theproject.v",
+		"/C/Development/ARMSIM/ARMSIM/test_encoder2.v",
+		"/C/Development/ARMSIM/ARMSIM/test_rom2.v",
+		"/C/Development/ARMSIM/ARMSIM/compiling scripts",
+		"/C/Development/ARMSIM/ARMSIM/test_data.txt",
+		"/C/Development/ARMSIM/ARMSIM/data_path.v",
+		"/C/Development/ARMSIM/ARMSIM/rom.v",
+		"/C/Users/AbisaiRamosRodriguez/Downloads/testcode_arm1.txt",
+		"/C/Development/ARMSIM/ARMSIM/test_control_unit.v",
+		"/C/Development/ARMSIM/ARMSIM/test_code.csv",
+		"/C/Users/AbisaiRamosRodriguez/Downloads/ARM SIM State Table - Encoder Fix.csv",
 		"/C/Development/ARMSIM/ARMSIM/pipeline_register.v",
 		"/C/Development/ARMSIM/ARMSIM/sign_extension.v",
 		"/C/Development/ARMSIM/ARMSIM/shifter.v",
 		"/C/Development/ARMSIM/ARMSIM/seven_bit_register.v",
-		"/C/Development/ARMSIM/ARMSIM/rom.v",
-		"/C/Development/ARMSIM/ARMSIM/register_file.v",
-		"/C/Development/ARMSIM/ARMSIM/register_32_bits.v",
-		"/C/Development/ARMSIM/ARMSIM/ram_256.v",
 		"/C/Development/ARMSIM/ARMSIM/next_state_add_sel.v",
 		"/C/Development/ARMSIM/ARMSIM/mux_4x1_4.v",
 		"/C/Development/ARMSIM/ARMSIM/mux_8x1_7_bits.v",
-		"/C/Development/ARMSIM/ARMSIM/mux_4x1_cu.v",
 		"/C/Development/ARMSIM/ARMSIM/mux_4x1.v",
 		"/C/Development/ARMSIM/ARMSIM/mux_2x1_7_bits.v",
 		"/C/Development/ARMSIM/ARMSIM/mux_2x1_4.v",
 		"/C/Development/ARMSIM/ARMSIM/mux_2x1.v",
 		"/C/Development/ARMSIM/ARMSIM/mux_16x1.v",
-		"/C/Development/ARMSIM/ARMSIM/inverter.v",
-		"/C/Development/ARMSIM/ARMSIM/incrementor.v",
 		"/C/Development/ARMSIM/ARMSIM/immediate_sign_extension.v",
-		"/C/Development/ARMSIM/ARMSIM/encoder.v",
 		"/C/Development/ARMSIM/ARMSIM/decoder_4x16.v",
 		"/C/Development/ARMSIM/ARMSIM/data_size_selector.v",
-		"/C/Development/ARMSIM/ARMSIM/data_path.v",
-		"/C/Development/ARMSIM/ARMSIM/condition_check.v",
 		"/C/Development/ARMSIM/ARMSIM/branch_ext.v",
 		"/C/Development/ARMSIM/ARMSIM/amount_selector.v",
 		"/C/Development/ARMSIM/ARMSIM/alu_arm.v",
@@ -266,15 +321,11 @@
 		"/C/Development/ARMSIM/ARMSIM/Encoder States",
 		"/C/Development/ARMSIM/ARMSIM/test_data_path.v",
 		"/C/Development/ARMSIM/ARMSIM/test_register_32_bits.v",
-		"/C/Users/AbisaiRamosRodriguez/Downloads/theproject.v",
-		"/C/Development/ARMSIM/ARMSIM/compiling scripts",
-		"/C/Development/ARMSIM/ARMSIM/test_control_unit.v",
 		"/C/Users/AbisaiRamosRodriguez/Downloads/codeProject.txt",
 		"/C/Development/ARMSIM/ARMSIM/test_sign_extension.v",
 		"/C/Development/ARMSIM/ARMSIM/test_mux_2x1.v",
 		"/C/Development/ARMSIM/ARMSIM/Pipeline_Register.v",
 		"/C/Development/ARMSIM/ARMSIM/test_data_size_sel.v",
-		"/C/Development/ARMSIM/ARMSIM/test_data.txt",
 		"/C/Users/AbisaiRamosRodriguez/Desktop/DataPath.v",
 		"/C/Development/ARMSIM/ARMSIM/test_ram_256.v",
 		"/C/Development/ARMSIM/ARMSIM/test_register_file.v",
@@ -310,7 +361,7 @@
 	],
 	"find":
 	{
-		"height": 22.0
+		"height": 34.0
 	},
 	"find_in_files":
 	{
@@ -324,6 +375,40 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"ramdummyreadfile",
+			"0101101",
+			"%d",
+			"B",
+			"if(tempIR_IN[23]==0) encoder_OUT = 7'b0101101;\n						else encoder_OUT = 7'b0101111;\nif(tempIR_IN[23]==0) encoder_OUT = 7'b0110001;\n						else encoder_OUT = 7'b0110011;\nif(tempIR_IN[23]==0) encoder_OUT = 7'b0110100;\n						else encoder_OUT = 7'b0110110;\nif(tempIR_IN[23]==0) encoder_OUT = 7'b0111000;\n						else encoder_OUT = 7'b0111010;\nif(tempIR_IN[23]==0) encoder_OUT = 7'b0111011;\n						else encoder_OUT = 7'b0111100;\nif(tempIR_IN[23]==0) encoder_OUT = 7'b0111101;\n						else encoder_OUT = 7'b0111110;\nif(tempIR_IN[23]==0) encoder_OUT = 7'b0111111;\n						else encoder_OUT = 7'b1000001;\nif(tempIR_IN[23]==0) encoder_OUT = 7'b1000011;\n						else encoder_OUT = 7'b1000101;\nif(tempIR_IN[23]==0) encoder_OUT = 7'b1000110;\n						else encoder_OUT = 7'b1001000;\nif(tempIR_IN[23]==0) encoder_OUT = 7'b1001010;\n						else encoder_OUT = 7'b1001100;\nif(tempIR_IN[23]==0) encoder_OUT = 7'b1001101;\n						else encoder_OUT = 7'b1001110;\nif(tempIR_IN[23]==0) encoder_OUT = 7'b1001111;\n						else encoder_OUT = 7'b1010000;",
+			"registerFile",
+			"001101110000001111000110000000000000000000000",
+			"101100000000001111000100000000000000001011011",
+			"44'",
+			"11100010_00000001_00000000_00000000",
+			" ",
+			"Signed Store Register Post",
+			"Signed Store Immediate Post",
+			"0110110",
+			"b010011",
+			"signed store register post",
+			"signed store",
+			"signed store registe",
+			"signed store register post",
+			"signeg store",
+			"0110100",
+			"6'b111011",
+			"0110110",
+			"0110100",
+			"0110110",
+			"%d",
+			"Signed Store Register",
+			"Signed Store Register Post",
+			"Signed Store Register Post-indexed",
+			"B",
+			"1001110",
+			"B",
+			"#10 I = ",
+			"I,",
 			"(I",
 			"B",
 			"=%b I",
@@ -387,6 +472,15 @@
 		"regex": false,
 		"replace_history":
 		[
+			"%b",
+			"x",
+			"45'",
+			"_",
+			"%b",
+			"x",
+			"#10 I <= ",
+			"I,7'b",
+			"I,7b'",
 			"(\"I",
 			"x",
 			"=%b\", I",
@@ -449,77 +543,19 @@
 			[
 				{
 					"buffer": 0,
-					"file": "ARMSIM/encoder.v",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 7234,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								44,
-								44
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Verilog/verilog.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 3150.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "ARMSIM/test_encoder.v",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 6551,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								75,
-								75
-							]
-						],
-						"settings":
-						{
-							"auto_name": "module test_encoder;",
-							"syntax": "Packages/Verilog/verilog.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
 					"file": "ARMSIM/compiling scripts",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1191,
+						"buffer_size": 2064,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								58,
-								27
+								1749,
+								1280
 							]
 						],
 						"settings":
@@ -530,7 +566,209 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "ARMSIM/microstore_rom.v",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 6768,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								6726,
+								6726
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Verilog/verilog.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 392.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "ARMSIM/test_data_path.v",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2772,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2354,
+								2354
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Verilog/verilog.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1170.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "ARMSIM/data_path.v",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2377,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								802,
+								802
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Verilog/verilog.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": -0.0,
+						"translation.y": 468.0,
+						"zoom_level": 1.0
+					},
 					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "ARMSIM/microprocessor.v",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2130,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1796,
+								1796
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Verilog/verilog.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 195.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "ARMSIM/ram_256.v",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2186,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2126,
+								2126
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Verilog/verilog.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 390.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "ARMSIM/register_file.v",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2815,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2482,
+								2482
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Verilog/verilog.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "/C/Users/AbisaiRamosRodriguez/Downloads/theproject.v",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 51189,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								11198,
+								11198
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Verilog/verilog.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 5313.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
 					"type": "text"
 				}
 			]
@@ -538,7 +776,7 @@
 	],
 	"incremental_find":
 	{
-		"height": 22.0
+		"height": 21.0
 	},
 	"input":
 	{
@@ -613,7 +851,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 285.0,
+	"side_bar_width": 277.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

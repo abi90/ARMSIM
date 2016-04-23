@@ -31,9 +31,10 @@ module ram_256
   
 	always @ (Enable, ReadWrite, DataSize, DataIn)
 	begin
+		MFC <= 1'b0;
 		if(Enable)
 		begin
-			MFC = 1'b0;
+			
 				case(DataSize)
 				BYTE:
 						if(ReadWrite) DataOut[7:0] = Mem[Address]; 								
@@ -71,7 +72,7 @@ module ram_256
 						if(ReadWrite) DataOut[7:0] = Mem[Address]; 
 						else Mem[Address] = DataIn[7:0];
 				endcase
-			MFC = 1'b1;
+			#5 MFC <= 1'b1;
 		end
 		//else DataOut = 32'bz;
 	end

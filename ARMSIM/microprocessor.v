@@ -80,16 +80,18 @@ initial
 	begin
 		CLK = 0;
 		Reset<=0;
-		#10 Reset =1;
-		#1 repeat (400) 
+		#5 Reset =1;
+		#1 repeat (100) 
 		begin
 			#1 CLK = ~CLK;
 		end
 end
 
 initial begin
-	//$monitor("MAR: %d %b", dp.registerFile.R1.Q, cu.rom.index);//", dp.memoryAddressRegister.Q );//
+	//$display("State\t IR.Q\tMAR.Q\tCLK\tMFC ");
+	//$monitor("%d\t %b %d %d %d", cu.rom.index, dp.instructionRegister.Q, dp.memoryAddressRegister.Q, CLK, MFC );//", dp.memoryAddressRegister.Q );//
 	$monitor("MAR: %d", dp.memoryAddressRegister.Q );//
+	//$monitor("R1=%d\n R2= %d\n", dp.registerFile.R1.Q, dp.registerFile.R1.Q);//", dp.memoryAddressRegister.Q );
 end
 
 endmodule
