@@ -88,7 +88,7 @@ initial
 end
 
 initial begin
-	$monitor("MAR: %b",I0);
+	$monitor("MAR: %d",dp.memoryAddressRegister.Q);
 end
 
 endmodule
