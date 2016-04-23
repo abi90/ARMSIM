@@ -21,9 +21,9 @@ end
 
 condition_check checker(condOut,Flags,IR_Out);
 
-mux_4x1_cu mux4x1 (InvIn, PL[1:0] , MFC, condOut, 7'b0000000, 7'b0000000);
+mux_4x1_cu mux4x1 (InvIn, PL[44:43] , MFC, condOut, 7'b0000000, 7'b0000000);
 
-inverter inv (Sts, Invin, PL[42]);
+inverter inv (Sts, InvIn, PL[42]);
 
 next_state_add_sel nsas (Mout[2:0], PL[41:39], Sts);
 

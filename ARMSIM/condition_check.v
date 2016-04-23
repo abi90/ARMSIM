@@ -42,10 +42,10 @@ parameter AL =4'b1110;
 
 always@(IR[31:28],Flags)
 begin
-	 C = Flags[3];
-	 N = Flags[2];
-	 V = Flags[1];
-	 Z = Flags[0];
+	 C <= Flags[3];
+	 N <= Flags[2];
+	 V <= Flags[1];
+	 Z <= Flags[0];
 	case(IR[31:28])
 		EQ: // Z==1
 		begin

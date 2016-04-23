@@ -66,7 +66,7 @@ initial begin
 	      	dp.ram.Mem[i[7:0]+2] = temp_data_in[15:8]; 
 	      	dp.ram.Mem[i[7:0]+3] = temp_data_in[7:0];
 	  	end 
-		#50;
+		#590;
 		for(i=9'h000;i<9'h0FE;i=i+9'h004)
 		begin
 			$write ("WORD DATA at %d: %b", i, dp.ram.Mem[i[7:0]]);
@@ -81,14 +81,15 @@ initial
 		CLK = 0;
 		Reset<=0;
 		#10 Reset =1;
-		#1 repeat (300) 
+		#1 repeat (400) 
 		begin
 			#1 CLK = ~CLK;
 		end
 end
 
 initial begin
-	$monitor("MAR: %d",dp.memoryAddressRegister.Q);
+	//$monitor("MAR: %d %b", dp.registerFile.R1.Q, cu.rom.index);//", dp.memoryAddressRegister.Q );//
+	$monitor("MAR: %d", dp.memoryAddressRegister.Q );//
 end
 
 endmodule

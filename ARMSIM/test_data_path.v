@@ -11,23 +11,7 @@ reg [7:0] temp_addr;
 	wire [31:0] IR_Out;
 	wire MFC; 
 	wire [3:0] Flags;
-	reg CLK, 
-	MFA, 
-	RW_RAM, 
-	SALU, 
-	RF_RW, 
-	SSAB, 
-	SSOP, 
-	SMA, 
-	STA, 
-	MAR_EN, 
-	SR_EN,
-	MDR_EN, 
-	IR_EN, 
-	SHT_EN, 
-	ISE_EN, 
-	SGN_EN, 
-	CLR;
+	reg CLK;
 	reg [1:0] DSS, WRA, SRA, SRB,  SISE, SALUB;
 	reg [3:0] ALUA;	
 
@@ -106,18 +90,19 @@ initial begin
 
 //IR<-RAM_Data_Out	
 	#50
-	I0 <= 45'b000000000000101100000100000000000000000000000;	 
+	I0 <= 45'b000010000000101100000100000000000000001011100;	 
 	        //000000000000101100000000000000000000000000000
 	#10$display("IR<- RAM_OUT... DONE\n");
 
 #50
-I0<=45'b000011000001000111000100000000001111010000000;
+I0<=45'b000010000000001111000100010100000101000000001;								
+#10$monitor("CLK= %b R15=%b WRA %b\n ", CLK,dp.registerFile.R15.Q, dp.registerFile.CLR);
 end
 
 initial 
 	begin
 		CLK = 0;
-		#1 repeat (300) 
+		#1 repeat (1500) 
 		begin
 			#1 CLK = ~CLK;
 		end

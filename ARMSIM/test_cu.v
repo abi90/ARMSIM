@@ -22,7 +22,7 @@ initial
 		Reset<=0;
 		MFC <=1;
 		Flags <=4'h0;
-		IR_Out <= 32'b11100010_00000001_00000000_00000000;
+		IR_Out <=  32'b11100011_10000000_00010000_00101000;
 		#10 Reset =1;
 		#1 repeat (300) 
 		begin
@@ -31,7 +31,7 @@ initial
 end
 
 initial begin
-$display("I0[38:7]\tIR_Out\tMFC  CLK  Reset Flags");
-$monitor("%b %b %h %h %h %h", I0[38:7],IR_Out, MFC, CLK, Reset,Flags);
+$display("PL\tInverter Reset");
+$monitor("%b %b %b %b", cu.PL,cu.mux4x1.S,cu.inv.in, cu.inv.out);
 end
 endmodule
