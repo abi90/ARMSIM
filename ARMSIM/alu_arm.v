@@ -37,6 +37,13 @@ module alu_arm (output reg [31:0] out, output reg  CF, NF, VF, ZF, input [3:0] A
 	parameter  BIC = 4'b1110;
 	parameter  MVN = 4'b1111;
 
+	initial begin
+	CF = 0;
+	NF = 0;
+	VF = 0;
+	ZF = 0;
+	end
+	
 	always @(da,db,A)
 	begin
 		case(A)
@@ -114,7 +121,7 @@ module alu_arm (output reg [31:0] out, output reg  CF, NF, VF, ZF, input [3:0] A
 			TEQ:// Test equal
 			begin
 				out = da ^ db;
-				CF=Cin;
+				CF = Cin;
 				//Update ZF and NF
 				if(out == 0) ZF = 1'b1;
 				else ZF = 1'b0;

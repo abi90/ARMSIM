@@ -63,7 +63,39 @@ if (E)
    
 
 else if (!E) 
-         
-    Out <= In;
+begin
+   case(dataSize)
+				BYTE:
+						if(In[7] === 1'b1)
+						begin
+						Out = 32'h000000FF & In;
+						Out = 32'hFFFFFF00 | In;	
+						end
+						else 
+						begin
+						Out = 32'h000000FF & In;
+						end
+				HALF:
+						if(In[15] === 1'b1)
+						begin
+						Out = 32'h0000FFFF & In;	
+						end
+						else 
+						begin
+						Out = 32'h0000FFFF & In;	
+						end
+				WORIn:
+						if(In[31] === 1'b1)
+						begin
+						Out = 32'hFFFFFFFF & In;
+						end
+						else 
+						begin
+						Out = 32'h000000FF & In;	
+						end
+				default:
+						Out<=32'h80000000 |In; 
+	endcase
+end
 
 endmodule 

@@ -1,9 +1,9 @@
 /*
-Para demostrar el proyecto necesitan conectar el procesador a una memoria RAM de al menos 256 bytes. 
+Para demostrar el proyecto necesitan conectar el procesador a una Memoria RAM de al menos 256 bytes. 
 Esta debe estar organizada Big Endian y debe proveer acceso tanto a bytes (8bits), halfwords (16 bits),
 words(32 bits) y doublewords (64 bits). 
-Es imprescindible que la memoria sea accedida de manera asincrónica mediante handshaking. 
-No se puede presumir que la memoria va a responder dentro de un tiempo específico.
+Es imprescindible que la Memoria sea accedida de manera asincrónica mediante handshaking. 
+No se puede presumir que la Memoria va a responder dentro de un tiempo específico.
 Ejemplo:
 module ram128x32 (output reg [31:0] DataOut, input Enable, ReadWrite, 
 				  input [6:0] Address, input [31:0]DataIn);
@@ -28,13 +28,17 @@ module ram_256
 	parameter HALF = 2'b01;
 	parameter WORD = 2'b10;
 	//parameter DWORD = 2'b11;
-  
+  	initial begin
+		//$readmemb("data.bin", Mem) ;
+		MFC = 0;
+	end
+
 	always @ (Enable, ReadWrite, DataSize, DataIn)
 	begin
-		MFC <= 1'b0;
+		MFC = 1'b0;
 		if(Enable)
 		begin
-			
+			MFC = 1'b0;
 				case(DataSize)
 				BYTE:
 						if(ReadWrite) DataOut[7:0] = Mem[Address]; 								
@@ -72,8 +76,8 @@ module ram_256
 						if(ReadWrite) DataOut[7:0] = Mem[Address]; 
 						else Mem[Address] = DataIn[7:0];
 				endcase
-			#5 MFC <= 1'b1;
+			#4 MFC = 1'b1;
 		end
-		//else DataOut = 32'bz;
+		else DataOut = 32'bz;
 	end
 endmodule

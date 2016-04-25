@@ -37,11 +37,11 @@ module register_file(output [31:0] outA, outB, input [3:0] writeAddress, address
 	register_32_bits R14 (outR14, inputData, ~registerEnable[14], CLR, CLK);
 	register_32_bits R15 (outR15, inputData, ~registerEnable[15], CLR, CLK);
 
-	//Making the two least significant bits 0 for PC register.
+	/*//Making the two least significant bits 0 for PC register.
 	assign inputDataTemp = inputData & 32'hffffffff ;
 	//inputDataTemp = (inputDataTemp & 32'hfffffffc);
 	//register_32_bits R15 (outR15, inputDataTemp, ~registerEnable[15], CLR, CLK);
-	assign outR15Temp= outR15 + 32'h00000008;
+	assign outR15Temp= outR15 + 32'h00000008;*/
 
 	//Select outA/B
 	mux_16x1 muxA (outA, addressA, outR0, outR1, outR2, outR3, outR4, outR5, outR6, outR7, outR8, outR9, outR10, outR11, outR12, outR13, outR14, outR15);
