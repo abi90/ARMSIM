@@ -54,7 +54,7 @@ if (E)
 						end
 						else 
 						begin
-						Out = 32'h000000FF & In;
+						Out = 32'hFFFFFFFF & In;//Out = 32'h000000FF & In;
 						//In = 32'hFFFFFFF0 | In;	
 						end
 				default:
@@ -65,34 +65,9 @@ if (E)
 else if (!E) 
 begin
    case(dataSize)
-				BYTE:
-						if(In[7] === 1'b1)
-						begin
-						Out = 32'h000000FF & In;
-						Out = 32'hFFFFFF00 | In;	
-						end
-						else 
-						begin
-						Out = 32'h000000FF & In;
-						end
-				HALF:
-						if(In[15] === 1'b1)
-						begin
-						Out = 32'h0000FFFF & In;	
-						end
-						else 
-						begin
-						Out = 32'h0000FFFF & In;	
-						end
-				WORIn:
-						if(In[31] === 1'b1)
-						begin
-						Out = 32'hFFFFFFFF & In;
-						end
-						else 
-						begin
-						Out = 32'h000000FF & In;	
-						end
+				BYTE:  Out = 32'h000000FF & In;
+				HALF:  Out = 32'h0000FFFF & In;	
+				WORIn: Out = 32'hFFFFFFFF & In;	
 				default:
 						Out<=32'h80000000 |In; 
 	endcase

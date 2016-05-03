@@ -68,10 +68,10 @@ initial begin
 		#50;
 		for(i=9'h000;i<9'h0FE;i=i+9'h004)
 		begin
-			$write ("WORD DATA at %d: %b", i, dp.ram.Mem[i[7:0]]);
-	      	$write ("%b", dp.ram.Mem[i[7:0]+1]);
-	      	$write ("%b", dp.ram.Mem[i[7:0]+2] ); 
-	      	$display ("%b", dp.ram.Mem[i[7:0]+3]);
+			$write ("%d: %h", i, dp.ram.Mem[i[7:0]]);
+	      	$write ("%h", dp.ram.Mem[i[7:0]+1]);
+	      	$write ("%h", dp.ram.Mem[i[7:0]+2] ); 
+	      	$display ("%h", dp.ram.Mem[i[7:0]+3]);
 		end
 
 //INITIAL STATE: RESET/CLR

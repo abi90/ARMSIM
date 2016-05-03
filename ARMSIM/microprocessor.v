@@ -48,7 +48,7 @@ data_path dp
 );
 
 
-initial $readmemb("test_data.txt", dat);
+initial $readmemb("testcode_arm1.txt", dat);
 
 reg [8:0] i; // loop index
 
@@ -69,7 +69,7 @@ initial begin
 		#590;
 		for(i=9'h000;i<9'h0FE;i=i+9'h004)
 		begin
-			$write ("WORD DATA at %d: %b", i, dp.ram.Mem[i[7:0]]);
+			$write ("WORD at location %d: %b", i, dp.ram.Mem[i[7:0]]);
 	      	$write ("%b", dp.ram.Mem[i[7:0]+1]);
 	      	$write ("%b", dp.ram.Mem[i[7:0]+2] ); 
 	      	$display ("%b", dp.ram.Mem[i[7:0]+3]);
@@ -91,8 +91,8 @@ initial begin
 	//$display("State\t IR.Q\tMAR.Q\tCLK\tMFC ");
 	//$monitor("%d\t %b %d %d %d %b", cu.rom.index, dp.instructionRegister.Q, dp.memoryAddressRegister.Q, CLK, MFC, dp.registerFile.R3.Q);
 	//$monitor("%d\t %b %d %d %d", cu.rom.index, dp.instructionRegister.Q, dp.instructionRegister.LE, CLK, I0[27] );
-	$monitor("MAR: %d", dp.memoryAddressRegister.Q );//
-	//$monitor("R1=%d\n R2= %d\n", dp.registerFile.R1.Q, dp.registerFile.R1.Q);//", dp.memoryAddressRegister.Q );
+	//$monitor("MAR: %d", dp.memoryAddressRegister.Q );//
+	$monitor("R5_Q= %h \n S:%d MFC:%h MDR:%h", dp.registerFile.R5.Q, cu.rom.index, MFC, dp.memoryDataRegister.Q);//", dp.memoryAddressRegister.Q );
 end
 
 endmodule
