@@ -1,0 +1,97 @@
+MAR:          x
+MAR:          0
+MAR:          4
+MAR:          8
+MAR:         40
+MAR:         12
+MAR:         42
+MAR:         16
+MAR:         20
+MAR:         24
+MAR:         28
+MAR:         20
+MAR:         24
+MAR:         28
+MAR:         20
+MAR:         24
+MAR:         28
+MAR:         20
+MAR:         24
+MAR:         28
+MAR:         20
+MAR:         24
+MAR:         28
+MAR:         20
+MAR:         24
+MAR:         28
+MAR:         20
+MAR:         24
+MAR:         28
+MAR:         32
+MAR:         43
+MAR:         36
+MAR:         44
+WORD at location   0: 11100010000000010000000000000000
+WORD at location   4: 11100011100000000001000000101000
+WORD at location   8: 11100111110100010010000000000000
+WORD at location  12: 11100101110100010011000000000010
+WORD at location  16: 11100000100000000101000000000000
+WORD at location  20: 11100000100000100101000000000101
+WORD at location  24: 11100010010100110011000000000001
+WORD at location  28: 00011010111111111111111111111101
+WORD at location  32: 11100101110000010101000000000011
+WORD at location  36: 11101010000000000000000000000001
+WORD at location  40: 00001011000001010000011101001101
+WORD at location  44: 11101010111111111111111111111111
+WORD at location  48: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+WORD at location  52: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+WORD at location  56: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+WORD at location  60: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+WORD at location  64: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+WORD at location  68: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+WORD at location  72: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+WORD at location  76: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+WORD at location  80: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+WORD at location  84: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+WORD at location  88: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+WORD at location  92: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+WORD at location  96: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+WORD at location 100: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+WORD at location 104: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+WORD at location 108: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+WORD at location 112: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+WORD at location 116: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+WORD at location 120: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+WORD at location 124: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+WORD at location 128: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+WORD at location 132: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+WORD at location 136: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+WORD at location 140: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+WORD at location 144: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+WORD at location 148: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+WORD at location 152: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+WORD at location 156: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+WORD at location 160: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+WORD at location 164: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+WORD at location 168: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+WORD at location 172: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+WORD at location 176: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+WORD at location 180: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+WORD at location 184: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+WORD at location 188: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+WORD at location 192: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+WORD at location 196: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+WORD at location 200: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+WORD at location 204: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+WORD at location 208: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+WORD at location 212: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+WORD at location 216: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+WORD at location 220: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+WORD at location 224: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+WORD at location 228: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+WORD at location 232: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+WORD at location 236: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+WORD at location 240: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+WORD at location 244: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+WORD at location 248: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+WORD at location 252: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx

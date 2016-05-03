@@ -91,8 +91,8 @@ initial begin
 	//$display("State\t IR.Q\tMAR.Q\tCLK\tMFC ");
 	//$monitor("%d\t %b %d %d %d %b", cu.rom.index, dp.instructionRegister.Q, dp.memoryAddressRegister.Q, CLK, MFC, dp.registerFile.R3.Q);
 	//$monitor("%d\t %b %d %d %d", cu.rom.index, dp.instructionRegister.Q, dp.instructionRegister.LE, CLK, I0[27] );
-	//$monitor("MAR: %d", dp.memoryAddressRegister.Q );//
-	$monitor("R5_Q= %h \n S:%d MFC:%h MDR:%h", dp.registerFile.R5.Q, cu.rom.index, MFC, dp.memoryDataRegister.Q);//", dp.memoryAddressRegister.Q );
+	$monitor("MAR: %d", dp.memoryAddressRegister.Q );//
+	//$monitor("R5_Q= %h \n S:%d MFC:%h MDR:%h", dp.registerFile.R5.Q, cu.rom.index, MFC, dp.memoryDataRegister.Q);//", dp.memoryAddressRegister.Q );
 end
 
 endmodule
