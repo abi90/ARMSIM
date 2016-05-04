@@ -66,7 +66,7 @@ initial begin
 	      	dp.ram.Mem[i[7:0]+2] = temp_data_in[15:8]; 
 	      	dp.ram.Mem[i[7:0]+3] = temp_data_in[7:0];
 	  	end 
-		#590;
+		#1490;
 		for(i=9'h000;i<9'h0FE;i=i+9'h004)
 		begin
 			$write ("WORD at location %d: %b", i, dp.ram.Mem[i[7:0]]);
