@@ -48,7 +48,7 @@ data_path dp
 );
 
 
-initial $readmemb("testcode_arm1.txt", dat);
+initial $readmemb("testcode_arm2.txt", dat);
 
 reg [8:0] i; // loop index
 
@@ -81,7 +81,7 @@ initial
 		CLK = 1;
 		Reset<=0;
 		#5 Reset =1;
-		#1 repeat (500) 
+		#1 repeat (1500) 
 		begin
 			#1 CLK = ~CLK;
 		end
