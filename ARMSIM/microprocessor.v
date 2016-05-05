@@ -1,7 +1,7 @@
 module microprocessor;
 //Las entradas del módulo deben ser tipo reg
 //Las salidas deben ser tipo wire
-wire  [44: 0] I0; 
+wire  [44: 0] I0;
 //Memory Variables
 reg [31:0] dat[0:255];
 parameter WORD = 2'b10;
@@ -18,13 +18,13 @@ control_unit cu (I0[38:7],IR_Out, MFC, CLK, Reset,Flags);
 
 data_path dp
 (
-	IR_Out, 
-	MFC, 
+	IR_Out,
+	MFC,
 	Flags,
-	CLK, 
+	CLK,
 	I0[38],//MFA
 	I0[37],//RW_RAM
-	I0[36],//SALU 
+	I0[36],//SALU
 	I0[35],//RF_RW
 	I0[34],//SSAB
 	I0[33],//SSOP
@@ -44,7 +44,7 @@ data_path dp
 	I0[16:15],//SRB
 	I0[14:13],//SISE
 	I0[12:11],//SALUB
-	I0[10:7]//ALUA	
+	I0[10:7]//ALUA
 );
 
 
@@ -57,31 +57,31 @@ initial begin
 	for(i=9'h000;i<9'h0FE;i=i+9'h004)
 
 		begin
-	      	temp_data_in[31:24] = dat[i[7:0]]; 
-	      	temp_data_in[23:16] = dat[i[7:0]+1]; 
-	      	temp_data_in[15:8] = dat[i[7:0]+2]; 
+	      	temp_data_in[31:24] = dat[i[7:0]];
+	      	temp_data_in[23:16] = dat[i[7:0]+1];
+	      	temp_data_in[15:8] = dat[i[7:0]+2];
 	      	temp_data_in[7:0] = dat[i[7:0]+3];
-			dp.ram.Mem[i[7:0]] = temp_data_in[31:24]; 
-	      	dp.ram.Mem[i[7:0]+1]= temp_data_in[23:16]; 
-	      	dp.ram.Mem[i[7:0]+2] = temp_data_in[15:8]; 
+			dp.ram.Mem[i[7:0]] = temp_data_in[31:24];
+	      	dp.ram.Mem[i[7:0]+1]= temp_data_in[23:16];
+	      	dp.ram.Mem[i[7:0]+2] = temp_data_in[15:8];
 	      	dp.ram.Mem[i[7:0]+3] = temp_data_in[7:0];
-	  	end 
+	  	end
 		#1490;
 		for(i=9'h000;i<9'h0FE;i=i+9'h004)
 		begin
 			$write ("WORD at location %d: %b", i, dp.ram.Mem[i[7:0]]);
 	      	$write ("%b", dp.ram.Mem[i[7:0]+1]);
-	      	$write ("%b", dp.ram.Mem[i[7:0]+2] ); 
+	      	$write ("%b", dp.ram.Mem[i[7:0]+2] );
 	      	$display ("%b", dp.ram.Mem[i[7:0]+3]);
 		end
 end
 
-initial 
+initial
 	begin
 		CLK = 1;
 		Reset<=0;
 		#5 Reset =1;
-		#1 repeat (1500) 
+		#1 repeat (1500)
 		begin
 			#1 CLK = ~CLK;
 		end
@@ -89,10 +89,10 @@ end
 
 initial begin
 	//$display("State\t IR.Q\tMAR.Q\tCLK\tMFC ");
-	//$monitor("%d\t %b %d %d %d %b", cu.rom.index, dp.instructionRegister.Q, dp.memoryAddressRegister.Q, CLK, MFC, dp.registerFile.R3.Q);
+//	$monitor("%d %d %h %h", cu.rom.index, dp.instructionRegister.Q, dp.memoryAddressRegister.Q,  dp.statusRegister.Q);
 	//$monitor("%d\t %b %d %d %d", cu.rom.index, dp.instructionRegister.Q, dp.instructionRegister.LE, CLK, I0[27] );
-	$monitor("MAR: %d", dp.memoryAddressRegister.Q );//
-	//$monitor("R5_Q= %h \n S:%d MFC:%h MDR:%h", dp.registerFile.R5.Q, cu.rom.index, MFC, dp.memoryDataRegister.Q);//", dp.memoryAddressRegister.Q );
+$monitor("MAR: %d", dp.memoryAddressRegister.Q);//
+	//$monitor("R10_Q= %d \n S:%d MAR:%d", dp.registerFile.R10.Q, cu.rom.index, dp.memoryAddressRegister.Q);//", dp.memoryAddressRegister.Q );
 end
 
 endmodule

@@ -1,19 +1,19 @@
 /*
 Condition Check:
-0000 EQ Equal Z set
-0001 NE Not equal Z clear
+0000 EQ Equal ZF set
+0001 NE Not equal ZF clear
 0010 CS/HS Carry set/unsigned higher or same C set
 0011 CC/LO Carry clear/unsigned lower C clear
 0100 MI Minus/negative N set
-0101 PL Plus/positive or zero N clear
+0101 PL Plus/positive or ZFero N clear
 0110 VS Overflow V set
 0111 VC No overflow V clear
-1000 HI Unsigned higher C set and Z clear
-1001 LS Unsigned lower or same C clear or Z set
+1000 HI Unsigned higher C set and ZF clear
+1001 LS Unsigned lower or same C clear or ZF set
 1010 GE Signed greater than or equal N set and V set, or N clear and V clear (N == V)
 1011 LT Signed less than N set and V clear, or N clear and V set (N != V)
-1100 GT Signed greater than Z clear, and either N set and V set, or N clear and V clear (Z == 0,N == V)
-1101 LE Signed less than or equal Z set, or N set and V clear, or N clear and V set (Z == 1 or N != V)
+1100 GT Signed greater than ZF clear, and either N set and V set, or N clear and V clear (ZF == 0,N == V)
+1101 LE Signed less than or equal ZF set, or N set and V clear, or N clear and V set (ZF == 1 or N != V)
 1110 AL Always (unconditional) -
 1111 - See Condition code 0b1111 -
 */
@@ -22,7 +22,7 @@ module condition_check (output reg Out, input [3:0] Flags, input[31:0] IR);
 reg C;
 reg N;
 reg V;
-reg Z;
+reg ZF;
 
 parameter EQ =4'b0000;
 parameter NE =4'b0001;
@@ -45,16 +45,16 @@ begin
 	 C <= Flags[3];
 	 N <= Flags[2];
 	 V <= Flags[1];
-	 Z <= Flags[0];
+	 ZF <= Flags[0];
 	case(IR[31:28])
-		EQ: // Z==1
+		EQ: // ZF==1
 		begin
-			if(Z) Out =1;
+			if(ZF) Out =1;
 			else Out = 0;
 		end
-		NE:	// Z==0
+		NE:	// ZF==0
 		begin
-			if(!Z) Out =1;
+			if(!ZF) Out =1;
 			else Out = 0;
 		end
 		CS: // C==1
@@ -87,14 +87,14 @@ begin
 			if(!V) Out =1;
 			else Out = 0;
 		end
-		HI: // C==1 && Z==0
+		HI: // C==1 && ZF==0
 		begin
-			if(C && !Z) Out =1;
+			if(C && !ZF) Out =1;
 			else Out = 0;
 		end
-		LS: // C==0 && Z==1
+		LS: // C==0 && ZF==1
 		begin
-			if(!C && Z) Out =1;
+			if(!C && ZF) Out =1;
 			else Out = 0;
 		end
 		GE: // N==V
@@ -104,17 +104,17 @@ begin
 		end
 		LT: // N != V
 		begin
-			if(N!=V) Out =1;
+			if(N!==V) Out =1;
 			else Out = 0;
 		end
-		GT: // Z==0 && N==V
+		GT: // ZF==0 && N==V
 		begin
-			if(!Z && N==V) Out =1;
+			if(!ZF && N==V) Out =1;
 			else Out = 0;
 		end
-		LE: // Z==1 OR N!= V
+		LE: // ZF==1 OR N!= V
 		begin
-			if(Z || N!=V) Out =1;
+			if(ZF==1 || (N!=V)) Out =1;
 			else Out = 0;
 		end
 		AL:	// ALWAYS

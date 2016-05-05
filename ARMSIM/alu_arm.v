@@ -19,7 +19,7 @@ module alu_arm (output reg [31:0] out, output reg  CF, NF, VF, ZF, input [3:0] A
 	// parameter  SBC = 4'b1101;
 	// parameter  RSB = 4'b1110;
 	// parameter  RSC = 4'b1111;
-	
+
 	parameter  AND = 4'b0000;
 	parameter  EOR = 4'b0001;
 	parameter  SUB = 4'b0010;
@@ -43,7 +43,7 @@ module alu_arm (output reg [31:0] out, output reg  CF, NF, VF, ZF, input [3:0] A
 	VF = 0;
 	ZF = 0;
 	end
-	
+
 	always @(da,db,A)
 	begin
 		case(A)
@@ -64,7 +64,7 @@ module alu_arm (output reg [31:0] out, output reg  CF, NF, VF, ZF, input [3:0] A
 				NF = out [31];
 			end
 			EOR:
-				begin		
+				begin
 				out = da ^ db ;
 				//Update ZF and NF
 				if(out == 0) ZF = 1'b1;
@@ -133,7 +133,7 @@ module alu_arm (output reg [31:0] out, output reg  CF, NF, VF, ZF, input [3:0] A
 				//Update ZF and NF
 				if(out == 0) ZF = 1'b1;
 				else ZF = 1'b0;
-				NF = out [31];				
+				NF = out [31];
 			end
 			MVN:// Move negative
 			begin
@@ -141,7 +141,7 @@ module alu_arm (output reg [31:0] out, output reg  CF, NF, VF, ZF, input [3:0] A
 				//Update ZF and NF
 				if(out == 0) ZF = 1'b1;
 				else ZF = 1'b0;
-				NF = out [31];	
+				NF = out [31];
 			end
 			ADD:
 			begin
@@ -167,9 +167,9 @@ module alu_arm (output reg [31:0] out, output reg  CF, NF, VF, ZF, input [3:0] A
 				//Update ZF and NF
 				if(out == 0) ZF = 1'b1;
 				else ZF = 1'b0;
-				NF = out [31];					
+				NF = out [31];
 			end
-			SUB:// Subtract 
+			SUB:// Subtract
 			begin
 				{CF, out} = da - db;
 				//Update VF
@@ -221,9 +221,8 @@ module alu_arm (output reg [31:0] out, output reg  CF, NF, VF, ZF, input [3:0] A
 				//Update ZF and NF
 				if(out == 0) ZF = 1'b1;
 				else ZF = 1'b0;
-				NF = out [31];			
-			end	
+				NF = out [31];
+			end
 		endcase
 	end
 endmodule
-	

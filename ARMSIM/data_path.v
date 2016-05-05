@@ -3,23 +3,23 @@
 ///////////
 module data_path
 (
-	output reg [31:0] IR_Out, 
-	output reg MFC, 
+	output reg [31:0] IR_Out,
+	output reg MFC,
 	output reg [3:0] Flags,
-	input CLK, 
-	MFA, RW_RAM, SALU, RF_RW, SSAB, 
+	input CLK,
+	MFA, RW_RAM, SALU, RF_RW, SSAB,
 	SSOP, SMA, STA, MAR_EN, SR_EN,
-	MDR_EN, IR_EN, SHT_EN, ISE_EN, 
+	MDR_EN, IR_EN, SHT_EN, ISE_EN,
 	SGN_EN, CLR,
-	input [1:0] DSS, WRA, SRA, SRB,  SISE, SALUB, 
-	input [3:0] ALUA	
+	input [1:0] DSS, WRA, SRA, SRB,  SISE, SALUB,
+	input [3:0] ALUA
 );
 
-wire [31:0] aluOut, 
-outA, 
-outB, 
-branchExtension, 
-shifterOperand, 
+wire [31:0] aluOut,
+outA,
+outB,
+branchExtension,
+shifterOperand,
 immSignExtOut,
 mdrOut,
 irOut,
@@ -30,7 +30,7 @@ SR_Flags_In,
 SR_Flags_Out,
 shifterOut,
 aluBin;
-wire [3:0] 
+wire [3:0]
 addressAin,
 addressBin,
 writeAddressIn,
@@ -42,9 +42,9 @@ wire [1:0] DataSize;
 
 always @ (*)
 begin
-	IR_Out = irOut;
-	Flags = SR_Flags_Out[3:0];
-	MFC = tempMFC;
+	IR_Out <= irOut;
+	Flags <= SR_Flags_Out[3:0];
+	MFC <= tempMFC;
 end
 
 register_32_bits  instructionRegister (irOut, memDataOut, IR_EN, CLR, CLK);
@@ -85,6 +85,6 @@ register_file registerFile ( outA, outB, writeAddressIn, addressAin, addressBin,
 
 ram_256 ram (memDataOut, tempMFC, MFA, RW_RAM, marOut[7:0], mdrOut, DataSize);
 
-data_size_selector dss(DataSize, irOut, DSS); 
+data_size_selector dss(DataSize, irOut, DSS);
 
 endmodule
