@@ -91,13 +91,19 @@ initial begin
 //$display("State\t IR.Q\tMAR.Q\tCLK\tMFC ");
 //$monitor("%d %d %h %h", cu.rom.index, dp.instructionRegister.Q, dp.memoryAddressRegister.Q,  dp.statusRegister.Q);
 //$monitor("%d\t %b %d %d %d", cu.rom.index, dp.instructionRegister.Q, dp.instructionRegister.LE, CLK, I0[27] );
-$monitor("MAR: %d", dp.memoryAddressRegister.Q);
-//$monitor("%b %b %b %b %b %b %b",dp.shifterOut, dp.SR_Flags_In[4], dp.shifterOperand, dp.shifterAmountShift, dp.SR_Flags_Out[4], dp.SHT_EN, dp.STA, dp.irOUT[6:5]);
+//$monitor("MAR: %d", dp.memoryAddressRegister.Q);
+//$monitor("%b %b %b %b  %b",dp.SHT_EN, dp.shifterOperand, dp.shifterOut,  dp.shifterAmountShift,  dp.STA, dp.irOut[6:5]);
 //$monitor("%h %b %h %b %b %b %b", dp.shifter1.Out, dp.shifter1.Cout, dp.shifter1.Operand, dp.shifter1.Amount, dp.shifter1.CIn, dp.shifter1.EN, dp.shifter1.STA,  dp.shifter1.IR);
 //$monitor("%b", dp.instructionRegister.Q);
 //$monitor("MAR: %d, Flags %b", dp.memoryAddressRegister.Q, Flags);
 //$monitor("%d, %d, %b", dp.memoryAddressRegister.Q, cu.rom.index, Flags);
 //$monitor("S:%d R1_Q= %d R11_Q= %d MAR:%d ", cu.rom.index, dp.registerFile.R1.Q, dp.registerFile.R11.Q,  dp.memoryAddressRegister.Q);//", dp.memoryAddressRegister.Q );
 end
-
+always@(*)
+begin
+if(dp.SHT_EN)
+begin
+$display("%b %b %b %d %d %b",dp.SHT_EN, dp.shifterOperand, dp.shifterOut,  dp.shifterAmountShift,  dp.STA, dp.irOut[6:5]);
+end
+end
 endmodule
