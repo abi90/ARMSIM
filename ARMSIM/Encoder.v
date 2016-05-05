@@ -14,7 +14,12 @@ begin
 		3'b000:
 		begin
 			//Data Processing Shift by Immediate Shifter Operand
-			if (tempIR_IN[4]== 1'b0) encoder_OUT = 7'b0101100;
+			if (tempIR_IN[4]== 1'b0)
+			begin 
+					//CMP/CMN
+					if((tempIR_IN[24:21]== 4'b1010) || (tempIR_IN[24:21]== 4'b1011)) encoder_OUT = 7'b1011110;
+					else encoder_OUT = 7'b0101100;
+			end
 			else 
 			begin
 					case ({tempIR_IN[24],tempIR_IN[22:20],tempIR_IN[7],tempIR_IN[4]})

@@ -67,7 +67,7 @@ mux_4x1 muxAluBIn (aluBin, SALUB, mdrOut, 32'h00000004, branchExtension, shifter
 
 branch_ext branchExtension1 (branchExtension, irOut[23:0]);
 
-shifter shifter1 (shifterOut, SR_Flags_In[4], shifterOperand,shifterAmountShift, SR_Flags_Out[4], SHT_EN,STA, irOUT[6:5]);
+shifter shifter1 (shifterOut, SR_Flags_In[4], shifterOperand, shifterAmountShift, SR_Flags_Out[4], SHT_EN, STA, irOut[6:5]);
 
 mux_2x1 shifterInMux (shifterOperand, SSOP, immSignExtOut, outB);
 

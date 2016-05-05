@@ -13,71 +13,52 @@ parameter LSR = 2'b01;
 parameter ASR = 2'b10;
 parameter ROR = 2'b11;
 
-always @ (Operand, posedge EN, IR, CIn)
+always @ (*)
 begin
-	if (!EN)
+	if (EN)
 	begin
-		assign tempNum = Amount;
-		assign tempData = Operand;
-		assign temp = Operand;
+		tempNum = Amount;
+		tempData = Operand;
+		temp = Operand;
 
 		if (STA)
 		begin
-			for(i = 0; i < tempNum; i = i+1)
-				begin
-					temp = tempData;
-					tempData = tempData>>1;
-					tempData = {temp[0], tempData[30:0]};
-				end
+				Cout <= CIn;
+				Out = {Operand, Operand} >> Amount;	//rotate right
 			end
 		else
 		begin
 				case(IR)
 					LSL:
 					begin
-						for(i = 0; i < tempNum; i = i+1)
-						begin
-							Cout = tempData[31];
-							tempData= tempData<<1;
-						end
+						Cout = Operand[31];
+						Out = Operand << Amount;	//Logical Shift Left
 					end
 
 					LSR:
 					begin
-						for(i = 0; i < tempNum; i = i+1)
-						begin
-							Cout = tempData[0];
-							tempData= tempData>>1;
-						end
+						Cout = Operand[0];
+						Out = Operand >> Amount;
 					end
 
 					ASR:
 					begin
-						for(i = 0; i < tempNum; i = i+1)
-							begin
-							tempData= tempData>>1;
-							tempData = {Operand[31], tempData[30:0]};
-							end
+							Cout <= CIn;
+							Out  = $signed(Operand) >>> Amount;
 					end
 
 					ROR:
 					begin
-						for(i = 0; i < tempNum; i = i+1)
-							begin
-							temp = tempData;
-							tempData= tempData>>1;
-							tempData = {temp[0], tempData[30:0]};
-							end
+							Cout <= CIn;
+							Out = {Operand, Operand} >> Amount;	//rotate right
 					end
 				endcase
-		Out = tempData;
 		end
 	end
-
 	else 
 	begin
-		Out = Operand;
-		Cout = CIn;
+		Out <= Operand;
+		Cout <= CIn;
 	end
 end
 endmodule

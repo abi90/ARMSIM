@@ -79,7 +79,7 @@ begin
 		end
 		VS: // V==1
 		begin
-			if(V) Out =1;
+			if(V) Out = 1;
 			else Out = 0;
 		end
 		VC: // V==0
