@@ -95,15 +95,46 @@ initial begin
 //$monitor("%b %b %b %b  %b",dp.SHT_EN, dp.shifterOperand, dp.shifterOut,  dp.shifterAmountShift,  dp.STA, dp.irOut[6:5]);
 //$monitor("%h %b %h %b %b %b %b", dp.shifter1.Out, dp.shifter1.Cout, dp.shifter1.Operand, dp.shifter1.Amount, dp.shifter1.CIn, dp.shifter1.EN, dp.shifter1.STA,  dp.shifter1.IR);
 //$monitor("%b", dp.instructionRegister.Q);
-//$monitor("MAR: %d, Flags %b", dp.memoryAddressRegister.Q, Flags);
+$monitor("MAR: %d, Flags %b", dp.memoryAddressRegister.Q, Flags);
 //$monitor("%d, %d, %b", dp.memoryAddressRegister.Q, cu.rom.index, Flags);
 //$monitor("S:%d R1_Q= %d R11_Q= %d MAR:%d ", cu.rom.index, dp.registerFile.R1.Q, dp.registerFile.R11.Q,  dp.memoryAddressRegister.Q);//", dp.memoryAddressRegister.Q );
+
 end
-always@(*)
+/*always@(*)
 begin
 if(dp.SHT_EN)
 begin
 $display("%b %b %b %d %d %b",dp.SHT_EN, dp.shifterOperand, dp.shifterOut,  dp.shifterAmountShift,  dp.STA, dp.irOut[6:5]);
 end
+end*/
+
+/*always@(*)
+begin
+if(dp.RF_RW)
+begin
+$display("MAR: %d, Flags %b", dp.memoryAddressRegister.Q, Flags);
+$display("R00= %d\nR01= %d\nR02= %d\nR03= %d\nR04= %d\nR05= %d\nR06= %d\nR07= %d\nR08= %d\nR09= %d\nR10= %d\nR11= %d\nR12= %d\nR13= %d\nR14= %d\nR15= %d\n shifter op=%b == %b",
+	dp.registerFile.R0.Q,
+	dp.registerFile.R1.Q,
+	dp.registerFile.R2.Q,
+	dp.registerFile.R3.Q,
+	dp.registerFile.R4.Q,
+	dp.registerFile.R5.Q,
+	dp.registerFile.R6.Q,
+	dp.registerFile.R7.Q,
+	dp.registerFile.R8.Q,
+	dp.registerFile.R9.Q,
+	dp.registerFile.R10.Q,
+	dp.registerFile.R11.Q,
+	dp.registerFile.R12.Q,
+	dp.registerFile.R13.Q,
+	dp.registerFile.R14.Q,
+	dp.registerFile.R15.Q,
+	dp.addressBin,
+	dp.irOut[3:0]
+	);
+$display("\nS:%d %b==%b %b %b %b %b\n", cu.rom.index, dp.SRB, I0[16:15], dp.irOut[19:16], 4'hf, dp.irOut[15:12], dp. irOut[3:0]);
+
 end
+end*/
 endmodule

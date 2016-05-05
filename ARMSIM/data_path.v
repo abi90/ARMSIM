@@ -7,11 +7,28 @@ module data_path
 	output reg MFC,
 	output reg [3:0] Flags,
 	input CLK,
-	MFA, RW_RAM, SALU, RF_RW, SSAB,
-	SSOP, SMA, STA, MAR_EN, SR_EN,
-	MDR_EN, IR_EN, SHT_EN, ISE_EN,
-	SGN_EN, CLR,
-	input [1:0] DSS, WRA, SRA, SRB,  SISE, SALUB,
+	MFA, 
+	RW_RAM, 
+	SALU, 
+	RF_RW, 
+	SSAB,
+	SSOP, 
+	SMA, 
+	STA, 
+	MAR_EN, 
+	SR_EN,
+	MDR_EN, 
+	IR_EN, 
+	SHT_EN, 
+	ISE_EN,
+	SGN_EN, 
+	CLR,
+	input [1:0] DSS, 
+	WRA, 
+	SRA, 
+	SRB,  
+	SISE, 
+	SALUB,
 	input [3:0] ALUA
 );
 
@@ -79,7 +96,7 @@ mux_4x1_4 writeAddressMux (writeAddressIn, WRA, irOut[15:12],4'hf, 4'he,irOut[19
 
 mux_4x1_4 addressA (addressAin, SRA, irOut[19:16],4'hf, 4'he,irOut[15:12]);
 
-mux_4x1_4 addressB (addressBin, SRB, irOut[19:16],4'hf, irOut[15:12],irOut[3:0]);
+mux_4x1_4 addressB (addressBin, SRB, irOut[19:16],4'hf, irOut[15:12], irOut[3:0]);
 
 register_file registerFile ( outA, outB, writeAddressIn, addressAin, addressBin, aluOut, RF_RW, CLR, CLK);
 
