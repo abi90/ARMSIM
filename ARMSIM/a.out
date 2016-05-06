@@ -1,0 +1,164 @@
+#! /c/iverilog/bin/vvp
+:ivl_version "0.9.7 " "(v0_9_7)";
+:vpi_time_precision + 0;
+:vpi_module "system";
+:vpi_module "v2005_math";
+:vpi_module "va_math";
+S_011BE238 .scope module, "test_shifter" "test_shifter" 2 1;
+ .timescale 0 0;
+v011BEDB0_0 .net "C_flag", 0 0, v011BAF98_0; 1 drivers
+v011BEE08_0 .var "data", 31 0;
+v011BEE60_0 .var "enable", 0 0;
+v011BEEB8_0 .net "result", 31 0, v011B2870_0; 1 drivers
+v011BEF10_0 .var "shiftNumber", 4 0;
+v011BEF68_0 .var "shift_SEL", 1 0;
+S_011BE898 .scope module, "shifter1" "shifter" 2 9, 3 4, S_011BE238;
+ .timescale 0 0;
+P_011B36FC .param/l "ASR" 3 10, C4<10>;
+P_011B3710 .param/l "LSL" 3 8, C4<00>;
+P_011B3724 .param/l "LSR" 3 9, C4<01>;
+P_011B3738 .param/l "ROR" 3 11, C4<11>;
+v011B3758_0 .net "Amount", 4 0, v011BEF10_0; 1 drivers
+v011BAF40_0 .alias "CIn", 0 0, v011BEDB0_0;
+v011BAF98_0 .var "Cout", 0 0;
+v00823818_0 .net "EN", 0 0, v011BEE60_0; 1 drivers
+v00823870_0 .net "IR", 1 0, v011BEF68_0; 1 drivers
+v008238C8_0 .net "Operand", 31 0, v011BEE08_0; 1 drivers
+v011B2870_0 .var "Out", 31 0;
+v011B28C8_0 .net "STA", 0 0, C4<0>; 1 drivers
+v011B2920_0 .var "temp", 63 0;
+E_011B7F80 .event edge, v00823870_0, v008238C8_0, v011B3758_0;
+    .scope S_011BE898;
+T_0 ;
+    %wait E_011B7F80;
+    %load/v 8, v00823818_0, 1;
+    %jmp/0xz  T_0.0, 8;
+    %load/v 8, v011B28C8_0, 1;
+    %jmp/0xz  T_0.2, 8;
+    %load/v 8, v011BAF40_0, 1;
+    %set/v v011BAF98_0, 8, 1;
+    %load/v 8, v008238C8_0, 32;
+    %load/v 40, v008238C8_0, 32;
+    %load/v 72, v011B3758_0, 5;
+    %ix/get 0, 72, 5;
+    %shiftr/i0  8, 64;
+    %set/v v011B2920_0, 8, 64;
+    %load/v 8, v011B2920_0, 32; Only need 32 of 64 bits
+; Save base=8 wid=32 in lookaside.
+    %set/v v011B2870_0, 8, 32;
+    %jmp T_0.3;
+T_0.2 ;
+    %load/v 8, v00823870_0, 2;
+    %cmpi/u 8, 0, 2;
+    %jmp/1 T_0.4, 6;
+    %cmpi/u 8, 1, 2;
+    %jmp/1 T_0.5, 6;
+    %cmpi/u 8, 2, 2;
+    %jmp/1 T_0.6, 6;
+    %cmpi/u 8, 3, 2;
+    %jmp/1 T_0.7, 6;
+    %jmp T_0.8;
+T_0.4 ;
+    %ix/load 1, 31, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_0.9, 4;
+    %load/x1p 8, v008238C8_0, 1;
+    %jmp T_0.10;
+T_0.9 ;
+    %mov 8, 2, 1;
+T_0.10 ;
+; Save base=8 wid=1 in lookaside.
+    %set/v v011BAF98_0, 8, 1;
+    %load/v 8, v008238C8_0, 32;
+    %load/v 40, v011B3758_0, 5;
+    %ix/get 0, 40, 5;
+    %shiftl/i0  8, 32;
+    %set/v v011B2870_0, 8, 32;
+    %jmp T_0.8;
+T_0.5 ;
+    %load/v 8, v008238C8_0, 1; Only need 1 of 32 bits
+; Save base=8 wid=1 in lookaside.
+    %set/v v011BAF98_0, 8, 1;
+    %load/v 8, v008238C8_0, 32;
+    %load/v 40, v011B3758_0, 5;
+    %ix/get 0, 40, 5;
+    %shiftr/i0  8, 32;
+    %set/v v011B2870_0, 8, 32;
+    %jmp T_0.8;
+T_0.6 ;
+    %load/v 8, v011BAF40_0, 1;
+    %set/v v011BAF98_0, 8, 1;
+    %load/v 8, v008238C8_0, 32;
+    %load/v 40, v011B3758_0, 5;
+    %ix/get 0, 40, 5;
+    %shiftr/s/i0  8, 32;
+    %set/v v011B2870_0, 8, 32;
+    %jmp T_0.8;
+T_0.7 ;
+    %load/v 8, v011BAF40_0, 1;
+    %set/v v011BAF98_0, 8, 1;
+    %load/v 8, v008238C8_0, 32;
+    %load/v 40, v008238C8_0, 32;
+    %load/v 72, v011B3758_0, 5;
+    %ix/get 0, 72, 5;
+    %shiftr/i0  8, 64;
+    %set/v v011B2920_0, 8, 64;
+    %load/v 8, v011B2920_0, 32; Only need 32 of 64 bits
+; Save base=8 wid=32 in lookaside.
+    %set/v v011B2870_0, 8, 32;
+    %jmp T_0.8;
+T_0.8 ;
+T_0.3 ;
+    %jmp T_0.1;
+T_0.0 ;
+    %load/v 8, v008238C8_0, 32;
+    %set/v v011B2870_0, 8, 32;
+    %load/v 8, v011BAF40_0, 1;
+    %set/v v011BAF98_0, 8, 1;
+T_0.1 ;
+    %jmp T_0;
+    .thread T_0, $push;
+    .scope S_011BE238;
+T_1 ;
+    %delay 1000, 0;
+    %vpi_call 2 11 "$finish";
+    %end;
+    .thread T_1;
+    .scope S_011BE238;
+T_2 ;
+    %movi 8, 4294967285, 32;
+    %set/v v011BEE08_0, 8, 32;
+    %set/v v011BEF68_0, 0, 2;
+    %movi 8, 2, 5;
+    %set/v v011BEF10_0, 8, 5;
+    %set/v v011BEE60_0, 1, 1;
+    %delay 5, 0;
+    %movi 8, 1, 2;
+    %set/v v011BEF68_0, 8, 2;
+    %set/v v011BEF10_0, 0, 5;
+    %delay 10, 0;
+    %movi 8, 2, 2;
+    %set/v v011BEF68_0, 8, 2;
+    %movi 8, 3, 5;
+    %set/v v011BEF10_0, 8, 5;
+    %delay 15, 0;
+    %set/v v011BEF68_0, 1, 2;
+    %movi 8, 16, 5;
+    %set/v v011BEF10_0, 8, 5;
+    %delay 20, 0;
+    %set/v v011BEE60_0, 0, 1;
+    %set/v v011BEF68_0, 0, 2;
+    %set/v v011BEF10_0, 1, 5;
+    %end;
+    .thread T_2;
+    .scope S_011BE238;
+T_3 ;
+    %vpi_call 2 35 "$monitor", "Enable %b\012 Data %b\012 Shift %b\012 Shift Number %b \012 Result %b \012\012", v011BEE60_0, v011BEE08_0, v011BEF68_0, v011BEF10_0, v011BEEB8_0;
+    %end;
+    .thread T_3;
+# The file index is used to find the file name in the following table.
+:file_names 4;
+    "N/A";
+    "<interactive>";
+    "test_shifter.v";
+    "shifter.v";

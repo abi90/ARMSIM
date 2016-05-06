@@ -48,7 +48,7 @@ data_path dp
 );
 
 
-initial $readmemb("testcode_arm2.txt", dat);
+initial $readmemb("testcode_arm1.txt", dat);
 
 reg [8:0] i; // loop index
 
@@ -66,14 +66,14 @@ initial begin
 	      	dp.ram.Mem[i[7:0]+2] = temp_data_in[15:8];
 	      	dp.ram.Mem[i[7:0]+3] = temp_data_in[7:0];
 	  	end
-		/*#1490;
+		#1490;
 		for(i=9'h000;i<9'h0FE;i=i+9'h004)
 		begin
 			$write ("WORD at location %d: %b", i, dp.ram.Mem[i[7:0]]);
 	      	$write ("%b", dp.ram.Mem[i[7:0]+1]);
 	      	$write ("%b", dp.ram.Mem[i[7:0]+2] );
 	      	$display ("%b", dp.ram.Mem[i[7:0]+3]);
-		end*/
+		end
 end
 
 initial
@@ -81,7 +81,7 @@ initial
 		CLK = 1;
 		Reset<=0;
 		#5 Reset =1;
-		#1 repeat (300)
+		#1 repeat (1500)
 		begin
 			#1 CLK = ~CLK;
 		end
@@ -91,7 +91,7 @@ initial begin
 //$display("State\t IR.Q\tMAR.Q\tCLK\tMFC ");
 //$monitor("%d %d %h %h", cu.rom.index, dp.instructionRegister.Q, dp.memoryAddressRegister.Q,  dp.statusRegister.Q);
 //$monitor("%d\t %b %d %d %d", cu.rom.index, dp.instructionRegister.Q, dp.instructionRegister.LE, CLK, I0[27] );
- //$monitor("MAR: %d", dp.memoryAddressRegister.Q);
+$monitor("MAR: %d", dp.memoryAddressRegister.Q);
 //$monitor("%b %b %b %b  %b",dp.SHT_EN, dp.shifterOperand, dp.shifterOut,  dp.shifterAmountShift,  dp.STA, dp.irOut[6:5]);
 //$monitor("%h %b %h %b %b %b %b", dp.shifter1.Out, dp.shifter1.Cout, dp.shifter1.Operand, dp.shifter1.Amount, dp.shifter1.CIn, dp.shifter1.EN, dp.shifter1.STA,  dp.shifter1.IR);
 //$monitor("%b", dp.instructionRegister.Q);
@@ -109,12 +109,11 @@ $display("\n%d|%d|%h|%h|%h|%d|%d|%h", dp.registerFile.R15.Q, cu.rom.index, dp.SH
 end
 end*/
 
-always@(*)
-begin
-if(dp.RF_RW)
-begin
-$display("MAR: %d, Flags %b", dp.memoryAddressRegister.Q, Flags);
-/*$display("R00= %d\nR01= %d\nR02= %d\nR03= %d\nR04= %d\nR05= %d\nR06= %d\nR07= %d\nR08= %d\nR09= %d\nR10= %d\nR11= %d\nR12= %d\nR13= %d\nR14= %d\nR15= %d\n shifter op=%b == %b",
+
+/*initial begin
+//$monitor("MAR: %d, Flags %b", dp.memoryAddressRegister.Q, Flags);
+$monitor("MAR: %d, Flags %b R00= %d\nR01= %d\nR02= %d\nR03= %d\nR04= %d\nR05= %d\nR06= %d\nR07= %d\nR08= %d\nR09= %d\nR10= %d\nR11= %d\nR12= %d\nR13= %d\nR14= %d\nR15= %d\n shifter op=%b == %b\n\nSSOP:%b SHO:%b IM:%b S:%d %b==%b %b %b \n",
+	dp.memoryAddressRegister.Q, Flags,
 	dp.registerFile.R0.Q,
 	dp.registerFile.R1.Q,
 	dp.registerFile.R2.Q,
@@ -132,10 +131,8 @@ $display("MAR: %d, Flags %b", dp.memoryAddressRegister.Q, Flags);
 	dp.registerFile.R14.Q,
 	dp.registerFile.R15.Q,
 	dp.addressBin,
-	dp.irOut[3:0]
-	);*/
-$display("\nSSOP:%b %b %b S:%d %b==%b %b %b %b %b\n", dp.SSOP, dp.shifterOperand, dp.immSignExtOut, , cu.rom.index, dp.SRB, I0[16:15], dp.irOut[19:16], dp.irOut[15:12], dp. irOut[3:0]);
-
-end
-end
+	dp.irOut[3:0], dp.SSOP, dp.shifterOperand, dp.immSignExtOut, cu.rom.index, dp.SRB, I0[16:15], dp.irOut[19:16], dp.irOut[15:12], dp. irOut[3:0]
+	);
+//$display("\nSSOP:%b SHO:%b IM:%b S:%d %b==%b %b %b \n", dp.SSOP, dp.shifterOperand, dp.immSignExtOut, cu.rom.index, dp.SRB, I0[16:15], dp.irOut[19:16], dp.irOut[15:12], dp. irOut[3:0]);
+end*/
 endmodule
