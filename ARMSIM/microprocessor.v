@@ -81,7 +81,7 @@ initial
 		CLK = 1;
 		Reset<=0;
 		#5 Reset =1;
-		#1 repeat (1500)
+		#1 repeat (300)
 		begin
 			#1 CLK = ~CLK;
 		end
@@ -91,11 +91,11 @@ initial begin
 //$display("State\t IR.Q\tMAR.Q\tCLK\tMFC ");
 //$monitor("%d %d %h %h", cu.rom.index, dp.instructionRegister.Q, dp.memoryAddressRegister.Q,  dp.statusRegister.Q);
 //$monitor("%d\t %b %d %d %d", cu.rom.index, dp.instructionRegister.Q, dp.instructionRegister.LE, CLK, I0[27] );
-//$monitor("MAR: %d", dp.memoryAddressRegister.Q);
+ $monitor("MAR: %d", dp.memoryAddressRegister.Q);
 //$monitor("%b %b %b %b  %b",dp.SHT_EN, dp.shifterOperand, dp.shifterOut,  dp.shifterAmountShift,  dp.STA, dp.irOut[6:5]);
 //$monitor("%h %b %h %b %b %b %b", dp.shifter1.Out, dp.shifter1.Cout, dp.shifter1.Operand, dp.shifter1.Amount, dp.shifter1.CIn, dp.shifter1.EN, dp.shifter1.STA,  dp.shifter1.IR);
 //$monitor("%b", dp.instructionRegister.Q);
-$monitor("MAR: %d, Flags %b", dp.memoryAddressRegister.Q, Flags);
+//$monitor("MAR: %d, Flags %b", dp.memoryAddressRegister.Q, Flags);
 //$monitor("%d, %d, %b", dp.memoryAddressRegister.Q, cu.rom.index, Flags);
 //$monitor("S:%d R1_Q= %d R11_Q= %d MAR:%d ", cu.rom.index, dp.registerFile.R1.Q, dp.registerFile.R11.Q,  dp.memoryAddressRegister.Q);//", dp.memoryAddressRegister.Q );
 
@@ -104,7 +104,8 @@ end
 begin
 if(dp.SHT_EN)
 begin
-$display("%b %b %b %d %d %b",dp.SHT_EN, dp.shifterOperand, dp.shifterOut,  dp.shifterAmountShift,  dp.STA, dp.irOut[6:5]);
+$display("State SHT_EN Op\t Out Amount STA SType");
+$display("%d %b %b %b %d %d %b",cu.rom.index, dp.SHT_EN, dp.shifterOperand, dp.shifterOut,  dp.shifterAmountShift,  dp.STA, dp.irOut[6:5]);
 end
 end*/
 
