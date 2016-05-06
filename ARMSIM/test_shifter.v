@@ -12,7 +12,7 @@ initial #1000 $finish;
 
 initial begin
 	
-	data = 32'hF2345678;
+	data = 32'd4294967285;
 	shift_SEL = 2'b00;
 	shiftNumber = 5'd2;
 	enable = 1'b1;
