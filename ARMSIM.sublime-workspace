@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"R11",
+				"R11_Q"
+			],
+			[
 				"sh",
 				"shifter"
 			],
@@ -192,13 +196,18 @@
 			}
 		},
 		{
-			"contents": "module microprocessor;\n//Las entradas del módulo deben ser tipo reg\n//Las salidas deben ser tipo wire\nwire  [44: 0] I0;\n//Memory Variables\nreg [31:0] dat[0:255];\nparameter WORD = 2'b10;\nparameter WRITE = 1'b1;\nparameter ENABLE = 1'b0;\nreg [31:0] temp_data_in;\nreg [7:0] temp_addr;\n	wire [31:0] IR_Out;\n	wire [3:0] Flags;\n	reg CLK, CLR, Reset;\n	wire MFC;\n\ncontrol_unit cu (I0[38:7],IR_Out, MFC, CLK, Reset,Flags);\n\ndata_path dp\n(\n	IR_Out,\n	MFC,\n	Flags,\n	CLK,\n	I0[38],//MFA\n	I0[37],//RW_RAM\n	I0[36],//SALU\n	I0[35],//RF_RW\n	I0[34],//SSAB\n	I0[33],//SSOP\n	I0[32],//SMA\n	I0[31],//STA\n	I0[30],//MAR_EN\n	I0[29],//SR_EN\n	I0[28],//MDR_EN\n	I0[27],//IR_EN\n	I0[26],//SHT_EN\n	I0[25],//ISE_EN\n	I0[24],//SGN_EN\n	I0[23],//CLR\n	I0[22:21],//DSS\n	I0[20:19],//WRA\n	I0[18:17],//SRA\n	I0[16:15],//SRB\n	I0[14:13],//SISE\n	I0[12:11],//SALUB\n	I0[10:7]//ALUA\n);\n\n\ninitial $readmemb(\"testcode_arm1.txt\", dat);\n\nreg [8:0] i; // loop index\n\ninitial begin\n//	FILL RAM MEMORY\n	for(i=9'h000;i<9'h0FE;i=i+9'h004)\n\n		begin\n	      	temp_data_in[31:24] = dat[i[7:0]];\n	      	temp_data_in[23:16] = dat[i[7:0]+1];\n	      	temp_data_in[15:8] = dat[i[7:0]+2];\n	      	temp_data_in[7:0] = dat[i[7:0]+3];\n			dp.ram.Mem[i[7:0]] = temp_data_in[31:24];\n	      	dp.ram.Mem[i[7:0]+1]= temp_data_in[23:16];\n	      	dp.ram.Mem[i[7:0]+2] = temp_data_in[15:8];\n	      	dp.ram.Mem[i[7:0]+3] = temp_data_in[7:0];\n	  	end\n		#1490;\n		for(i=9'h000;i<9'h0FE;i=i+9'h004)\n		begin\n			$write (\"WORD at location %d: %b\", i, dp.ram.Mem[i[7:0]]);\n	      	$write (\"%b\", dp.ram.Mem[i[7:0]+1]);\n	      	$write (\"%b\", dp.ram.Mem[i[7:0]+2] );\n	      	$display (\"%b\", dp.ram.Mem[i[7:0]+3]);\n		end\nend\n\ninitial\n	begin\n		CLK = 1;\n		Reset<=0;\n		#5 Reset =1;\n		#1 repeat (500)\n		begin\n			#1 CLK = ~CLK;\n		end\nend\n\ninitial begin\n//$display(\"State\\t IR.Q\\tMAR.Q\\tCLK\\tMFC \");\n//$monitor(\"%d %d %h %h\", cu.rom.index, dp.instructionRegister.Q, dp.memoryAddressRegister.Q,  dp.statusRegister.Q);\n//$monitor(\"%d\\t %b %d %d %d\", cu.rom.index, dp.instructionRegister.Q, dp.instructionRegister.LE, CLK, I0[27] );\n$monitor(\"MAR: %d\", dp.memoryAddressRegister.Q);\n//$monitor(\"%b %b %b %b  %b\",dp.SHT_EN, dp.shifterOperand, dp.shifterOut,  dp.shifterAmountShift,  dp.STA, dp.irOut[6:5]);\n//$monitor(\"%h %b %h %b %b %b %b\", dp.shifter1.Out, dp.shifter1.Cout, dp.shifter1.Operand, dp.shifter1.Amount, dp.shifter1.CIn, dp.shifter1.EN, dp.shifter1.STA,  dp.shifter1.IR);\n//$monitor(\"%b\", dp.instructionRegister.Q);\n//$monitor(\"MAR: %d, Flags %b\", dp.memoryAddressRegister.Q, Flags);\n//$monitor(\"%d, %d, %b\", dp.memoryAddressRegister.Q, cu.rom.index, Flags);\n//$monitor(\"S:%d R1_Q= %d R11_Q= %d MAR:%d \", cu.rom.index, dp.registerFile.R1.Q, dp.registerFile.R11.Q,  dp.memoryAddressRegister.Q);//\", dp.memoryAddressRegister.Q );\n\nend\n/*always@(*)\nbegin\nif(dp.SHT_EN & (dp.shifterAmountShift != 0))\nbegin\n$display(\"\\tPC\\tState\\tSHT_EN\\tOp\\tOut\\tAmount\\tSTA\\tSType\");\n$display(\"\\n%d|%d|%h|%h|%h|%d|%d|%h\", dp.registerFile.R15.Q, cu.rom.index, dp.SHT_EN, dp.shifterOperand, dp.shifterOut,  dp.shifterAmountShift,  dp.STA, dp.irOut[6:5]);\nend\nend*/\n\n\n/*initial begin\n//$monitor(\"MAR: %d, Flags %b\", dp.memoryAddressRegister.Q, Flags);\n$monitor(\"MAR: %d, Flags %b R00= %d\\nR01= %d\\nR02= %d\\nR03= %d\\nR04= %d\\nR05= %d\\nR06= %d\\nR07= %d\\nR08= %d\\nR09= %d\\nR10= %d\\nR11= %d\\nR12= %d\\nR13= %d\\nR14= %d\\nR15= %d\\n shifter op=%b == %b\\n\\nSSOP:%b SHO:%b IM:%b S:%d %b==%b %b %b \\n\",\n	dp.memoryAddressRegister.Q, Flags,\n	dp.registerFile.R0.Q,\n	dp.registerFile.R1.Q,\n	dp.registerFile.R2.Q,\n	dp.registerFile.R3.Q,\n	dp.registerFile.R4.Q,\n	dp.registerFile.R5.Q,\n	dp.registerFile.R6.Q,\n	dp.registerFile.R7.Q,\n	dp.registerFile.R8.Q,\n	dp.registerFile.R9.Q,\n	dp.registerFile.R10.Q,\n	dp.registerFile.R11.Q,\n	dp.registerFile.R12.Q,\n	dp.registerFile.R13.Q,\n	dp.registerFile.R14.Q,\n	dp.registerFile.R15.Q,\n	dp.addressBin,\n	dp.irOut[3:0], dp.SSOP, dp.shifterOperand, dp.immSignExtOut, cu.rom.index, dp.SRB, I0[16:15], dp.irOut[19:16], dp.irOut[15:12], dp. irOut[3:0]\n	);\n//$display(\"\\nSSOP:%b SHO:%b IM:%b S:%d %b==%b %b %b \\n\", dp.SSOP, dp.shifterOperand, dp.immSignExtOut, cu.rom.index, dp.SRB, I0[16:15], dp.irOut[19:16], dp.irOut[15:12], dp. irOut[3:0]);\nend*/\nendmodule\n",
 			"file": "ARMSIM/microprocessor.v",
-			"file_size": 4295,
-			"file_write_time": 131070366384884717,
 			"settings":
 			{
-				"buffer_size": 4155,
+				"buffer_size": 4549,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "ARMSIM/pipeline_register.v",
+			"settings":
+			{
+				"buffer_size": 189,
 				"line_ending": "Windows"
 			}
 		},
@@ -206,7 +215,34 @@
 			"file": "ARMSIM/microstore_rom.v",
 			"settings":
 			{
-				"buffer_size": 7026,
+				"buffer_size": 7126,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "ARMSIM/alu_arm.v",
+			"settings":
+			{
+				"buffer_size": 4859,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"contents": "////////////////////////\n//Control Unit\n///////////////////////\nmodule control_unit\n(\n	output reg [31:0] ControlSignals,\n	input [31:0] IR_Out, \n	input MFC, CLK, Reset,\n	input [3:0] Flags	\n);\n\nwire [44:0] PL, RomOut;\nwire InvIn, Sts, condOut;\nwire [2:0] Mout;\nwire [6:0] EnOut, PsOut, IncRegOut, M8x1Out, IncrOut,RomIN;\n\nalways@(*)\nbegin\n	ControlSignals <= PL[38:7];\nend\n\ncondition_check checker(condOut,Flags,IR_Out);\n\nmux_4x1_cu mux4x1 (InvIn, PL[44:43] , MFC, condOut, 7'b0000000, 7'b0000000);\n\ninverter inv (Sts, InvIn, PL[42]);\n\nnext_state_add_sel nsas (Mout[2:0], PL[41:39], Sts);\n\nencoder endc (EnOut, IR_Out);\n\nmux_8x1_7_bits mux8x1 (M8x1Out, Mout[2:0], EnOut, 7'b0000000, PL[6:0], IncRegOut, PsOut,7'b0000000, 7'b0000000, 7'b0000000 );\n\nincrementor inc (IncrOut, M8x1Out);\n\nseven_bit_register PastStateRegister ( PsOut, M8x1Out, CLK);\n\nseven_bit_register IncrementalRegister ( IncRegOut, IncrOut, CLK);\n\nmux_2x1_7_bits mux_2x1(RomIN, Reset, 7'b0000000, M8x1Out);\n\nmicrostore_rom rom (RomOut, RomIN);\n\npipeline_register pipelineRegister (PL, RomOut, CLK);\n\nendmodule\n\n\n\n\n\n\n\n",
+			"file": "ARMSIM/control_unit.v",
+			"file_size": 1160,
+			"file_write_time": 131070578599094391,
+			"settings":
+			{
+				"buffer_size": 1081,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "ARMSIM/status_register_32_bits.v",
+			"settings":
+			{
+				"buffer_size": 291,
 				"line_ending": "Windows"
 			}
 		},
@@ -239,7 +275,7 @@
 			"file": "ARMSIM/compiling scripts",
 			"settings":
 			{
-				"buffer_size": 2064,
+				"buffer_size": 2090,
 				"line_ending": "Windows"
 			}
 		},
@@ -249,6 +285,38 @@
 			{
 				"buffer_size": 2404,
 				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "ARMSIM/condition_check.v",
+			"settings":
+			{
+				"buffer_size": 2449,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "ARMSIM/inverter.v",
+			"settings":
+			{
+				"buffer_size": 240,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/C/Users/AbisaiRamosRodriguez/Downloads/testcode_arm2_decoded.txt",
+			"settings":
+			{
+				"buffer_size": 5628,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/C/Users/AbisaiRamosRodriguez/Downloads/theproject.v",
+			"settings":
+			{
+				"buffer_size": 51188,
+				"line_ending": "Unix"
 			}
 		}
 	],
@@ -410,6 +478,9 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"PL",
+			"pipeline",
+			"CMP",
 			"250",
 			"<=",
 			"Shifter",
@@ -540,6 +611,7 @@
 		"regex": false,
 		"replace_history":
 		[
+			"RomOut",
 			"=",
 			"F",
 			"E",
@@ -632,7 +704,7 @@
 	"groups":
 	[
 		{
-			"selected": 2,
+			"selected": 3,
 			"sheets":
 			[
 				{
@@ -658,10 +730,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 124.0,
+						"translation.y": 98.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 8,
+					"stack_index": 13,
 					"type": "text"
 				},
 				{
@@ -677,8 +749,8 @@
 						"selection":
 						[
 							[
-								623,
-								623
+								566,
+								566
 							]
 						],
 						"settings":
@@ -690,7 +762,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 6,
+					"stack_index": 12,
 					"type": "text"
 				},
 				{
@@ -699,15 +771,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4155,
+						"buffer_size": 4549,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1628,
-								1628
+								4344,
+								4344
 							]
 						],
 						"settings":
@@ -716,42 +788,155 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 744.0,
+						"translation.y": 1365.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
 					"buffer": 3,
-					"file": "ARMSIM/microstore_rom.v",
+					"file": "ARMSIM/pipeline_register.v",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 7026,
+						"buffer_size": 189,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								6868,
-								6868
+								189,
+								189
 							]
 						],
 						"settings":
 						{
 							"syntax": "Packages/Verilog/verilog.tmLanguage"
 						},
-						"translation.x": -0.0,
-						"translation.y": 673.0,
+						"translation.x": 0.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
 					"buffer": 4,
+					"file": "ARMSIM/microstore_rom.v",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 7126,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								6939,
+								6939
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Verilog/verilog.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 915.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "ARMSIM/alu_arm.v",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4859,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1984,
+								1984
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Verilog/verilog.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": -0.0,
+						"translation.y": 663.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "ARMSIM/control_unit.v",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1081,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1009,
+								1009
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Verilog/verilog.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 117.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "ARMSIM/status_register_32_bits.v",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 291,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Verilog/verilog.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 10,
+					"type": "text"
+				},
+				{
+					"buffer": 8,
 					"file": "ARMSIM/register_file.v",
 					"semi_transient": false,
 					"settings":
@@ -776,11 +961,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 7,
+					"stack_index": 16,
 					"type": "text"
 				},
 				{
-					"buffer": 5,
+					"buffer": 9,
 					"file": "ARMSIM/encoder.v",
 					"semi_transient": false,
 					"settings":
@@ -805,11 +990,11 @@
 						"translation.y": 775.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 15,
 					"type": "text"
 				},
 				{
-					"buffer": 6,
+					"buffer": 10,
 					"semi_transient": false,
 					"settings":
 					{
@@ -835,24 +1020,28 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 14,
 					"type": "text"
 				},
 				{
-					"buffer": 7,
+					"buffer": 11,
 					"file": "ARMSIM/compiling scripts",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2064,
+						"buffer_size": 2090,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2064,
-								58
+								58,
+								27
+							],
+							[
+								1775,
+								1280
 							]
 						],
 						"settings":
@@ -863,11 +1052,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
-					"buffer": 8,
+					"buffer": 12,
 					"file": "ARMSIM/data_path.v",
 					"semi_transient": false,
 					"settings":
@@ -879,8 +1068,8 @@
 						"selection":
 						[
 							[
-								0,
-								0
+								1168,
+								1168
 							]
 						],
 						"settings":
@@ -888,8 +1077,123 @@
 							"syntax": "Packages/Verilog/verilog.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
-						"translation.x": -0.0,
-						"translation.y": 806.0,
+						"translation.x": 0.0,
+						"translation.y": 800.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 13,
+					"file": "ARMSIM/condition_check.v",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2449,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2356,
+								2356
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Verilog/verilog.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 741.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 9,
+					"type": "text"
+				},
+				{
+					"buffer": 14,
+					"file": "ARMSIM/inverter.v",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 240,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								181,
+								181
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Verilog/verilog.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 8,
+					"type": "text"
+				},
+				{
+					"buffer": 15,
+					"file": "/C/Users/AbisaiRamosRodriguez/Downloads/testcode_arm2_decoded.txt",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5628,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2738,
+								2742
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 2562.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 11,
+					"type": "text"
+				},
+				{
+					"buffer": 16,
+					"file": "/C/Users/AbisaiRamosRodriguez/Downloads/theproject.v",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 51188,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								20967,
+								20975
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Verilog/verilog.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 3259.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 5,
