@@ -3,9 +3,12 @@
 /////////////////////
 module status_register_32_bits (output reg [31:0] Q, input [31:0] D, input LE, CLR, CLK);
 
-always@(*)
-
-if (!CLR) Q <= 32'h00000000; //Clear es active low, 0 = clear y 1 = no esta clear
-else if (!LE && CLK) Q <= D;
-
+initial	Q = 32'b0000000000000000000000000000000; // Start registers with 0
+	always @ (negedge CLK, negedge CLR)
+		if(!LE)
+			Q <= D; // Enable Sync. Only occurs when Clk is high
+		else if(!CLR) // clear
+			Q <= 32'b0000000000000000000000000000000; // Clear Async
+		else
+			Q <= Q; // enable off. output what came out before
 endmodule

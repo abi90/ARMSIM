@@ -74,7 +74,7 @@ mux_2x1 signExtension1Mux  (signExtension1In, SMA, aluOut, memDataOut);
 
 register_32_bits memoryAddressRegister (marOut, aluOut, MAR_EN, CLR,CLK);
 
-register_32_bits statusRegister (SR_Flags_Out, SR_Flags_In, SR_EN, CLR, CLK);
+status_register_32_bits statusRegister (SR_Flags_Out, SR_Flags_In, SR_EN, CLR, CLK);
 
 alu_arm alu (aluOut, SR_Flags_In[3],  SR_Flags_In[2],  SR_Flags_In[1], SR_Flags_In[0], A, outA, aluBin, SR_Flags );
 
