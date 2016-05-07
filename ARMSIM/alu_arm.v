@@ -81,17 +81,17 @@ module alu_arm (output reg [31:0] out, output reg  CF, NF, VF, ZF, input [3:0] A
 			end
 			CMP: // Compare
 			begin
-			    {CF, out} = da - db;
-				CF = ~CF;
+			    {CF, out} <= da - db;
+				CF <= ~CF;
 				//Update VF
 				if((da[31] == 0 && db[31] == 1 && out[31] == 1) || (da[31] == 1 && db[31] == 0 && out[31] == 0))
-					VF = 1;
+					#1 VF <= 1;
 				else
-					VF = 0;
+					#1 VF <= 0;
 				//Update ZF and NF
 				if(out == 0) ZF = 1'b1;
-				else ZF = 1'b0;
-				NF = out [31];
+				else #1 ZF = 1'b0;
+				#1 NF <= out [31];
 			end
 			CMN: //Compare negative
 			begin

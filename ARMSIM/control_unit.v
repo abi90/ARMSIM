@@ -9,27 +9,27 @@ module control_unit
 	input [3:0] Flags	
 );
 
-wire [44:0] PL, RomOut;
+wire [44:0] RomOut, PL;
 wire InvIn, Sts, condOut;
 wire [2:0] Mout;
 wire [6:0] EnOut, PsOut, IncRegOut, M8x1Out, IncrOut,RomIN;
 
 always@(*)
 begin
-	ControlSignals <= PL[38:7];
+	ControlSignals <= RomOut[38:7];
 end
 
 condition_check checker(condOut,Flags,IR_Out);
 
-mux_4x1_cu mux4x1 (InvIn, PL[44:43] , MFC, condOut, 7'b0000000, 7'b0000000);
+mux_4x1_cu mux4x1 (InvIn, RomOut[44:43] , MFC, condOut, 7'b0000000, 7'b0000000);
 
-inverter inv (Sts, InvIn, PL[42]);
+inverter inv (Sts, InvIn, RomOut[42]);
 
-next_state_add_sel nsas (Mout[2:0], PL[41:39], Sts);
+next_state_add_sel nsas (Mout[2:0], RomOut[41:39], Sts);
 
 encoder endc (EnOut, IR_Out);
 
-mux_8x1_7_bits mux8x1 (M8x1Out, Mout[2:0], EnOut, 7'b0000000, PL[6:0], IncRegOut, PsOut,7'b0000000, 7'b0000000, 7'b0000000 );
+mux_8x1_7_bits mux8x1 (M8x1Out, Mout[2:0], EnOut, 7'b0000000, RomOut[6:0], IncRegOut, PsOut,7'b0000000, 7'b0000000, 7'b0000000 );
 
 incrementor inc (IncrOut, M8x1Out);
 
@@ -41,7 +41,7 @@ mux_2x1_7_bits mux_2x1(RomIN, Reset, 7'b0000000, M8x1Out);
 
 microstore_rom rom (RomOut, RomIN);
 
-pipeline_register pipelineRegister (PL, RomOut, CLK);
+//pipeline_register pipelineRegister (RomOut, RomOut, CLK);
 
 endmodule
 

@@ -114,7 +114,8 @@ begin
 		end
 		LE: // ZF==1 OR N!= V
 		begin
-			if(ZF==1 || (N!=V)) Out =1;
+		$display("%b %b %b", ZF, N,V);
+			if(ZF==1 || (N!==V)) Out =1;
 			else Out = 0;
 		end
 		AL:	// ALWAYS
