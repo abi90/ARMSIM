@@ -5,7 +5,7 @@ module branch_ext(output reg [31:0] out, input [23:0] ofst);
 
 reg [25:0] tempofst;
 
-always @ (*)
+always @ (ofst)
 begin
 	//Assigns tempofst the value of ofst
 	tempofst=ofst;

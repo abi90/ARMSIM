@@ -81,7 +81,7 @@ initial
 		CLK = 1;
 		Reset<=0;
 		#5 Reset =1;
-		#1 repeat (1500)
+		#1 repeat (500)
 		begin
 			#1 CLK = ~CLK;
 		end
@@ -91,7 +91,7 @@ initial begin
 //$display("State\t IR.Q\tMAR.Q\tCLK\tMFC ");
 //$monitor("%d %d %h %h", cu.rom.index, dp.instructionRegister.Q, dp.memoryAddressRegister.Q,  dp.statusRegister.Q);
 //$monitor("%d\t %b %d %d %d", cu.rom.index, dp.instructionRegister.Q, dp.instructionRegister.LE, CLK, I0[27] );
-$monitor("MAR: %d", dp.memoryAddressRegister.Q);
+//$monitor("MAR: %d", dp.memoryAddressRegister.Q);
 //$monitor("%b %b %b %b  %b",dp.SHT_EN, dp.shifterOperand, dp.shifterOut,  dp.shifterAmountShift,  dp.STA, dp.irOut[6:5]);
 //$monitor("%h %b %h %b %b %b %b", dp.shifter1.Out, dp.shifter1.Cout, dp.shifter1.Operand, dp.shifter1.Amount, dp.shifter1.CIn, dp.shifter1.EN, dp.shifter1.STA,  dp.shifter1.IR);
 //$monitor("%b", dp.instructionRegister.Q);
@@ -139,7 +139,7 @@ end*/
 begin
 	if(dp.registerFile.R15.Q == 72 || dp.registerFile.R15.Q == 76 )
 	//$monitor(" INV:%d PL:%b CC=%b InvIn:%b MO:%b Sts:%b S:%d PC=%d R1_Q=%d R2_Q=%d Flags=%b ==%b%b%b%b", cu.inv.inv, cu.PL[41:39],cu.checker.Out, cu.InvIn, cu.Mout, cu.Sts, cu.rom.index,dp.registerFile.R15.Q, dp.registerFile.R1.Q, dp.registerFile.R2.Q, Flags, dp.alu.CF, dp.alu.NF, dp.alu.VF, dp.alu.ZF,);
-$monitor("CLK:%b ALU:%d S:%d PC=%d R1_Q=%d R2_Q=%d Flags=%b ==%b%b%b%b", 
-CLK, dp.alu.out, cu.rom.index ,dp.registerFile.R15.Q, dp.registerFile.R1.Q, dp.registerFile.R2.Q, Flags, dp.alu.CF, dp.alu.NF, dp.alu.VF, dp.alu.ZF,);
+$monitor("CLK:%b ALU:%d      S:%d           PC=%d                  R1_Q=%d               R2_Q=%d               Flags=%b ==%b%b%b%b", 
+          CLK,   dp.aluBin, cu.rom.index , dp.registerFile.R15.Q, dp.registerFile.R1.Q, dp.registerFile.R2.Q, Flags, dp.alu.CF, dp.alu.NF, dp.alu.VF, dp.alu.ZF,);
 end 
 endmodule
