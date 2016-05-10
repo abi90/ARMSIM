@@ -3,16 +3,14 @@
 //////////////////
 module branch_ext(output reg [31:0] out, input [23:0] ofst);
 
-reg [25:0] tempofst;
+reg [31:0] tempofst;
 
 always @ (ofst)
 begin
-	//Assigns tempofst the value of ofst
-	tempofst=ofst;
-	//Shifts tempofst by two bits
-	tempofst=tempofst<<2;
-	//Two's complement to output of branch extension
-   out = $signed(tempofst);
+   tempofst[23:0] = ofst;
+   tempofst[31:24] = {8{ofst[23]}};
+   tempofst = 32'd4 * tempofst;
+   out =  tempofst;
 end
 
 endmodule

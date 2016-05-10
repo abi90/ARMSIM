@@ -104,7 +104,7 @@ begin
 		end
 		LT: // N != V
 		begin
-			if(N!==V) Out =1;
+			if(N!==V) Out =0;
 			else Out = 0;
 		end
 		GT: // ZF==0 && N==V
@@ -114,7 +114,7 @@ begin
 		end
 		LE: // ZF==1 OR N!= V
 		begin
-		$display("%b %b %b", ZF, N,V);
+		//$display("%b %b %b", ZF, N,V);
 			if(ZF==1 || (N!==V)) Out =1;
 			else Out = 0;
 		end
