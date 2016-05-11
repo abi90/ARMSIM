@@ -18,7 +18,13 @@ begin
 			begin 
 					//CMP/CMN
 					if((tempIR_IN[24:21]== 4'b1010) || (tempIR_IN[24:21]== 4'b1011)) encoder_OUT = 7'b1011110;
-					else encoder_OUT = 7'b0101100;
+					else 
+					begin
+						if (tempIR_IN[20])
+							encoder_OUT = 7'b0101100;
+						else
+							encoder_OUT = 7'b1100001;
+					end
 			end
 			else 
 			begin
@@ -98,7 +104,13 @@ begin
 					endcase
 			end
 		end	
-		3'b001: encoder_OUT = 7'b0101011; //43 = 32-bit Immediate Shifter Operand
+		3'b001: 
+		begin 
+			if (tempIR_IN[20])
+				encoder_OUT = 7'b0101011; //43 = 32-bit Immediate Shifter Operand
+			else encoder_OUT = 7'b1100000;
+			
+		end
 		3'b010:
 		begin
 				case({tempIR_IN[24],tempIR_IN[21],tempIR_IN[20]})
